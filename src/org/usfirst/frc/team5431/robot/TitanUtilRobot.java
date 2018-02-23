@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5431;
+package org.usfirst.frc.team5431.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class TitanUtilRobot extends IterativeRobot {
 	WPI_TalonSRX frontLeft, frontRight, backLeft, backRight, shooterLeft, shooterRight;
-	Titan.DroneController controller;
+	Titan.FSi6S controller;
 	Titan.Toggle toggle = new Titan.Toggle();
 	
 	@Override
@@ -28,7 +28,7 @@ public class TitanUtilRobot extends IterativeRobot {
 		frontLeft.setInverted(true);
 		backLeft.setInverted(true);
 	
-		controller = new Titan.DroneController(0);
+		controller = new Titan.FSi6S(0);
 		controller.setDeadzone(0.1);
 	}
 
@@ -44,8 +44,8 @@ public class TitanUtilRobot extends IterativeRobot {
 			shooterRight.set(0.0);
 		}
 		
-		frontLeft.set(controller.getRawAxis(Titan.DroneController.Axis.LEFT_Y));
-		frontRight.set(controller.getRawAxis(Titan.DroneController.Axis.RIGHT_Y));
+		frontLeft.set(controller.getRawAxis(Titan.FSi6S.Axis.LEFT_Y));
+		frontRight.set(controller.getRawAxis(Titan.FSi6S.Axis.RIGHT_Y));
 	}
 
 }
