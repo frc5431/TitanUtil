@@ -1,7 +1,6 @@
 package frc.team5431.titan.core;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+
+import java.util.*;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -42,6 +41,17 @@ public final class Titan {
 	public static class Joystick extends edu.wpi.first.wpilibj.Joystick {
 		private double deadzoneMin = 0.0f, deadzoneMax = 0.0f;
 
+        public double getRawAxis(final AxisZone value) {
+            return getRawAxis(((Enum<?>) value).ordinal());
+        }
+
+        public boolean getRawButton(final ButtonZone value) {
+            return getRawButton(((Enum<?>) value).ordinal());
+        }
+
+        public interface AxisZone {
+        }
+
 		public Joystick(final int port) {
 			super(port);
 		}
@@ -81,25 +91,23 @@ public final class Titan {
 			}
 		}
 
-		public double getRawAxis(final Enum<?> value) {
-			return getRawAxis(value.ordinal());
-		}
+        public interface AxisGroup {
+        }
 
-		public boolean getRawButton(final Enum<?> value) {
-			return getRawButton(value.ordinal());
-		}
+        public interface ButtonZone {
+        }
 	}
 
 	public static class FSi6S extends Titan.Joystick {
-		public static enum SwitchPosition {
+        public enum SwitchPosition implements ButtonZone {
 			DOWN, NEUTRAL, UP
 		}
 
-		public static enum Switch {
+        public enum Switch implements ButtonZone {
 			A, B, C, D
 		}
 
-		public static enum Axis {
+        public enum Axis implements AxisZone {
 			RIGHT_X, RIGHT_Y, LEFT_Y, LEFT_X
 		}
 
@@ -147,36 +155,41 @@ public final class Titan {
 	}
 
 	public static class Xbox extends Titan.Joystick {
-		public static enum Button {
-			// ordered correctly, so ordinal reflects real mapping
-			A, B, X, Y, BUMPER_L, BUMPER_R, BACK, START;
-		}
+        public Xbox(int port) {
+            super(port);
+        }
 
-		public static enum Axis {
-			LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
-		}
+        public enum Button implements ButtonZone {
+            // ordered correctly, so ordinal reflects real mapping
+            A, B, X, Y, BUMPER_L, BUMPER_R, BACK, START
+        }
 
-		public Xbox(int port) {
-			super(port);
-		}
-	}
+        public enum Axis implements AxisZone {
+            LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
+        }
+    }
 
 	public static class AssignableJoystick<T> extends Titan.Joystick {
 		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
 		private final CommandQueue<T> currentQueue = new CommandQueue<>();
 
-		public AssignableJoystick(int port) {
+        public AssignableJoystick(final int port) {
 			super(port);
 		}
 
 		public void update(final T robot) {
+            //Update all of the button commands
+            for (final Integer button : assignments.keySet()) {
+                getRawButton(button); //Call the queue update on the specified button
+            }
+
 			currentQueue.update(robot);
 		}
 		
 		@Override
 		public boolean getRawButton(final int but) {
 			final boolean value = super.getRawButton(but);
-			if (assignments.containsKey(but) && value) { //@TODO TEST THIS BECAUSE I DON'T THINK IT WILL WORK WITHOUT IT IN UPDATE
+            if (assignments.containsKey(but) && value) {
 				currentQueue.clear();
 				
 				//call the associated function from the index in the map and then add it to the queue
@@ -190,8 +203,8 @@ public final class Titan {
 			assignments.put(button, generator);
 		}
 
-		public void assign(final Enum<?> button, final Supplier<CommandQueue<T>> generator) {
-			assign(button.ordinal(), generator);
+        public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
+            assign(((Enum<?>) button).ordinal(), generator);
 		}
 	}
 
@@ -280,11 +293,11 @@ public final class Titan {
 		public String properties = "None";
 		public long startTime = 0;
 
-		public static enum CommandResult {
-			IN_PROGRESS, COMPLETE, CLEAR_QUEUE, RESTART_COMMAND
-		};
+        public abstract void init(final T robot);
 
-		public abstract void init(final T robot);
+        public enum CommandResult {
+			IN_PROGRESS, COMPLETE, CLEAR_QUEUE, RESTART_COMMAND
+        }
 
 		public abstract CommandResult update(final T robot);
 
@@ -369,7 +382,7 @@ public final class Titan {
 	public static class GameData {
 		private String gameData = "";
 
-		public static enum Position {
+        public enum Position {
 			LEFT, RIGHT, ERROR;
 
 			static Position fromGameData(final char value) {
@@ -383,17 +396,17 @@ public final class Titan {
 			}
 		}
 
-		public static enum FieldObject {
+        public enum FieldObject {
 			SWITCH, SCALE, OPPONENT_SWITCH
 		}
 
-		public static interface SideChooser {
+        public interface SideChooser {
 			void left();
 
 			void right();
 		}
 
-		public static interface ErrorChooser {
+        public interface ErrorChooser {
 			void noData();
 		}
 

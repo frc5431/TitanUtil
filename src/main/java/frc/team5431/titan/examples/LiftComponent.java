@@ -6,44 +6,39 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.team5431.titan.core.TitanRobot;
 
 
-public class LiftComponent extends TitanRobot.Component {
+public class LiftComponent extends TitanRobot.Component<TitanUtilRobot, LiftComponent.Lift> {
     private WPI_TalonSRX liftTalonSRX;
     private DigitalInput liftStop;
     public boolean atTop = false;
 
-    public enum Lift implements TitanRobot.ComponentRun<LiftComponent> {
-        STOP {
-            @Override
-            public void run(final LiftComponent c) {
-                c.liftTalonSRX.set(0.0);
-            }
-        }, DOWN {
-            @Override
-            public void run(final LiftComponent c) {
-                c.liftTalonSRX.set(-1.0);
-            }
-        }, UP {
-            @Override
-            public void run(final LiftComponent c) {
-                if (c.atTop) {
-                    c.liftTalonSRX.set(0.0);
-                } else {
-                    c.liftTalonSRX.set(1.0);
-                }
-            }
-        }
-    }
-
     @Override
-    public void init() {
+    public void init(final TitanUtilRobot robot) {
         liftTalonSRX = new WPI_TalonSRX(1); //On robot boot
         liftTalonSRX.setNeutralMode(NeutralMode.Brake);
         liftStop = new DigitalInput(0);
     }
 
     @Override
-    public void update() {
-        //THIS IS CALLED BEFORE RUN (PUT SENSOR UPDATE STUFF HERE)
+    public void update(final TitanUtilRobot robot, final Lift state) {
         atTop = liftStop.get();
+        switch (state) {
+            case UP:
+                if (atTop) {
+                    liftTalonSRX.set(0.0);
+                } else {
+                    liftTalonSRX.set(1.0);
+                }
+                break;
+            case DOWN:
+                liftTalonSRX.set(-1.0);
+                break;
+            case STOP:
+                liftTalonSRX.set(0.0);
+                break;
+        }
+    }
+
+    public enum Lift implements TitanRobot.ComponentState {
+        STOP, DOWN, UP
     }
 }

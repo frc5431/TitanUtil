@@ -1,40 +1,34 @@
 package frc.team5431.titan.core;
 
+import com.sun.tools.javac.util.Pair;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import sun.rmi.rmic.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
 
 public class TitanRobot<T> extends IterativeRobot {
     private final Titan.CommandQueue<T> autoQueue = new Titan.CommandQueue<>();
     private final Titan.CommandQueue<T> teleQueue = new Titan.CommandQueue<>();
-    private List<Titan.AssignableJoystick<T>> controllers = new ArrayList<>();
-    public static HashMap<MainComponent, Component> components = new HashMap<>();
+    private final List<Titan.AssignableJoystick<TitanRobot>> controllers = new ArrayList<>();
+    private final Map<MainComponent, Component<T, ?>> components = new HashMap<>();
+    private final Map<Titan.Joystick.AxisGroup, Pair<Integer, Titan.Joystick.AxisZone[]>> axisGroups = new HashMap<>();
 
-    public interface MainComponent {
+    /*
+     * Control functions
+     */
+    //Controllers
+    public void addController(Titan.AssignableJoystick<TitanRobot> controller) {
+        controllers.add(controller);
     }
 
-    public interface ComponentRun<D> {
-        void run(final D c);
+    public Titan.AssignableJoystick<TitanRobot> getController(final int index) {
+        return controllers.get(index);
     }
 
-    public static abstract class Component {
-        private ComponentRun toRun = null;
-
-        public abstract void init();
-
-        public abstract void update();
-
-        public void set(final ComponentRun r) {
-            toRun = r;
-        }
-
-        public void run() {
-            toRun.run(this);
-        }
+    public void addControllerCommand(final int index, final Titan.Joystick.ButtonZone button, final Titan.CommandQueue<TitanRobot> steps) {
+        controllers.get(index).assign(button, () -> steps);
     }
 
     /*
@@ -60,20 +54,47 @@ public class TitanRobot<T> extends IterativeRobot {
         Titan.l("Override teleUpdate!");
     }
 
-    /*
-     * Control functions
-     */
-    //Controllers
-    public void addController(Titan.AssignableJoystick<T> controller) {
-        controllers.add(controller);
+    public void addControllerAxisGroup(final int index, final Titan.Joystick.AxisGroup group, final Titan.Joystick.AxisZone... axis) {
+        axisGroups.put(group, new Pair<>(index, axis));
     }
 
-    public Titan.AssignableJoystick<T> getController(final int index) {
-        return controllers.get(index);
+    public double[] getAxisGroup(final Titan.Joystick.AxisGroup group) {
+        final Pair<Integer, Titan.Joystick.AxisZone[]> aGroup = axisGroups.get(group);
+        final int index = aGroup.fst;
+        final double data[] = new double[aGroup.snd.length];
+        for (int ind = 0; ind < aGroup.snd.length; ind++) {
+            data[ind] = controllers.get(index).getRawAxis(aGroup.snd[ind]);
+        }
+        return data;
     }
 
-    public void addControllerCommand(final int index, final Enum<?> button, final Titan.CommandQueue<TitanRobot> steps) {
-        controllers.get(index).assign(button, () -> steps);
+    public void setCompState(final MainComponent map, final ComponentState state) {
+        components.get(map).set(state);
+    }
+
+    @Override
+    public void robotInit() {
+        for (final Component component : components.values()) {
+            component.init(this);
+        }
+        init();
+    }
+
+    @Override
+    public void teleopPeriodic() {
+        for (final Titan.AssignableJoystick<TitanRobot> controller : controllers) {
+            controller.update(this);
+        }
+
+        for (final Component component : components.values()) {
+            final ComponentState state = (ComponentState) component.getState();
+            if (state != null) {
+                component.update(this, component.getState());
+            } else {
+                Titan.e("A component hasn't been set a state!");
+            }
+        }
+        teleUpdate();
     }
 
     public void addAuto(Titan.Command<T> command) {
@@ -93,12 +114,10 @@ public class TitanRobot<T> extends IterativeRobot {
         return components.get(map);
     }
 
-    @Override
-    public void robotInit() {
-        for (final Component component : components.values()) {
-            component.init();
-        }
-        init();
+    public interface MainComponent {
+    }
+
+    public interface ComponentState {
     }
 
     @Override
@@ -131,13 +150,20 @@ public class TitanRobot<T> extends IterativeRobot {
         autoUpdate();
     }
 
-    @Override
-    public void teleopPeriodic() {
-        for (final Component component : components.values()) {
-            component.update();
-            component.run();
+    public static abstract class Component<T, D> {
+        private ComponentState toRun = null;
+
+        public abstract void init(final T robot);
+
+        public abstract void update(final T robot, final D state);
+
+        public void set(final ComponentState state) {
+            toRun = state;
         }
-        teleUpdate();
+
+        public D getState() {
+            return (D) toRun;
+        }
     }
 
     @Override

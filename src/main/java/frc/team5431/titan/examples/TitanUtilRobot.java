@@ -1,12 +1,10 @@
 package frc.team5431.titan.examples;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.IterativeRobot;
 import frc.team5431.titan.core.Titan;
 import frc.team5431.titan.core.TitanRobot;
 
+import static frc.team5431.titan.examples.TitanUtilRobot.AxisGroups.DRIVE_GROUP;
+import static frc.team5431.titan.examples.TitanUtilRobot.Components.DRIVE;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.LIFT;
 
 public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
@@ -16,47 +14,53 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
     //Titan.FSi6S controller;
     //Titan.Toggle toggle = new Titan.Toggle();
 
-    public enum Components implements MainComponent {
-        LIFT
-    }
-
-    public LiftComponent lift = new LiftComponent();
-
+    public DriveComponent drive = new DriveComponent();
 
 	@Override
     public void init() {
         addController(new Titan.AssignableJoystick<>(0)); //Driver
         addController(new Titan.AssignableJoystick<>(1)); //Operator
 
+        /*
+         * DRIVEBASE COMMAND CONTROL
+         */
+        addComponent(DRIVE, drive);
+        addControllerAxisGroup(DRIVER, DRIVE_GROUP, Titan.Xbox.Axis.LEFT_Y, Titan.Xbox.Axis.RIGHT_Y);
+        //I just realized all of the drives are probably confusing
+
+
+        /*
+         * LIFT COMMAND CONTROL
+         */
         //Add the lift component
         addComponent(LIFT, lift);
 
+        //Go all the way up and down when
         Titan.CommandQueue<TitanRobot> goToTopThenDown = new Titan.CommandQueue<>();
         goToTopThenDown.add(new LiftCommand(true));
         goToTopThenDown.add(new LiftCommand(false));
 
-        addControllerCommand(DRIVER, Titan.Xbox.Button.BUMPER_R, goToTopThenDown);
+        //The right bumper is pressed
+        addControllerCommand(OPERATOR, Titan.Xbox.Button.BUMPER_R, goToTopThenDown);
 
-        //addControllerCommand(DRIVER);
-		/*frontLeft = new WPI_TalonSRX(4);
-		frontRight = new WPI_TalonSRX(6);
-		backLeft = new WPI_TalonSRX(3);
-		backRight = new WPI_TalonSRX(7);
+        /*
+         * COMPONENT STATES
+         */
+        setCompState(DRIVE, DriveComponent.Drive.STOP);
+        setCompState(LIFT, LiftComponent.Lift.STOP);
+    }
 
-		shooterRight = new WPI_TalonSRX(8);
-		shooterLeft = new WPI_TalonSRX(2);
+    @Override
+    public void teleInit() {
+        setCompState(DRIVE, DriveComponent.Drive.TELEOP); //Start the teleop state
+    }
 
-		shooterLeft.set(ControlMode.Follower, shooterRight.getDeviceID());
+    public LiftComponent lift = new LiftComponent();
 
-		backLeft.set(ControlMode.Follower, frontLeft.getDeviceID());
-		backRight.set(ControlMode.Follower, frontRight.getDeviceID());
 
-		frontLeft.setInverted(true);
-		backLeft.setInverted(true);
-
-		controller = new Titan.FSi6S(0);
-		controller.setDeadzone(0.1);*/
-	}
+    public enum Components implements MainComponent {
+        DRIVE, LIFT
+    }
 
 	@Override
     public void autoInit() {
@@ -68,20 +72,12 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
 
 	}
 
-	@Override
-    public void teleInit() {
-
+    public enum AxisGroups implements Titan.Joystick.AxisGroup {
+        DRIVE_GROUP
     }
 
     @Override
     public void teleUpdate() {
-		/*if(toggle.isToggled(controller.getBackLeft())) {
-			shooterRight.set(0.8);
-		}else {
-			shooterRight.set(0.0);
-		}
 
-		frontLeft.set(controller.getRawAxis(Titan.FSi6S.Axis.LEFT_Y));
-		frontRight.set(controller.getRawAxis(Titan.FSi6S.Axis.RIGHT_Y));*/
 	}
 }
