@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+group = 'com.github.frc5431'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.9
+
+repositories {
+    mavenCentral()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+//To install this as a dependency
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'GNU GENERAL PUBLIC LICENSE, Version 4.0'
+                    url 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
