@@ -23,6 +23,25 @@ that will do all of the grunt work for you.
 # Install
 There are a few ways of installing TitanUtil
 
+## Maven
+
+Add the following code to your `<repositories>` tag
+```
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+
+Then, add the following dependency (Make sure it's the latest release)
+```
+<dependency>
+    <groupId>com.github.frc5431</groupId>
+    <artifactId>TitanUtil</artifactId>
+    <version>1.0.5</version>
+</dependency>
+```
+
 ## Gradle
 Add the following to the root build.gradle
 ```
