@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5431.robot;
+package frc.team5431.titan;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;

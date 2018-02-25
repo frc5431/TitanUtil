@@ -1,6 +1,9 @@
 plugins {
     id 'java'
     id 'maven'
+	id 'idea'
+	id 'eclipse'
+    id 'jaci.openrio.gradle.GradleRIO' version '2018.01.22'
 }
 
 group = 'com.github.frc5431'
@@ -10,6 +13,13 @@ targetCompatibility = 1.9
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile wpilib()
+    compile ctre()
+    compile navx()
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

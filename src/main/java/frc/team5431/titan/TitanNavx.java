@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5431.robot;
+package frc.team5431.titan;
 
 import com.kauailabs.navx.frc.AHRS;
 
