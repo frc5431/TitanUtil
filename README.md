@@ -10,7 +10,7 @@ that will do all of the grunt work for you.
 **Current features include:**
 ## Core
 * Motor toggling
-* Built-in joystick deadzoniung
+* Built-in joystick deadzoning
 * Xbox and drone controller button mapping
 * Game data parser
 
@@ -22,6 +22,25 @@ that will do all of the grunt work for you.
 
 # Install
 There are a few ways of installing TitanUtil
+
+## Maven
+
+Add the following code to your `<repositories>` tag
+```
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+
+Then, add the following dependency (Make sure it's the latest release)
+```
+<dependency>
+    <groupId>com.github.frc5431</groupId>
+    <artifactId>TitanUtil</artifactId>
+    <version>1.0.5</version>
+</dependency>
+```
 
 ## Gradle
 Add the following to the root build.gradle
@@ -55,5 +74,5 @@ $ user@computer: git clone git@github.com:frc5431/TitanUtil.git
 Now you can go into either intellij (recommended) or eclipse and import the project!
 
 ## Basic
-Copy Titan.java from the src core folder into your project. All of
+Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) into your project. All of
 the core/basic utilities are found in that one file
