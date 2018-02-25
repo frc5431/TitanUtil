@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil)
 
-A collection of utility classes to make robot programming easier for all robots.
+A collection of utility classes to make robot programming easier.
 Do not riddle yourself with redundant and repetitive code when you have a library
 that will do all of the grunt work for you.
 
