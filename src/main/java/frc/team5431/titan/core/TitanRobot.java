@@ -73,7 +73,7 @@ public class TitanRobot<T> extends IterativeRobot {
     }
 
     public void addControllerCommand(final int index, final Enum<?> button, final Titan.CommandQueue<TitanRobot> steps) {
-        controllers.get(index).assign(button, (Supplier<Titan.CommandQueue<T>>) steps); //@TODO FIX THIS
+        controllers.get(index).assign(button, () -> steps);
     }
 
     public void addAuto(Titan.Command<T> command) {
