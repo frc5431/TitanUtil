@@ -74,5 +74,5 @@ $ user@computer: git clone git@github.com:frc5431/TitanUtil.git
 Now you can go into either intellij (recommended) or eclipse and import the project!
 
 ## Basic
-Copy Titan.java from the src core folder into your project. All of
+Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) into your project. All of
 the core/basic utilities are found in that one file
