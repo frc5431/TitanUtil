@@ -10,7 +10,7 @@ that will do all of the grunt work for you.
 **Current features include:**
 ## Core
 * Motor toggling
-* Built-in joystick deadzoniung
+* Built-in joystick deadzoning
 * Xbox and drone controller button mapping
 * Game data parser
 
