@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'maven-publish'
 	id 'idea'
 	id 'eclipse'
     id 'jaci.openrio.gradle.GradleRIO' version '2018.01.22'
@@ -9,7 +10,7 @@ plugins {
 group = 'com.github.frc5431'
 
 sourceCompatibility = 1.8
-targetCompatibility = 1.9
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
