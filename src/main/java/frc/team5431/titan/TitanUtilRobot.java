@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import frc.team5431.titan.core.Titan;
 
 public class TitanUtilRobot extends IterativeRobot {
 	WPI_TalonSRX frontLeft, frontRight, backLeft, backRight, shooterLeft, shooterRight;
