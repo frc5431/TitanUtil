@@ -103,4 +103,4 @@ Everyone is permitted to copy and distribute verbatim copies of this license doc
 <br>
 <br>
 
-![](https://sites.google.com/a/pisd.edu/titan-robotics/_/rsrc/1493840311490/home-1/FullColorlogo%20with%20numbers.png?height=800&width=800)
+![](https://sites.google.com/a/pisd.edu/titan-robotics/_/rsrc/1493840311490/home-1/FullColorlogo%20with%20numbers.png?height=950&width=950)
