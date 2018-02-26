@@ -2,7 +2,6 @@ package frc.team5431.titan.examples;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.team5431.titan.core.Titan;
 import frc.team5431.titan.core.TitanDrive;
 import frc.team5431.titan.core.TitanNavx;
 import frc.team5431.titan.core.TitanRobot;

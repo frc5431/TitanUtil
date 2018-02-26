@@ -3,11 +3,10 @@ package frc.team5431.titan.core;
 import java.util.*;
 import java.util.function.Supplier;
 
-import com.sun.tools.internal.xjc.outline.CustomizableOutline;
-import com.sun.tools.javac.util.Pair;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Namespace for TitanUtil
@@ -184,9 +183,9 @@ public final class Titan {
 
             for (final Map.Entry<Integer, Pair<CustomJoystickControl, Toggle>> button : customAssignments.entrySet()) {
                 final boolean value = getRawButton(button.getKey(), false);
-                final CustomJoystickControl control = button.getValue().fst;
+                final CustomJoystickControl control = button.getValue().getLeft();
                 control.current(value);
-                control.toggled(button.getValue().snd.isToggled(value));
+                control.toggled(button.getValue().getRight().isToggled(value));
             }
 
 			currentQueue.update(robot);
@@ -209,7 +208,7 @@ public final class Titan {
 		}
 
         public void assignCustom(final int button, final CustomJoystickControl control) {
-            customAssignments.put(button, new Pair<>(control, new Toggle()));
+            customAssignments.put(button, Pair.of(control, new Toggle()));
         }
 
 		public void assign(final int button, final Supplier<CommandQueue<T>> generator) {

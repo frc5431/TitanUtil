@@ -1,10 +1,10 @@
 package frc.team5431.titan.core;
 
-import com.sun.tools.javac.util.Pair;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,20 +38,20 @@ public class TitanDrive {
     }
 
     public void addSource(final String name, final PIDConfig config, final Source source) {
-        pidSource.put(name, new Pair<>(config, source));
+        pidSource.put(name, Pair.of(config, source));
     }
 
     public void updatePID(final String name, final PIDConfig config) {
         if (pidSource.containsKey(name)) {
             final Pair<PIDConfig, Source> cConfig = pidSource.get(name);
-            cConfig.fst.update(config);
+            cConfig.getLeft().update(config);
             pidSource.put(name, cConfig);
         } else Titan.e("The PID source %s doesn't exist!", name);
     }
 
     public void setSource(final String name) {
         if (pidSource.containsKey(name)) {
-            final PIDConfig config = pidSource.get(name).fst;
+            final PIDConfig config = pidSource.get(name).getLeft();
             controller.setPID(config.P, config.I, config.D);
             controller.setInputRange(config.minIn, config.maxIn);
             controller.setOutputRange(config.minOut, config.maxOut);
@@ -164,7 +164,7 @@ public class TitanDrive {
 
         @Override
         public double pidGet() {
-            return pidSource.get(currentSource).snd.getAngle(); //Get the current sensor angle
+            return pidSource.get(currentSource).getRight().getAngle(); //Get the current sensor angle
         }
     }
 
