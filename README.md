@@ -1,5 +1,4 @@
 # TitanUtil
-
 [![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil)
 
 A collection of utility classes to make robot programming easier.
@@ -13,6 +12,12 @@ that will do all of the grunt work for you.
 * Built-in joystick deadzoning
 * Xbox and drone controller button mapping
 * Game data parser
+
+## Robot
+* Command based robot control
+* Axis command groups (useful for driving)
+* Builtin core utilities
+* Added Components and Cross-Class Sensor Data
 
 ## Mimic
 * Observing and Mimicing basic drivebase pathfinding data
@@ -73,6 +78,29 @@ $ user@computer: git clone git@github.com:frc5431/TitanUtil.git
 
 Now you can go into either intellij (recommended) or eclipse and import the project!
 
+## Jar
+You can go to the releases download the jar or you can clone the repo (look right above you)
+to download the compiled library. Added this to your build path, and it's recommended that you
+add it relative to project in eclipse so that you can develop on multiple computers without library
+issues.
+
 ## Basic
 Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) into your project. All of
 the core/basic utilities are found in that one file
+
+# License
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>
+
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![](https://sites.google.com/a/pisd.edu/titan-robotics/_/rsrc/1493840311490/home-1/FullColorlogo%20with%20numbers.png?height=800&width=800)
