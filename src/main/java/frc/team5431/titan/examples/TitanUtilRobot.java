@@ -3,6 +3,7 @@ package frc.team5431.titan.examples;
 import frc.team5431.titan.core.Titan;
 import frc.team5431.titan.core.TitanRobot;
 
+import static frc.team5431.titan.core.TitanRobot.MainComponent;
 import static frc.team5431.titan.examples.TitanUtilRobot.AxisGroups.DRIVE_GROUP;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.DRIVE;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.LIFT;
