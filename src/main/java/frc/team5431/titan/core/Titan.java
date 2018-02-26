@@ -3,6 +3,8 @@ package frc.team5431.titan.core;
 import java.util.*;
 import java.util.function.Supplier;
 
+import com.sun.tools.internal.xjc.outline.CustomizableOutline;
+import com.sun.tools.javac.util.Pair;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -171,33 +173,44 @@ public final class Titan {
 
 	public static class AssignableJoystick<T> extends Titan.Joystick {
 		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
+        private final Map<Integer, Pair<CustomJoystickControl, Toggle>> customAssignments = new HashMap<>();
 		private final CommandQueue<T> currentQueue = new CommandQueue<>();
-
-        public AssignableJoystick(final int port) {
-			super(port);
-		}
 
 		public void update(final T robot) {
             //Update all of the button commands
             for (final Integer button : assignments.keySet()) {
-                getRawButton(button); //Call the queue update on the specified button
+                getRawButton(button, true); //Call the queue update on the specified button
+            }
+
+            for (final Map.Entry<Integer, Pair<CustomJoystickControl, Toggle>> button : customAssignments.entrySet()) {
+                final boolean value = getRawButton(button.getKey(), false);
+                final CustomJoystickControl control = button.getValue().fst;
+                control.current(value);
+                control.toggled(button.getValue().snd.isToggled(value));
             }
 
 			currentQueue.update(robot);
 		}
-		
-		@Override
-		public boolean getRawButton(final int but) {
+
+        public AssignableJoystick(final int port) {
+            super(port);
+        }
+
+        public boolean getRawButton(final int but, boolean update) {
 			final boolean value = super.getRawButton(but);
-            if (assignments.containsKey(but) && value) {
+            if (assignments.containsKey(but) && value && update) {
 				currentQueue.clear();
-				
+
 				//call the associated function from the index in the map and then add it to the queue
 				currentQueue.addAll(assignments.get(but).get());//get
 			}
-			
+
 			return value;
 		}
+
+        public void assignCustom(final int button, final CustomJoystickControl control) {
+            customAssignments.put(button, new Pair<>(control, new Toggle()));
+        }
 
 		public void assign(final int button, final Supplier<CommandQueue<T>> generator) {
 			assignments.put(button, generator);
@@ -206,6 +219,16 @@ public final class Titan {
         public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
             assign(((Enum<?>) button).ordinal(), generator);
 		}
+
+        public void assignCustom(final ButtonZone button, final CustomJoystickControl control) {
+            assignCustom(((Enum<?>) button).ordinal(), control);
+        }
+
+        public interface CustomJoystickControl {
+            void current(final boolean state);
+
+            void toggled(final boolean state);
+        }
 	}
 
 	public static class Toggle {

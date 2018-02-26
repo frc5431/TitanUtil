@@ -8,13 +8,9 @@ import static frc.team5431.titan.examples.TitanUtilRobot.Components.DRIVE;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.LIFT;
 
 public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
-    public static final int DRIVER = 0, OPERATOR = 1;
-
-    //WPI_TalonSRX frontLeft, frontRight, backLeft, backRight, shooterLeft, shooterRight;
-    //Titan.FSi6S controller;
-    //Titan.Toggle toggle = new Titan.Toggle();
-
-    public DriveComponent drive = new DriveComponent();
+    private static final int DRIVER = 0, OPERATOR = 1;
+    private DriveComponent drive = new DriveComponent();
+    private LiftComponent lift = new LiftComponent();
 
 	@Override
     public void init() {
@@ -24,8 +20,8 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
         /*
          * DRIVEBASE COMMAND CONTROL
          */
-        addComponent(DRIVE, drive);
-        addControllerAxisGroup(DRIVER, DRIVE_GROUP, Titan.Xbox.Axis.LEFT_Y, Titan.Xbox.Axis.RIGHT_Y);
+        add(DRIVE, drive);
+        addAxisGroup(DRIVER, DRIVE_GROUP, Titan.Xbox.Axis.LEFT_Y, Titan.Xbox.Axis.RIGHT_Y);
         //I just realized all of the drives are probably confusing
 
 
@@ -33,7 +29,7 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
          * LIFT COMMAND CONTROL
          */
         //Add the lift component
-        addComponent(LIFT, lift);
+        add(LIFT, lift);
 
         //Go all the way up and down when
         Titan.CommandQueue<TitanRobot> goToTopThenDown = new Titan.CommandQueue<>();
@@ -41,26 +37,50 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
         goToTopThenDown.add(new LiftCommand(false));
 
         //The right bumper is pressed
-        addControllerCommand(OPERATOR, Titan.Xbox.Button.BUMPER_R, goToTopThenDown);
+        addCommand(OPERATOR, Titan.Xbox.Button.BUMPER_R, goToTopThenDown);
+
+        /*
+         * CUSTOM JOYSTICK COMMANDS
+         */
+        //By the way this can overlap with the above command queues to add some crazy cool functionality maybe
+        //You want it to initiate another command half way up the lift and kill the previous command with a toggle
+        addCustom(OPERATOR, Titan.Xbox.Button.B, new Titan.AssignableJoystick.CustomJoystickControl() {
+            @Override
+            public void current(boolean state) {
+                Titan.l("My current value is %b", state);
+            }
+
+            @Override
+            public void toggled(boolean state) {
+                if (state) {
+                    Titan.l("I'm intaking the wheels...");
+                } else {
+                    Titan.l("I've stopped intaking the wheels");
+                }
+            }
+        });
 
         /*
          * COMPONENT STATES
          */
-        setCompState(DRIVE, DriveComponent.Drive.STOP);
-        setCompState(LIFT, LiftComponent.Lift.STOP);
+        setState(DRIVE, DriveComponent.Drive.STOP);
+        setState(LIFT, LiftComponent.Lift.STOP);
     }
 
     @Override
     public void teleInit() {
-        setCompState(DRIVE, DriveComponent.Drive.TELEOP); //Start the teleop state
+        setState(LIFT, LiftComponent.Lift.STOP); //Stop the lift
+        setState(DRIVE, DriveComponent.Drive.TELEOP); //Start the teleop state
     }
-
-    public LiftComponent lift = new LiftComponent();
-
 
     public enum Components implements MainComponent {
         DRIVE, LIFT
     }
+
+    public enum AxisGroups implements Titan.Joystick.AxisGroup {
+        DRIVE_GROUP
+    }
+
 
 	@Override
     public void autoInit() {
@@ -71,10 +91,6 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
     public void autoUpdate() {
 
 	}
-
-    public enum AxisGroups implements Titan.Joystick.AxisGroup {
-        DRIVE_GROUP
-    }
 
     @Override
     public void teleUpdate() {

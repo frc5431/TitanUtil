@@ -3,6 +3,7 @@ package frc.team5431.titan.examples;
 import frc.team5431.titan.core.Titan;
 import frc.team5431.titan.core.TitanRobot;
 
+import static frc.team5431.titan.examples.LiftComponent.LiftSensors.LIFT_STOP;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.LIFT;
 
 public class LiftCommand extends Titan.Command<TitanRobot> {
@@ -26,6 +27,10 @@ public class LiftCommand extends Titan.Command<TitanRobot> {
     @Override
     public CommandResult update(final TitanRobot robot) {
         Titan.l("Called on every update!");
+
+        if (robot.getBooleanData(LIFT, LIFT_STOP, false)) {
+
+        }
 
         if (((LiftComponent) robot.comp(LIFT)).atTop) {
             return CommandResult.COMPLETE;

@@ -6,10 +6,19 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.team5431.titan.core.TitanRobot;
 
 
-public class LiftComponent extends TitanRobot.Component<TitanUtilRobot, LiftComponent.Lift> {
+public class LiftComponent extends TitanRobot.Component<TitanUtilRobot, LiftComponent.Lift, LiftComponent.LiftSensors> {
     private WPI_TalonSRX liftTalonSRX;
     private DigitalInput liftStop;
     public boolean atTop = false;
+
+    @Override
+    public Boolean sensorData(LiftSensors sensor) {
+        return atTop;
+    }
+
+    public enum Lift implements TitanRobot.ComponentState {
+        STOP, DOWN, UP
+    }
 
     @Override
     public void init(final TitanUtilRobot robot) {
@@ -38,7 +47,7 @@ public class LiftComponent extends TitanRobot.Component<TitanUtilRobot, LiftComp
         }
     }
 
-    public enum Lift implements TitanRobot.ComponentState {
-        STOP, DOWN, UP
+    public enum LiftSensors implements TitanRobot.SensorType {
+        LIFT_STOP
     }
 }
