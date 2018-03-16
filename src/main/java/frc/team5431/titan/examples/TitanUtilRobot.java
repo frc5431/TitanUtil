@@ -21,7 +21,7 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
         /*
          * DRIVEBASE COMMAND CONTROL
          */
-        add(DRIVE, drive);
+        addComponent(DRIVE, drive);
         addAxisGroup(DRIVER, DRIVE_GROUP, Titan.Xbox.Axis.LEFT_Y, Titan.Xbox.Axis.RIGHT_Y);
         //I just realized all of the drives are probably confusing
 
@@ -30,7 +30,7 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
          * LIFT COMMAND CONTROL
          */
         //Add the lift component
-        add(LIFT, lift);
+        addComponent(LIFT, lift);
 
         //Go all the way up and down when
         Titan.CommandQueue<TitanRobot> goToTopThenDown = new Titan.CommandQueue<>();

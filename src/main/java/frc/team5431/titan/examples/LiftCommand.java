@@ -6,7 +6,7 @@ import frc.team5431.titan.core.TitanRobot;
 import static frc.team5431.titan.examples.LiftComponent.LiftSensors.LIFT_STOP;
 import static frc.team5431.titan.examples.TitanUtilRobot.Components.LIFT;
 
-public class LiftCommand extends Titan.Command<TitanRobot> {
+public class LiftCommand extends Titan.Command<TitanRobot<TitanUtilRobot>> {
     public final boolean toTop;
 
     public LiftCommand(final boolean t) {
@@ -14,28 +14,28 @@ public class LiftCommand extends Titan.Command<TitanRobot> {
     }
 
     @Override
-    public void init(final TitanRobot robot) {
+    public void init(final TitanRobot<TitanUtilRobot> robot) {
         name = "LiftCommand";
         properties = "Lifting something up!";
 
         Titan.l("Called once!");
 
         //Stop the lift
-        robot.comp(LIFT).set(LiftComponent.Lift.STOP);
+        robot.getComponent(LIFT).set(LiftComponent.Lift.STOP);
     }
 
     @Override
-    public CommandResult update(final TitanRobot robot) {
+    public CommandResult update(final TitanRobot<TitanUtilRobot> robot) {
         Titan.l("Called on every update!");
 
         if (robot.getBooleanData(LIFT, LIFT_STOP, false)) {
 
         }
 
-        if (((LiftComponent) robot.comp(LIFT)).atTop) {
+        if (((LiftComponent) robot.getComponent(LIFT)).atTop) {
             return CommandResult.COMPLETE;
         } else {
-            robot.comp(LIFT).set((toTop) ? LiftComponent.Lift.UP : LiftComponent.Lift.DOWN);
+            robot.getComponent(LIFT).set((toTop) ? LiftComponent.Lift.UP : LiftComponent.Lift.DOWN);
         }
 
         return CommandResult.IN_PROGRESS;
@@ -44,6 +44,6 @@ public class LiftCommand extends Titan.Command<TitanRobot> {
     @Override
     public void done(final TitanRobot robot) {
         Titan.l("Command completed");
-        robot.comp(LIFT).set(LiftComponent.Lift.STOP);
+        robot.getComponent(LIFT).set(LiftComponent.Lift.STOP);
     }
 }

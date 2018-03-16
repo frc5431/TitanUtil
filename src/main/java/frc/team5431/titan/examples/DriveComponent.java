@@ -9,7 +9,7 @@ import frc.team5431.titan.core.TitanRobot;
 import static frc.team5431.titan.examples.TitanUtilRobot.AxisGroups.DRIVE_GROUP;
 
 
-public class DriveComponent extends TitanRobot.Component<TitanUtilRobot, DriveComponent.Drive, DriveComponent.DriveSensors> {
+public class DriveComponent extends TitanRobot.Component<TitanUtilRobot> {
     private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight;
     private final TitanNavx navx = new TitanNavx();
     private final TitanDrive tDrive = new TitanDrive();

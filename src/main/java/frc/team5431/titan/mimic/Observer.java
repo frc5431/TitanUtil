@@ -11,8 +11,10 @@ import static frc.team5431.titan.mimic.Stepper.mimicFile;
 
 public class Observer {
     private static FileOutputStream log = null;
+    /*
     private static boolean homed = false;
     private static boolean switched = false;
+    */
     private static boolean saved = true;
 
     public static void prepare(final String fileName) {
