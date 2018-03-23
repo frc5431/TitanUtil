@@ -15,8 +15,8 @@ public class TitanUtilRobot extends TitanRobot<TitanUtilRobot> {
 
 	@Override
     public void init() {
-        addController(new Titan.AssignableJoystick<>(0)); //Driver
-        addController(new Titan.AssignableJoystick<>(1)); //Operator
+        addController(new Titan.AssignableJoystick<>(0)); //Driver = index 0
+        addController(new Titan.AssignableJoystick<>(1)); //Operator = index 1
 
         /*
          * DRIVEBASE COMMAND CONTROL

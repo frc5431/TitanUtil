@@ -1,8 +1,6 @@
 package frc.team5431.titan.core;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import org.apache.commons.lang3.tuple.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,31 +47,10 @@ public class TitanRobot<T extends TitanRobot<?>> extends IterativeRobot {
 	private final Titan.CommandQueue<T> teleQueue = new Titan.CommandQueue<>();
 	private final List<Titan.AssignableJoystick<TitanRobot<T>>> controllers = new ArrayList<>();
 	private final Map<MainComponent, Component<TitanRobot<T>>> components = new HashMap<>();
-	private final Map<Titan.Joystick.AxisGroup, Pair<Integer, Titan.Joystick.AxisZone[]>> axisGroups = new HashMap<>();
 
 	public void addCommand(final int index, final Titan.Joystick.ButtonZone button,
 			final Titan.CommandQueue<TitanRobot<T>> steps) {
 		controllers.get(index).assign(button, () -> steps);
-	}
-
-	public void addAxisGroup(final int index, final Titan.Joystick.AxisGroup group,
-			final Titan.Joystick.AxisZone... axis) {
-		axisGroups.put(group, Pair.of(index, axis));
-	}
-
-	public void addCustom(final int index, final Titan.Joystick.ButtonZone button,
-			final Titan.AssignableJoystick.CustomJoystickControl control) {
-		controllers.get(index).assignCustom(button, control);
-	}
-
-	public double[] getAxisGroup(final Titan.Joystick.AxisGroup group) {
-		final Pair<Integer, Titan.Joystick.AxisZone[]> aGroup = axisGroups.get(group);
-		final int index = aGroup.getLeft();
-		final double data[] = new double[aGroup.getRight().length];
-		for (int ind = 0; ind < aGroup.getRight().length; ind++) {
-			data[ind] = controllers.get(index).getRawAxis(aGroup.getRight()[ind]);
-		}
-		return data;
 	}
 
 	/*

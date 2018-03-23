@@ -4,9 +4,12 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Namespace for TitanUtil
@@ -41,6 +44,12 @@ public final class Titan {
 	 */
 	public static class Joystick extends edu.wpi.first.wpilibj.Joystick {
 		private double deadzoneMin = 0.0f, deadzoneMax = 0.0f;
+		
+		public interface AxisZone{
+        }
+        
+        public interface ButtonZone {
+        }
 
         public double getRawAxis(final AxisZone value) {
             return getRawAxis(((Enum<?>) value).ordinal());
@@ -48,9 +57,6 @@ public final class Titan {
 
         public boolean getRawButton(final ButtonZone value) {
             return getRawButton(((Enum<?>) value).ordinal());
-        }
-
-        public interface AxisZone {
         }
 
 		public Joystick(final int port) {
@@ -91,12 +97,6 @@ public final class Titan {
 				return val;
 			}
 		}
-
-        public interface AxisGroup {
-        }
-
-        public interface ButtonZone {
-        }
 	}
 
 	public static class FSi6S extends Titan.Joystick {
@@ -169,23 +169,29 @@ public final class Titan {
             LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
         }
     }
+	
+	public static class LogitechExtreme3D extends Titan.Joystick {
+		public static enum Button implements ButtonZone{
+			TRIGGER, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE;
+		}
+		
+		public static enum Axis implements AxisZone {
+			X, Y, Z, SLIDER;
+		}
+		
+		public LogitechExtreme3D(final int port) {
+			super(port);
+		}
+	}
 
 	public static class AssignableJoystick<T> extends Titan.Joystick {
 		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
-        private final Map<Integer, Pair<CustomJoystickControl, Toggle>> customAssignments = new HashMap<>();
 		private final CommandQueue<T> currentQueue = new CommandQueue<>();
 
 		public void update(final T robot) {
             //Update all of the button commands
             for (final Integer button : assignments.keySet()) {
                 getRawButton(button, true); //Call the queue update on the specified button
-            }
-
-            for (final Map.Entry<Integer, Pair<CustomJoystickControl, Toggle>> button : customAssignments.entrySet()) {
-                final boolean value = getRawButton(button.getKey(), false);
-                final CustomJoystickControl control = button.getValue().getLeft();
-                control.current(value);
-                control.toggled(button.getValue().getRight().isToggled(value));
             }
 
 			currentQueue.update(robot);
@@ -207,10 +213,6 @@ public final class Titan {
 			return value;
 		}
 
-        public void assignCustom(final int button, final CustomJoystickControl control) {
-            customAssignments.put(button, Pair.of(control, new Toggle()));
-        }
-
 		public void assign(final int button, final Supplier<CommandQueue<T>> generator) {
 			assignments.put(button, generator);
 		}
@@ -218,16 +220,6 @@ public final class Titan {
         public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
             assign(((Enum<?>) button).ordinal(), generator);
 		}
-
-        public void assignCustom(final ButtonZone button, final CustomJoystickControl control) {
-            assignCustom(((Enum<?>) button).ordinal(), control);
-        }
-
-        public interface CustomJoystickControl {
-            void current(final boolean state);
-
-            void toggled(final boolean state);
-        }
 	}
 
 	public static class Toggle {
@@ -300,13 +292,46 @@ public final class Titan {
 		}
 
 		public double getAbsoluteAngle() {
-			return linearMap(getValue(), minPotValue, maxPotValue, minAngle, maxAngle);
+			return -linearMap(getAverageVoltage(), minPotValue, maxPotValue, minAngle, maxAngle);
 		}
 
 		private static double linearMap(final double currentValue, final double minInputValue,
 				final double maxInputValue, final double minOutputValue, final double maxOutputValue) {
 			return (currentValue - minInputValue) * (maxOutputValue - minOutputValue) / (minInputValue - maxInputValue)
 					+ minOutputValue;
+		}
+	}
+	
+	public static class Lidar extends Counter{
+		private int calibrationOffset = 0;
+		
+		public Lidar(final int source) {
+			this(new DigitalInput(source));
+		}
+		
+		public Lidar(final DigitalSource source) {
+			super(source);
+			setMaxPeriod(1.0);
+			setSemiPeriodMode(true);
+			setSamplesToAverage(100);
+			reset();
+		}
+		
+		public int getCalibrationOffset() {
+			return calibrationOffset;
+		}
+
+		public void setCalibrationOffset(final int calibrationOffset) {
+			this.calibrationOffset = calibrationOffset;
+		}
+		/*
+		 * @return distance in cm*/
+		public double getDistance() {
+			if(get() < 1) {
+				return 0;
+			}
+			
+			return ((getPeriod() * 1000000.0 / 10.0) * calibrationOffset) * 0.39370079;
 		}
 	}
 
@@ -345,6 +370,88 @@ public final class Titan {
 			return getElapsed() / 1000.0;
 		}
 	}
+	
+	public static class WaitCommand<T> extends Titan.Command<T> {
+
+		private final long durationMS;
+		private long startTime;
+		
+		public WaitCommand(final long ms) {
+			name = "WaitStep";
+			properties = String.format("Millis %d", ms);
+			durationMS = ms;
+		}
+
+		@Override
+		public void init(final T robot) {
+			startTime = System.currentTimeMillis();
+		}
+
+		@Override
+		public CommandResult update(final T robot) {
+			if (System.currentTimeMillis() >= startTime + durationMS) {
+				return CommandResult.COMPLETE;
+			}
+
+			return CommandResult.IN_PROGRESS;
+		}
+
+		@Override
+		public void done(final T robot) {
+		}
+	}
+	
+	public static class ClearQueueCommand<T> extends Titan.Command<T>{
+
+		@Override
+		public void init(final T robot) {
+		}
+
+		@Override
+		public CommandResult update(final T robot) {
+			return CommandResult.CLEAR_QUEUE;
+		}
+
+		@Override
+		public void done(final T robot) {
+		}
+	}
+	
+	public static class SpeedCommand<T> extends Titan.Command<T> {
+		private final SpeedController controller;
+		private final double speed;
+		private final long durationMS;
+		private long startTime;
+		
+		public SpeedCommand(final double speed, final long durationMS, final SpeedController controller) {
+			this.controller = controller;
+			this.speed = speed;
+			this.durationMS = durationMS;
+		}
+
+		@Override
+		public void init(final T robot) {
+			startTime = System.currentTimeMillis();
+		}
+
+		@Override
+		public CommandResult update(T robot) {
+			controller.set(speed);
+			
+			if (System.currentTimeMillis() >= startTime + durationMS) {
+				return CommandResult.COMPLETE;
+			}
+
+			return CommandResult.IN_PROGRESS;
+		}
+
+		@Override
+		public void done(final T robot) {
+		}
+		
+		
+	}
+
 
 	public static class CommandQueue<T> extends LinkedList<Command<T>> {
 		/**
