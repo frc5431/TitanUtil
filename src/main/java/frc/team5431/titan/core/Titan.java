@@ -56,7 +56,7 @@ public final class Titan {
         }
 
         public boolean getRawButton(final ButtonZone value) {
-            return getRawButton(((Enum<?>) value).ordinal());
+            return getRawButton(((Enum<?>) value).ordinal() + 1);
         }
 
 		public Joystick(final int port) {
