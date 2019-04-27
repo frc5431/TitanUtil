@@ -2,20 +2,31 @@ package frc.team5431.titan.core;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.function.Consumer;
+
+import java.util.EnumMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.function.Function;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
  * Namespace for TitanUtil
  */
 public final class Titan {
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 
 	private Titan() {
 	}
@@ -184,7 +195,7 @@ public final class Titan {
 		}
 	}
 
-	public static class AssignableJoystick<T> extends Titan.Joystick {
+	public static class AssignableJoystick<T extends Robot<T>> extends Titan.Joystick {
 		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
 		private final CommandQueue<T> currentQueue = new CommandQueue<>();
 
@@ -236,6 +247,10 @@ public final class Titan {
 
 		public void setState(final boolean state) {
 			isToggled = state;
+		}
+
+		public boolean getState(){
+			return isToggled;
 		}
 	}
 
@@ -302,6 +317,46 @@ public final class Titan {
 		}
 	}
 	
+	public static class Solenoid extends edu.wpi.first.wpilibj.Solenoid{
+		private boolean currentState = false;
+
+		public Solenoid(final int channel){
+			super(channel);
+		}
+
+		public Solenoid(final int moduleNumber, final int channel) {
+			super(moduleNumber, channel);
+		}
+
+		@Override
+		public void set(final boolean newState){
+			if(currentState != newState){
+				currentState = newState;
+				super.set(newState);
+			}
+		}
+	}
+
+	public static class DoubleSolenoid extends edu.wpi.first.wpilibj.DoubleSolenoid{
+		private Value currentState = Value.kOff;
+
+		public DoubleSolenoid(final int forwardChannel, final int reverseChannel){
+			super(forwardChannel, reverseChannel);
+		}
+
+		public DoubleSolenoid(final int moduleNumber, final int forwardChannel, final int reverseChannel){
+			super(moduleNumber, forwardChannel, reverseChannel);
+		}
+
+		@Override
+		public void set(final Value newState){
+			if(currentState != newState){
+				currentState = newState;
+				super.set(newState);
+			}
+		}
+	}
+
 	public static class Lidar extends Counter{
 		private int calibrationOffset = 0;
 		
@@ -328,14 +383,30 @@ public final class Titan {
 		 * @return distance in cm*/
 		public double getDistance() {
 			if(get() < 1) {
-				return 0;
+				return -1;
 			}
 			
-			return ((getPeriod() * 1000000.0 / 10.0) * calibrationOffset) * 0.39370079;
+			return ((getPeriod() * 1000000.0 / 10.0) + calibrationOffset) * 0.39370079;
 		}
 	}
 
-	public static abstract class Command<T> {
+	public static abstract class Component<T extends Robot<T>>{
+		public abstract void init(final T robot);
+	
+		public abstract void periodic(final T robot);
+	
+		public abstract void disabled(final T robot);
+	
+		public void tick(final T robot){
+			//do nothing
+		}
+	}
+
+	public static abstract class Robot<T extends Robot<T>> extends TimedRobot{
+		public abstract List<Component<T>> getComponents();
+	}
+
+	public static abstract class Command<T extends Robot<T>> {
 		public String name = "Command";
 		public String properties = "None";
 		public long startTime = 0;
@@ -371,7 +442,7 @@ public final class Titan {
 		}
 	}
 	
-	public static class WaitCommand<T> extends Titan.Command<T> {
+	public static class WaitCommand<T extends Robot<T>> extends Command<T> {
 
 		private final long durationMS;
 		private long startTime;
@@ -401,7 +472,12 @@ public final class Titan {
 		}
 	}
 	
-	public static class ClearQueueCommand<T> extends Titan.Command<T>{
+	public static class ClearQueueCommand<T extends Robot<T>> extends Command<T>{
+
+		public ClearQueueCommand(){
+			name = "ClearQueueCommand";
+			properties = "Clears the command queue";
+		}
 
 		@Override
 		public void init(final T robot) {
@@ -417,7 +493,7 @@ public final class Titan {
 		}
 	}
 	
-	public static class SpeedCommand<T> extends Titan.Command<T> {
+	public static class SpeedCommand<T extends Robot<T>> extends Command<T> {
 		private final SpeedController controller;
 		private final double speed;
 		private final long durationMS;
@@ -427,6 +503,9 @@ public final class Titan {
 			this.controller = controller;
 			this.speed = speed;
 			this.durationMS = durationMS;
+
+			name = "SpeedCommand";
+			properties = String.format("Speed: %f; Duration: %d", speed, durationMS);
 		}
 
 		@Override
@@ -448,16 +527,75 @@ public final class Titan {
 		@Override
 		public void done(final T robot) {
 		}
-		
-		
 	}
 
+	public static class ConsumerCommand<T extends Robot<T>> extends Command<T> {
+		private final Consumer<T> consumer;
+		
+		public ConsumerCommand(final Consumer<T> consumer) {
+			this.consumer = consumer;
 
-	public static class CommandQueue<T> extends LinkedList<Command<T>> {
+			name = "ConsumerCommand";
+			properties = "Runs a Consumer";
+		}
+
+		@Override
+		public void init(final T robot) {
+		}
+
+		@Override
+		public CommandResult update(T robot) {
+			consumer.accept(robot);
+
+			return CommandResult.COMPLETE;
+		}
+
+		@Override
+		public void done(final T robot) {
+		}
+	}
+
+	public static class ConditionalCommand<T extends Robot<T>> extends Command<T>{
+		private final Function<T, Boolean> func;
+
+		public ConditionalCommand(final Function<T, Boolean> func) {
+			this.func = func;
+
+			name = "ConditionalCommand";
+			properties = "Completes when a supplied Function returns true";
+		}
+
+		@Override
+		public void init(final T robot) {
+		}
+
+		@Override
+		public CommandResult update(final T robot) {
+			if(func.apply(robot)){
+				return CommandResult.COMPLETE;
+			}else{
+				return CommandResult.IN_PROGRESS;
+			}
+		}
+
+		@Override
+		public void done(final T robot) {
+		}
+	}
+
+	public static class CommandQueue<T extends Robot<T>> extends LinkedList<Command<T>> {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
+		public CommandQueue(){
+			super();
+		}
+
+		public CommandQueue(final Collection<Command<T>> col){
+			super(col);
+		}
 
 		public void init(final T robot) {
 			// Initialize the first command
@@ -506,123 +644,271 @@ public final class Titan {
 
 			return true;
 		}
-	}
 
-	public static class GameData {
-		private String gameData = "";
-
-        public enum Position {
-			LEFT, RIGHT, ERROR;
-
-			static Position fromGameData(final char value) {
-				if (value == 'L') {
-					return Position.LEFT;
-				} else if (value == 'R') {
-					return Position.RIGHT;
-				} else {
-					return Position.ERROR;
-				}
+		public boolean done(final T robot){
+			if(!isEmpty()){
+				final Command<T> command = peek();
+				command.done(robot);
+				clear();
+				return true;
 			}
-		}
-
-        public enum FieldObject {
-			SWITCH, SCALE, OPPONENT_SWITCH
-		}
-
-        public interface SideChooser {
-			void left();
-
-			void right();
-		}
-
-        public interface ErrorChooser {
-			void noData();
-		}
-
-		private Position allianceSwitch, scale, opponentSwitch;
-		private FieldObject selectedObject;
-		private ErrorChooser errorChooser = null;
-
-		public boolean hasData() {
-			return hasData("EEE");
-		}
-
-		public String getString() {
-			return gameData;
-		}
-
-		public boolean hasData(String defaultValue) {
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
-			if (gameData != null) {
-				if (gameData.length() == 3)
-					return true;
-			}
-			gameData = defaultValue;
 			return false;
 		}
+	}
 
-		public void init() {
-			if (!hasData()) {
-				SmartDashboard.putString("Error", "Failed to get game specific message");
+	public static class ParallelCommandGroup<T extends Robot<T>> extends Command<T>{
+		private final List<CommandQueue<T>> queues = new ArrayList<>();
+
+		private boolean init = false;
+
+		public ParallelCommandGroup(){
+			name = "ParallelCommandGroup";
+			properties = "Runs a group of commands in parallel";
+		}
+
+		public void addCommand(final Command<T> command){
+			final CommandQueue<T> newQueue = new CommandQueue<T>();
+			newQueue.add(command);
+			addQueue(newQueue);
+		}
+
+		public void addQueue(final CommandQueue<T> queue){
+			if(init){
+				throw new IllegalArgumentException("Can't add new commands to a ParallelCommandGroup after init() was called");
 			}
-			allianceSwitch = Position.fromGameData(gameData.charAt(0));
-			scale = Position.fromGameData(gameData.charAt(1));
-			opponentSwitch = Position.fromGameData(gameData.charAt(2));
+			queues.add(queue);
 		}
 
-		public Position getScale() {
-			return scale;
+		public void addQueue(final List<Command<T>> list){
+			addQueue(new CommandQueue<T>(list));
 		}
 
-		public Position getOpponentSwitch() {
-			return opponentSwitch;
-		}
-
-		public Position getAllianceSwitch() {
-			return allianceSwitch;
-		}
-
-		public void setSelectedObject(FieldObject fObject) {
-			selectedObject = fObject;
-		}
-
-		public void setNoDataRun(ErrorChooser errChsr) {
-			errorChooser = errChsr;
-		}
-
-		public void runSide(SideChooser toRun) {
-			switch (selectedObject) {
-			case SWITCH:
-				if (getAllianceSwitch() == Position.ERROR) {
-					errorChooser.noData();
-					return;
-				}
-				if (getAllianceSwitch() == Position.LEFT)
-					toRun.left();
-				else
-					toRun.right();
-				break;
-			case SCALE:
-				if (getScale() == Position.ERROR) {
-					errorChooser.noData();
-					return;
-				}
-				if (getScale() == Position.LEFT)
-					toRun.left();
-				else
-					toRun.right();
-				break;
-			case OPPONENT_SWITCH:
-				if (getOpponentSwitch() == Position.ERROR) {
-					errorChooser.noData();
-					return;
-				}
-				if (getOpponentSwitch() == Position.LEFT)
-					toRun.left();
-				else
-					toRun.right();
-				break;
+		public void init(final T robot){
+			for(final CommandQueue<T> queue : queues){
+				queue.init(robot);
 			}
+			init = true;
+		}
+
+		public CommandResult update(final T robot){
+			final Iterator<CommandQueue<T>> queueIter = queues.iterator();
+			while(queueIter.hasNext()){
+				final CommandQueue<T> queue = queueIter.next();
+				if(!queue.update(robot)){
+					queueIter.remove();
+				}
+			}
+
+			if(queues.isEmpty()){
+				return CommandResult.COMPLETE;
+			}
+
+			return CommandResult.IN_PROGRESS;
+		}
+
+		public void done(final T robot){
+			for(final CommandQueue<T> queue : queues){
+				queue.done(robot);
+			}
+		}
+
+		public boolean isEmpty(){
+			return queues.isEmpty();
+		}
+	}
+
+	public static class Mimic {
+		public static enum PropertyType{
+			DOUBLE(Double::parseDouble),
+			INTEGER(Integer::parseInt),
+			BOOLEAN(Boolean::parseBoolean);
+	
+			final Function<String, Object> converter;
+	
+			private PropertyType(final Function<String, Object> converter){
+				this.converter = converter;
+			}
+	
+			public Object convert(final String in){
+				return converter.apply(in);
+			}
+		}
+	
+		public static interface PropertyValue<R>{
+			public PropertyType getType();
+	
+			public Object get(final R robot);
+		}
+	
+		public static final String DEFAULT_MIMIC_DIRECTORY = "/media/sda1/";
+		public static final String DEFAULT_MIMIC_PATH = DEFAULT_MIMIC_DIRECTORY + "%s.mimic";
+		
+		public static class Step<PV extends Enum<PV> & PropertyValue<?>> {
+			public EnumMap<PV, Object> values;
+	
+			public Step(final EnumMap<PV, Object> values) {
+				this.values = values;
+			}
+			
+			public Step(final String toParse, final Class<PV> clazz) {
+				try {
+					values = new EnumMap<>(clazz);
+					final String parts[] = toParse.split(",");
+					for(final PV key : clazz.getEnumConstants()){					
+						values.put(key, key.getType().convert(parts[key.ordinal()]));
+					}
+				} catch (Exception e) {
+					Titan.ee("MimicParse", e);
+				}
+			}
+
+			public EnumMap<PV, Object> getValues(){
+				return values;
+			}
+
+			public Object get(final PV value){
+				return values.get(value);
+			}
+
+			public double getDouble(final PV value){
+				return (double) get(value);
+			}
+
+			public boolean getBoolean(final PV value){
+				return (boolean) get(value);
+			}
+
+			public int getInteger(final PV value){
+				return (Integer) get(value);
+			}
+			
+			public String toString() {
+				final StringBuilder builder = new StringBuilder();
+				for(final Object obj : values.values()){
+					builder.append(obj.toString()).append(",");
+				}
+				builder.append(System.lineSeparator());
+				return builder.toString();
+			}
+		}
+		
+		public static class Observer<R, PV extends Enum<PV> & PropertyValue<R>> {
+			private FileOutputStream log = null;
+			
+			public void prepare(final String fileName) {
+				final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
+				try {
+					if(Files.deleteIfExists(new File(fName).toPath())) {
+						Titan.e("Deleted previous Mimic data");
+					}
+					log = new FileOutputStream(fName);
+					Titan.l("Created new Mimic file");
+				} catch (IOException e) {
+					Titan.ee("Mimic", e);
+				}
+			}
+			
+			public void addStep(final R robot, final Class<PV> clazz) {
+				try {
+					final Step<PV> step = new Step<PV>(new EnumMap<>(clazz));
+					for(final PV key : clazz.getEnumConstants()){
+						step.values.put(key, key.get(robot));
+					}
+	
+					if(log != null) log.write(step.toString().getBytes(StandardCharsets.US_ASCII));
+				} catch (Exception e) {
+					Titan.ee("Mimic", e);
+				}
+			}
+
+			public boolean isRecording(){
+				return log != null;
+			}
+			
+			public boolean save() {
+				try {
+					if(!isRecording()) return false;
+					Titan.l("Finished observing");
+					log.flush();
+					log.close();
+					log = null;
+					Titan.l("Saved the Mimic data");
+					return true;
+				} catch (IOException e) {
+					Titan.ee("Mimic", e);
+				}
+				return false;
+			}
+		}
+
+		public static <PV extends Enum<PV> & PropertyValue<?>> List<Step<PV>> load(final String fileName, final Class<PV> clazz) {
+			final ArrayList<Step<PV>> pathData = new ArrayList<>();
+			final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
+			try (final BufferedReader reader = new BufferedReader(new FileReader(fName))) {
+				Titan.l("Loading the Mimic file " + fileName);
+				if(!Files.exists(new File(fName).toPath())) {
+					Titan.e("The requested Mimic data was not found");
+				}
+				
+				Step<PV> lastStep = null;
+				String line;
+				while ((line = reader.readLine()) != null) {
+					try {
+						pathData.add(lastStep = new Step<PV>(line, clazz));
+					} catch (Exception e) {
+						Titan.ee("MimicData", e);
+					}
+				}
+
+				if(lastStep != null){
+					for(int i = 0; i < 25; ++i){
+						pathData.add(lastStep);
+					}
+				}
+				
+				Titan.l("Loaded the Mimic file");
+			} catch (IOException e) {
+				Titan.ee("Mimic", e);
+			}
+
+			return pathData;
+		}
+
+		public static <PV extends Enum<PV> & PropertyValue<?>> List<Step<PV>> optimize(final List<Step<PV>> in, final PV leftDistance, final PV rightDistance, final PV leftPower, final PV rightPower, final double tolerance){
+			if(in == null || in.isEmpty()){
+				return List.of();
+			}else if(in.size() == 1){
+				return in;
+			}
+
+			final List<Step<PV>> out = new ArrayList<>();
+			Step<PV> lastStep = in.get(0);
+			double drivePowerLeft = lastStep.getDouble(leftPower);
+			double drivePowerRight = lastStep.getDouble(rightPower);
+			for(int i = 1; i < in.size(); ++i){
+				final Step<PV> step = in.get(i);
+				final double stepLeftPower = step.getDouble(leftPower);
+				final double stepRightPower = step.getDouble(rightPower);
+
+				final double deltaLeft = Math.abs(step.getDouble(leftDistance) - lastStep.getDouble(leftDistance));
+				final double deltaRight = Math.abs(step.getDouble(rightDistance) - lastStep.getDouble(rightDistance));
+				drivePowerLeft = (drivePowerLeft + stepLeftPower) / 2.0;
+				drivePowerRight = (drivePowerRight + stepRightPower) / 2.0;
+				
+				if(/*i > in.size() - 20 || */deltaLeft >= tolerance || deltaRight >= tolerance){
+					final EnumMap<PV, Object> newValues = step.getValues();
+					newValues.put(leftPower, drivePowerLeft);
+					newValues.put(rightPower, drivePowerRight);
+					
+					final Step<PV> newStep = new Step<>(newValues);
+					out.add(newStep);
+					lastStep = newStep;
+					
+					drivePowerLeft = stepLeftPower;
+					drivePowerRight = stepRightPower;
+				}
+			}
+			return out;
 		}
 	}
 
@@ -632,5 +918,13 @@ public final class Titan {
 		}
 
 		return Math.abs(a - b) < epsilon;
+	}
+
+	public static double lerp(final double a, final double b, final double f){
+		return a + f * (b - a);
+	}
+
+	public static double clamp(final double val, final double min, final double max){
+		return Math.max(min, Math.min(max, val));
 	}
 }
