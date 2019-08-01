@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components;
 
-public final class TitanJoystick {
+public class TitanJoystick {
     /**
 	 * Custom joystick class that is identical to the WPILib version except it has
 	 * deadzone management

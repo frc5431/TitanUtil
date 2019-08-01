@@ -15,12 +15,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
+
+import frc.team5431.titan.core.components.*;
 
 /**
  * Namespace for TitanUtil
@@ -29,6 +30,59 @@ public final class Titan{
 
 	private Titan() {
 	}
+
+	/*
+		These are extentions of the components to prevent breakage
+	*/
+	public static class Joystick extends TitanJoystick.Joystick {
+		public Joystick(int port) {
+			super(port);
+		}
+	}
+
+	public static class FSi6S extends TitanJoystick.FSi6S {
+		public FSi6S(int port) {
+			super(port);
+		}
+	}
+
+	public static class Xbox extends TitanJoystick.Xbox {
+		public Xbox(int port) {
+			super(port);
+		}
+	}
+
+	public static class LogitechExtreme3D extends TitanJoystick.LogitechExtreme3D{
+		public LogitechExtreme3D(int port) {
+			super(port);
+		}
+	}
+
+	public static class Pot extends TitanPot {
+		public Pot(int port) {
+			super(port);
+		}
+	}
+
+	public static class Solenoid extends TitanSolenoid {
+
+		public Solenoid(int channel) {
+			super(channel);
+		}
+		public Solenoid(final int moduleNumber, final int channel) {
+			super(moduleNumber, channel);
+		}
+	}
+
+	public static class DoubleSolenoid extends TitanDoubleSolenoid{
+		public DoubleSolenoid(final int forwardChannel, final int reverseChannel){
+			super(forwardChannel, reverseChannel);
+		}
+	
+		public DoubleSolenoid(final int moduleNumber, final int forwardChannel, final int reverseChannel){
+			super(moduleNumber, forwardChannel, reverseChannel);
+		}
+	};
 
 	public static class AssignableJoystick<T extends Robot<T>> extends TitanJoystick.Joystick {
 		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
@@ -65,46 +119,6 @@ public final class Titan{
 
         public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
             assign(((Enum<?>) button).ordinal(), generator);
-		}
-	}
-
-	public static class Solenoid extends edu.wpi.first.wpilibj.Solenoid{
-		private boolean currentState = false;
-
-		public Solenoid(final int channel){
-			super(channel);
-		}
-
-		public Solenoid(final int moduleNumber, final int channel) {
-			super(moduleNumber, channel);
-		}
-
-		@Override
-		public void set(final boolean newState){
-			if(currentState != newState){
-				currentState = newState;
-				super.set(newState);
-			}
-		}
-	}
-
-	public static class DoubleSolenoid extends edu.wpi.first.wpilibj.DoubleSolenoid{
-		private Value currentState = Value.kOff;
-
-		public DoubleSolenoid(final int forwardChannel, final int reverseChannel){
-			super(forwardChannel, reverseChannel);
-		}
-
-		public DoubleSolenoid(final int moduleNumber, final int forwardChannel, final int reverseChannel){
-			super(moduleNumber, forwardChannel, reverseChannel);
-		}
-
-		@Override
-		public void set(final Value newState){
-			if(currentState != newState){
-				currentState = newState;
-				super.set(newState);
-			}
 		}
 	}
 
