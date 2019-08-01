@@ -109,7 +109,9 @@ public final class Titan{
 		}
 	}
 
-	public static class CommandQueue<T extends Robot<T>> extends TitanRobot.CommandQueue<T> {}
+	public static class CommandQueue<T extends Robot<T>> extends TitanRobot.CommandQueue<T> {
+		private static final long serialVersionUID = TitanRobot.CommandQueue.serialVersionUID;
+	}
 
 	public static class ParallelCommandGroup<T extends Robot<T>> extends TitanRobot.ParallelCommandGroup<T>{}
 
