@@ -5,7 +5,6 @@ plugins {
 	id 'idea'
 	id 'eclipse'
     id "edu.wpi.first.GradleRIO" version "2019.4.1"
-    id "com.kauailabs.navx.frc"
 }
 
 group = 'com.github.frc5431'
