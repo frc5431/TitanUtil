@@ -68,69 +68,6 @@ public final class Titan{
 		}
 	}
 
-	public static class Pot extends AnalogInput {
-		private double minAngle = 0, maxAngle = 180;
-		private double minPotValue = 0, maxPotValue = 4096;
-		private double absoluteReset = 0;
-		private boolean potDirection = false;
-
-		public Pot(final int port) {
-			super(port);
-		}
-
-		public double getMinAngle() {
-			return minAngle;
-		}
-
-		public void setMinAngle(double minAngle) {
-			this.minAngle = minAngle;
-		}
-
-		public double getMaxAngle() {
-			return maxAngle;
-		}
-
-		public void setMaxAngle(double maxAngle) {
-			this.maxAngle = maxAngle;
-		}
-
-		public double getMinPotValue() {
-			return minPotValue;
-		}
-
-		public void setMinPotValue(double minPotValue) {
-			this.minPotValue = minPotValue;
-		}
-
-		public double getMaxPotValue() {
-			return maxPotValue;
-		}
-
-		public void setMaxPotValue(double maxPotValue) {
-			this.maxPotValue = maxPotValue;
-		}
-
-		public void resetAngle() {
-			absoluteReset = getAbsoluteAngle();
-			potDirection = absoluteReset > 0; // false == less, true == more
-		}
-
-		public double getAngle() {
-			final double currentAngle = getAbsoluteAngle();
-			return potDirection ? currentAngle - absoluteReset : currentAngle + absoluteReset;
-		}
-
-		public double getAbsoluteAngle() {
-			return -linearMap(getAverageVoltage(), minPotValue, maxPotValue, minAngle, maxAngle);
-		}
-
-		private static double linearMap(final double currentValue, final double minInputValue,
-				final double maxInputValue, final double minOutputValue, final double maxOutputValue) {
-			return (currentValue - minInputValue) * (maxOutputValue - minOutputValue) / (minInputValue - maxInputValue)
-					+ minOutputValue;
-		}
-	}
-	
 	public static class Solenoid extends edu.wpi.first.wpilibj.Solenoid{
 		private boolean currentState = false;
 
