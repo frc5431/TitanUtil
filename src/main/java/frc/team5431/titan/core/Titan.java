@@ -109,13 +109,15 @@ public final class Titan{
 		}
 	}
 
-	public static class CommandQueue<T extends Robot<T>> extends TitanRobot.CommandQueue<T> {
-	}
+	public static class CommandQueue<T extends Robot<T>> extends TitanRobot.CommandQueue<T> {}
 
 	public static class ParallelCommandGroup<T extends Robot<T>> extends TitanRobot.ParallelCommandGroup<T>{}
 
 	public static class Mimic extends TitanMimic {}
 
+	/*
+		These are Generic Functions
+	*/
 	public static boolean approxEquals(final double a, final double b, final double epsilon) {
 		if (a == b) {
 			return true;
