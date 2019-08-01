@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 /**
  * Namespace for TitanUtil
  */
-public final class Titan extends TitanLogger{
+public final class Titan{
 
 	private Titan() {
 	}
@@ -585,7 +585,7 @@ public final class Titan extends TitanLogger{
 			if (initCommand != null) {
 				initCommand.startTimer();
 				initCommand.init(robot);
-				Titan.l("Starting with %s (%s)", initCommand.getName(), initCommand.getProperties());
+				TitanLogger.l("Starting with %s (%s)", initCommand.getName(), initCommand.getProperties());
 			}
 		}
 
@@ -603,7 +603,7 @@ public final class Titan extends TitanLogger{
 				return true;
 			} else {
 				final double secondsElapsed = command.getSecondsElapsed();
-				Titan.l("Finished %s (Seconds: %.2f)", command.getName(), secondsElapsed);
+				TitanLogger.l("Finished %s (Seconds: %.2f)", command.getName(), secondsElapsed);
 				command.done(robot);
 				if (result == Titan.Command.CommandResult.COMPLETE) {
 					remove();
@@ -611,13 +611,13 @@ public final class Titan extends TitanLogger{
 					if (nextCommand != null) {
 						nextCommand.startTimer();
 						nextCommand.init(robot);
-						Titan.l("Starting %s (%s)", nextCommand.getName(), nextCommand.getProperties());
+						TitanLogger.l("Starting %s (%s)", nextCommand.getName(), nextCommand.getProperties());
 					} else {
 						return false;
 					}
 				} else if (result == Titan.Command.CommandResult.CLEAR_QUEUE) {
 					clear();
-					Titan.l("Cleared queue");
+					TitanLogger.l("Cleared queue");
 				} else if (result == Titan.Command.CommandResult.RESTART_COMMAND) {
 					command.startTimer();
 					command.init(robot);
@@ -740,7 +740,7 @@ public final class Titan extends TitanLogger{
 						values.put(key, key.getType().convert(parts[key.ordinal()]));
 					}
 				} catch (Exception e) {
-					Titan.ee("MimicParse", e);
+					TitanLogger.ee("MimicParse", e);
 				}
 			}
 
@@ -781,12 +781,12 @@ public final class Titan extends TitanLogger{
 				final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
 				try {
 					if(Files.deleteIfExists(new File(fName).toPath())) {
-						Titan.e("Deleted previous Mimic data");
+						TitanLogger.e("Deleted previous Mimic data");
 					}
 					log = new FileOutputStream(fName);
-					Titan.l("Created new Mimic file");
+					TitanLogger.l("Created new Mimic file");
 				} catch (IOException e) {
-					Titan.ee("Mimic", e);
+					TitanLogger.ee("Mimic", e);
 				}
 			}
 			
@@ -799,7 +799,7 @@ public final class Titan extends TitanLogger{
 	
 					if(log != null) log.write(step.toString().getBytes(StandardCharsets.US_ASCII));
 				} catch (Exception e) {
-					Titan.ee("Mimic", e);
+					TitanLogger.ee("Mimic", e);
 				}
 			}
 
@@ -810,14 +810,14 @@ public final class Titan extends TitanLogger{
 			public boolean save() {
 				try {
 					if(!isRecording()) return false;
-					Titan.l("Finished observing");
+					TitanLogger.l("Finished observing");
 					log.flush();
 					log.close();
 					log = null;
-					Titan.l("Saved the Mimic data");
+					TitanLogger.l("Saved the Mimic data");
 					return true;
 				} catch (IOException e) {
-					Titan.ee("Mimic", e);
+					TitanLogger.ee("Mimic", e);
 				}
 				return false;
 			}
@@ -827,9 +827,9 @@ public final class Titan extends TitanLogger{
 			final ArrayList<Step<PV>> pathData = new ArrayList<>();
 			final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
 			try (final BufferedReader reader = new BufferedReader(new FileReader(fName))) {
-				Titan.l("Loading the Mimic file " + fileName);
+				TitanLogger.l("Loading the Mimic file " + fileName);
 				if(!Files.exists(new File(fName).toPath())) {
-					Titan.e("The requested Mimic data was not found");
+					TitanLogger.e("The requested Mimic data was not found");
 				}
 				
 				Step<PV> lastStep = null;
@@ -838,7 +838,7 @@ public final class Titan extends TitanLogger{
 					try {
 						pathData.add(lastStep = new Step<PV>(line, clazz));
 					} catch (Exception e) {
-						Titan.ee("MimicData", e);
+						TitanLogger.ee("MimicData", e);
 					}
 				}
 
@@ -848,9 +848,9 @@ public final class Titan extends TitanLogger{
 					}
 				}
 				
-				Titan.l("Loaded the Mimic file");
+				TitanLogger.l("Loaded the Mimic file");
 			} catch (IOException e) {
-				Titan.ee("Mimic", e);
+				TitanLogger.ee("Mimic", e);
 			}
 
 			return pathData;
