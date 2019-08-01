@@ -1,20 +1,10 @@
 package frc.team5431.titan.core;
 
-import java.util.*;
-import java.util.function.Supplier;
-import java.util.function.Consumer;
-
-import java.util.ArrayList;
-import java.util.function.Function;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.team5431.titan.core.components.*;
-
-import frc.team5431.titan.core.components.TitanRobot.*;
+import frc.team5431.titan.core.components.TitanRobot;
 
 /**
  * Namespace for TitanUtil
@@ -75,44 +65,6 @@ public final class Titan{
 		}
 	};
 
-	public static class AssignableJoystick<T extends Robot<T>> extends TitanJoystick.Joystick {
-		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
-		private final CommandQueue<T> currentQueue = new CommandQueue<>();
-
-		public void update(final T robot) {
-            //Update all of the button commands
-            for (final Integer button : assignments.keySet()) {
-                getRawButton(button, true); //Call the queue update on the specified button
-            }
-
-			currentQueue.update(robot);
-		}
-
-        public AssignableJoystick(final int port) {
-            super(port);
-        }
-
-        public boolean getRawButton(final int but, boolean update) {
-			final boolean value = super.getRawButton(but);
-            if (assignments.containsKey(but) && value && update) {
-				currentQueue.clear();
-
-				//call the associated function from the index in the map and then add it to the queue
-				currentQueue.addAll(assignments.get(but).get());//get
-			}
-
-			return value;
-		}
-
-		public void assign(final int button, final Supplier<CommandQueue<T>> generator) {
-			assignments.put(button, generator);
-		}
-
-        public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
-            assign(((Enum<?>) button).ordinal(), generator);
-		}
-	}
-
 	public static class Lidar extends TitanLidar{
 		public Lidar(final int source) {
 			this(new DigitalInput(source));
@@ -122,7 +74,7 @@ public final class Titan{
 		}
 	}
 
-	public static abstract class TitanRobot.Robot Robot;
+	public static abstract class Robot extends TitanRobot.Robot{}
 
 	public static class Mimic extends TitanMimic {}
 

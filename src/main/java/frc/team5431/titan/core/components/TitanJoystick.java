@@ -1,5 +1,10 @@
 package frc.team5431.titan.core.components;
 
+import java.util.*;
+import java.util.function.Supplier;
+
+import frc.team5431.titan.core.components.TitanRobot.*;
+
 public class TitanJoystick {
     /**
 	 * Custom joystick class that is identical to the WPILib version except it has
@@ -144,6 +149,44 @@ public class TitanJoystick {
 		
 		public LogitechExtreme3D(final int port) {
 			super(port);
+		}
+	}
+
+	public static class AssignableJoystick<T extends Robot<T>> extends TitanJoystick.Joystick {
+		private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
+		private final CommandQueue<T> currentQueue = new CommandQueue<>();
+
+		public void update(final T robot) {
+            //Update all of the button commands
+            for (final Integer button : assignments.keySet()) {
+                getRawButton(button, true); //Call the queue update on the specified button
+            }
+
+			currentQueue.update(robot);
+		}
+
+        public AssignableJoystick(final int port) {
+            super(port);
+        }
+
+        public boolean getRawButton(final int but, boolean update) {
+			final boolean value = super.getRawButton(but);
+            if (assignments.containsKey(but) && value && update) {
+				currentQueue.clear();
+
+				//call the associated function from the index in the map and then add it to the queue
+				currentQueue.addAll(assignments.get(but).get());//get
+			}
+
+			return value;
+		}
+
+		public void assign(final int button, final Supplier<CommandQueue<T>> generator) {
+			assignments.put(button, generator);
+		}
+
+        public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
+            assign(((Enum<?>) button).ordinal(), generator);
 		}
 	}
 }
