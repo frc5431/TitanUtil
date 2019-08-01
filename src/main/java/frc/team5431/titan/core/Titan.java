@@ -1,8 +1,11 @@
 package frc.team5431.titan.core;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
-
+import edu.wpi.first.wpilibj.SpeedController;
 import frc.team5431.titan.core.components.*;
 import frc.team5431.titan.core.components.TitanRobot;
 
@@ -74,7 +77,42 @@ public final class Titan{
 		}
 	}
 
-	public static abstract class Robot extends TitanRobot.Robot{}
+	public static abstract class Component<T extends Robot<T>> extends TitanRobot.Component<T>{}
+	
+	public static abstract class Robot<T extends Robot<T>> extends TitanRobot.Robot<T>{}
+
+	public static abstract class Command<T extends Robot<T>> extends TitanRobot.Command<T>{}
+
+	public static class WaitCommand<T extends Robot<T>> extends TitanRobot.WaitCommand<T>{
+		public WaitCommand(long ms) {
+			super(ms);
+		}
+	}
+
+	public static class ClearQueueCommand<T extends Robot<T>> extends TitanRobot.ClearQueueCommand<T>{}
+
+	public static class SpeedCommand<T extends Robot<T>> extends TitanRobot.SpeedCommand<T> {
+		public SpeedCommand(double speed, long durationMS, SpeedController controller) {
+			super(speed, durationMS, controller);
+		}
+	}
+
+	public static class ConsumerCommand<T extends Robot<T>> extends TitanRobot.ConsumerCommand<T> {
+		public ConsumerCommand(Consumer<T> consumer) {
+			super(consumer);
+		}
+	}
+
+	public static class ConditionalCommand<T extends Robot<T>> extends TitanRobot.ConditionalCommand<T> {
+		public ConditionalCommand(Function<T, Boolean> func) {
+			super(func);
+		}
+	}
+
+	public static class CommandQueue<T extends Robot<T>> extends TitanRobot.CommandQueue<T> {
+	}
+
+	public static class ParallelCommandGroup<T extends Robot<T>> extends TitanRobot.ParallelCommandGroup<T>{}
 
 	public static class Mimic extends TitanMimic {}
 
