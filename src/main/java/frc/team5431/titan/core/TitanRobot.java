@@ -1,12 +1,12 @@
 package frc.team5431.titan.core;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TitanRobot<T extends TitanRobot<?>> extends IterativeRobot {
+public class TitanRobot<T extends TitanRobot<?>> extends TimedRobot {
 	public interface MainComponent {
 	}
 
