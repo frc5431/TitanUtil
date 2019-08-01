@@ -1,6 +1,7 @@
 package frc.team5431.titan.mimic;
 
 import frc.team5431.titan.core.Titan;
+import frc.team5431.titan.core.components.TitanLogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,13 +22,13 @@ public class Observer {
         final String fName = String.format(mimicFile, fileName);
         try {
             if (Files.deleteIfExists(new File(fName).toPath())) {
-                Titan.e("Deleted previous pathfinding data");
+                TitanLogger.e("Deleted previous pathfinding data");
             }
             log = new FileOutputStream(fName);
             saved = false;
-            Titan.l("Created new pathfinding file");
+            TitanLogger.l("Created new pathfinding file");
         } catch (IOException e) {
-            Titan.ee("Mimic", e);
+            TitanLogger.ee("Mimic", e);
         }
     }
 
@@ -65,13 +66,13 @@ public class Observer {
     public static void saveMimic() {
         try {
             if (log == null || saved) return;
-            Titan.l("Finished observing");
+            TitanLogger.l("Finished observing");
             log.flush();
             log.close();
             saved = true;
-            Titan.l("Saved the mimic data");
+            TitanLogger.l("Saved the mimic data");
         } catch (IOException e) {
-            Titan.ee("Mimic", e);
+            TitanLogger.ee("Mimic", e);
         }
     }
 }

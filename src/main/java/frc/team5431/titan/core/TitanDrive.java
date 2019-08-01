@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import frc.team5431.titan.core.components.TitanLogger;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -46,7 +48,7 @@ public class TitanDrive {
             final Pair<PIDConfig, Source> cConfig = pidSource.get(name);
             cConfig.getLeft().update(config);
             pidSource.put(name, cConfig);
-        } else Titan.e("The PID source %s doesn't exist!", name);
+        } else TitanLogger.e("The PID source %s doesn't exist!", name);
     }
 
     public void setSource(final String name) {
@@ -65,7 +67,7 @@ public class TitanDrive {
             }
 
             currentSource = name;
-        } else Titan.e("The PID source %s doesn't exist!", name);
+        } else TitanLogger.e("The PID source %s doesn't exist!", name);
     }
 
     public void addControl(final String name, final Drive method) {
@@ -75,7 +77,7 @@ public class TitanDrive {
     public void setControl(final String name) {
         if (pidOutput.containsKey(name)) {
             currentControl = name;
-        } else Titan.e("The PID output %s doesn't exist!", name);
+        } else TitanLogger.e("The PID output %s doesn't exist!", name);
     }
 
     public void addMode(final String name, final PIDConfig config, final Source source, final Drive drive) {
