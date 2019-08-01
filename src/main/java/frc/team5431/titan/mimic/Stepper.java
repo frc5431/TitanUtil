@@ -1,6 +1,5 @@
 package frc.team5431.titan.mimic;
 
-import frc.team5431.titan.core.Titan;
 import frc.team5431.titan.core.components.TitanLogger;
 
 public class Stepper {
