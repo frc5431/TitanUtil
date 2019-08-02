@@ -1,4 +1,4 @@
-package frc.team5431.titan.core;
+package frc.team5431.titan.core.sensors;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;

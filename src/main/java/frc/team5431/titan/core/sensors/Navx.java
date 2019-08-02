@@ -1,4 +1,4 @@
-package frc.team5431.titan.core;
+package frc.team5431.titan.core.sensors;
 
 import com.kauailabs.navx.frc.AHRS;
 
