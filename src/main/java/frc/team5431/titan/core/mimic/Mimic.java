@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import frc.team5431.titan.core.Logger;
+import frc.team5431.titan.core.misc.Logger;
 
 public class Mimic {
 

@@ -3,7 +3,7 @@ package frc.team5431.titan.core.robot;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import frc.team5431.titan.core.Logger;
+import frc.team5431.titan.core.misc.Logger;
 
 public class CommandQueue<T extends Robot<T>> extends LinkedList<Command<T>> {
     /**

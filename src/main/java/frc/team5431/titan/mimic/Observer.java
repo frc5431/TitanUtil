@@ -1,6 +1,6 @@
 package frc.team5431.titan.mimic;
 
-import frc.team5431.titan.core.Logger;
+import frc.team5431.titan.core.misc.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;

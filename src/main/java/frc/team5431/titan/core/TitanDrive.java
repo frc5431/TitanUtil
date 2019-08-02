@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import frc.team5431.titan.core.Logger;
+import frc.team5431.titan.core.misc.Logger;
 
 import org.apache.commons.lang3.tuple.Pair;
 

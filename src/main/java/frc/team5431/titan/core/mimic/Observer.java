@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 
-import frc.team5431.titan.core.Logger;
+import frc.team5431.titan.core.misc.Logger;
 
 public class Observer<R, PV extends Enum<PV> & PropertyValue<R>> {
     private FileOutputStream log = null;
