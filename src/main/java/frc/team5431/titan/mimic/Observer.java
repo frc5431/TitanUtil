@@ -9,6 +9,9 @@ import java.nio.file.Files;
 
 import static frc.team5431.titan.mimic.Stepper.mimicFile;
 
+/**
+ * @deprecated
+ */
 public class Observer {
     private static FileOutputStream log = null;
     /*
