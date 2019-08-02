@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public class TitanMimic {
+public class Mimic {
     public static enum PropertyType {
         DOUBLE(Double::parseDouble), INTEGER(Integer::parseInt), BOOLEAN(Boolean::parseBoolean);
 
@@ -51,7 +51,7 @@ public class TitanMimic {
                     values.put(key, key.getType().convert(parts[key.ordinal()]));
                 }
             } catch (Exception e) {
-                TitanLogger.ee("MimicParse", e);
+                Logger.ee("MimicParse", e);
             }
         }
 
@@ -92,12 +92,12 @@ public class TitanMimic {
             final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
             try {
                 if (Files.deleteIfExists(new File(fName).toPath())) {
-                    TitanLogger.e("Deleted previous Mimic data");
+                    Logger.e("Deleted previous Mimic data");
                 }
                 log = new FileOutputStream(fName);
-                TitanLogger.l("Created new Mimic file");
+                Logger.l("Created new Mimic file");
             } catch (IOException e) {
-                TitanLogger.ee("Mimic", e);
+                Logger.ee("Mimic", e);
             }
         }
 
@@ -111,7 +111,7 @@ public class TitanMimic {
                 if (log != null)
                     log.write(step.toString().getBytes(StandardCharsets.US_ASCII));
             } catch (Exception e) {
-                TitanLogger.ee("Mimic", e);
+                Logger.ee("Mimic", e);
             }
         }
 
@@ -123,14 +123,14 @@ public class TitanMimic {
             try {
                 if (!isRecording())
                     return false;
-                TitanLogger.l("Finished observing");
+                Logger.l("Finished observing");
                 log.flush();
                 log.close();
                 log = null;
-                TitanLogger.l("Saved the Mimic data");
+                Logger.l("Saved the Mimic data");
                 return true;
             } catch (IOException e) {
-                TitanLogger.ee("Mimic", e);
+                Logger.ee("Mimic", e);
             }
             return false;
         }
@@ -141,9 +141,9 @@ public class TitanMimic {
         final ArrayList<Step<PV>> pathData = new ArrayList<>();
         final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
         try (final BufferedReader reader = new BufferedReader(new FileReader(fName))) {
-            TitanLogger.l("Loading the Mimic file " + fileName);
+            Logger.l("Loading the Mimic file " + fileName);
             if (!Files.exists(new File(fName).toPath())) {
-                TitanLogger.e("The requested Mimic data was not found");
+                Logger.e("The requested Mimic data was not found");
             }
 
             Step<PV> lastStep = null;
@@ -152,7 +152,7 @@ public class TitanMimic {
                 try {
                     pathData.add(lastStep = new Step<PV>(line, clazz));
                 } catch (Exception e) {
-                    TitanLogger.ee("MimicData", e);
+                    Logger.ee("MimicData", e);
                 }
             }
 
@@ -162,9 +162,9 @@ public class TitanMimic {
                 }
             }
 
-            TitanLogger.l("Loaded the Mimic file");
+            Logger.l("Loaded the Mimic file");
         } catch (IOException e) {
-            TitanLogger.ee("Mimic", e);
+            Logger.ee("Mimic", e);
         }
 
         return pathData;

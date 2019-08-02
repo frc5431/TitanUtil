@@ -3,29 +3,29 @@ package frc.team5431.titan.core.components.robot;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import frc.team5431.titan.core.components.TitanLogger;
+import frc.team5431.titan.core.components.Logger;
 
-public class TitanCommandQueue<T extends TitanRobot<T>> extends LinkedList<TitanCommand<T>> {
+public class CommandQueue<T extends Robot<T>> extends LinkedList<Command<T>> {
     /**
      * 
      */
     public static final long serialVersionUID = 1L;
 
-    public TitanCommandQueue(){
+    public CommandQueue(){
         super();
     }
 
-    public TitanCommandQueue(final Collection<TitanCommand<T>> col){
+    public CommandQueue(final Collection<Command<T>> col){
         super(col);
     }
 
     public void init(final T robot) {
         // Initialize the first command
-        final TitanCommand<T> initCommand = peek();
+        final Command<T> initCommand = peek();
         if (initCommand != null) {
             initCommand.startTimer();
             initCommand.init(robot);
-            TitanLogger.l("Starting with %s (%s)", initCommand.getName(), initCommand.getProperties());
+            Logger.l("Starting with %s (%s)", initCommand.getName(), initCommand.getProperties());
         }
     }
 
@@ -37,28 +37,28 @@ public class TitanCommandQueue<T extends TitanRobot<T>> extends LinkedList<Titan
             return false;
         }
 
-        final TitanCommand<T> command = peek();
-        final TitanCommand.CommandResult result = command.update(robot);
-        if (result == TitanCommand.CommandResult.IN_PROGRESS) {
+        final Command<T> command = peek();
+        final Command.CommandResult result = command.update(robot);
+        if (result == Command.CommandResult.IN_PROGRESS) {
             return true;
         } else {
             final double secondsElapsed = command.getSecondsElapsed();
-            TitanLogger.l("Finished %s (Seconds: %.2f)", command.getName(), secondsElapsed);
+            Logger.l("Finished %s (Seconds: %.2f)", command.getName(), secondsElapsed);
             command.done(robot);
-            if (result == TitanCommand.CommandResult.COMPLETE) {
+            if (result == Command.CommandResult.COMPLETE) {
                 remove();
-                final TitanCommand<T> nextCommand = peek();
+                final Command<T> nextCommand = peek();
                 if (nextCommand != null) {
                     nextCommand.startTimer();
                     nextCommand.init(robot);
-                    TitanLogger.l("Starting %s (%s)", nextCommand.getName(), nextCommand.getProperties());
+                    Logger.l("Starting %s (%s)", nextCommand.getName(), nextCommand.getProperties());
                 } else {
                     return false;
                 }
-            } else if (result == TitanCommand.CommandResult.CLEAR_QUEUE) {
+            } else if (result == Command.CommandResult.CLEAR_QUEUE) {
                 clear();
-                TitanLogger.l("Cleared queue");
-            } else if (result == TitanCommand.CommandResult.RESTART_COMMAND) {
+                Logger.l("Cleared queue");
+            } else if (result == Command.CommandResult.RESTART_COMMAND) {
                 command.startTimer();
                 command.init(robot);
             }
@@ -69,7 +69,7 @@ public class TitanCommandQueue<T extends TitanRobot<T>> extends LinkedList<Titan
 
     public boolean done(final T robot){
         if(!isEmpty()){
-            final TitanCommand<T> command = peek();
+            final Command<T> command = peek();
             command.done(robot);
             clear();
             return true;

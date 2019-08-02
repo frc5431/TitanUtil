@@ -1,8 +1,6 @@
 package frc.team5431.titan.core.components.joysticks;
 
-import edu.wpi.first.wpilibj.Joystick;
-
-public class TitanJoystick extends Joystick {
+public class Joystick extends edu.wpi.first.wpilibj.Joystick {
 	/**
 	 * Custom joystick class that is identical to the WPILib version except it has
 	 * deadzone management
@@ -34,7 +32,7 @@ public class TitanJoystick extends Joystick {
 	/**
 	 * @param port Set the joystick USB ID
 	 */
-	public TitanJoystick(final int port) {
+	public Joystick(final int port) {
 		super(port);
 	}
 

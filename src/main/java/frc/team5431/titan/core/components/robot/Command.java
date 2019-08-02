@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components.robot;
 
-public abstract class TitanCommand<T extends TitanRobot<T>> {
+public abstract class Command<T extends Robot<T>> {
     public String name = "Command";
     public String properties = "None";
     public long startTime = 0;

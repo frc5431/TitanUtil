@@ -1,7 +1,7 @@
 package frc.team5431.titan.core.components.joysticks;
 
-public class TitanXbox extends TitanJoystick {
-    public TitanXbox(int port) {
+public class Xbox extends Joystick {
+    public Xbox(int port) {
         super(port);
     }
 

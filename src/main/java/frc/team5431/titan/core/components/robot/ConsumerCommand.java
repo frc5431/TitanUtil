@@ -2,10 +2,10 @@ package frc.team5431.titan.core.components.robot;
 
 import java.util.function.Consumer;
 
-public class TitanConsumerCommand<T extends TitanRobot<T>> extends TitanCommand<T> {
+public class ConsumerCommand<T extends Robot<T>> extends Command<T> {
     private final Consumer<T> consumer;
     
-    public TitanConsumerCommand(final Consumer<T> consumer) {
+    public ConsumerCommand(final Consumer<T> consumer) {
         this.consumer = consumer;
 
         name = "ConsumerCommand";

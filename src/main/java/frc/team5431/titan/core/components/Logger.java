@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components;
 
-public class TitanLogger {
+public class Logger {
     public static boolean DEBUG = false;
 
 	/* Log information */

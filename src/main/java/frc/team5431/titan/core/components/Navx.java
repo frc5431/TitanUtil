@@ -4,11 +4,11 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
 
-public class TitanNavx extends AHRS {
+public class Navx extends AHRS {
 	private double absoluteReset = 0;
 	private boolean yawDirection = false;
 
-	public TitanNavx() {
+	public Navx() {
 			super(SPI.Port.kMXP);
 
 			reset();

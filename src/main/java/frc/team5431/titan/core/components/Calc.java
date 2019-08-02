@@ -1,12 +1,12 @@
 package frc.team5431.titan.core.components;
 
-public class TitanMath {
+public class Calc {
 	public static boolean approxEquals(final double a, final double b, final double epsilon) {
 		if (a == b) {
 			return true;
 		}
 
-		return Math.abs(a - b) < epsilon;
+		return java.lang.Math.abs(a - b) < epsilon;
 	}
 
 	public static double lerp(final double a, final double b, final double f){
@@ -14,6 +14,6 @@ public class TitanMath {
 	}
 
 	public static double clamp(final double val, final double min, final double max){
-		return Math.max(min, Math.min(max, val));
+		return java.lang.Math.max(min, java.lang.Math.min(max, val));
 	}
 }

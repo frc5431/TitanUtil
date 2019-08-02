@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components.joysticks;
 
-public class TitanLogitech extends TitanJoystick {
+public class Logitech extends Joystick {
     public static enum Button implements ButtonZone{
         TRIGGER, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE;
     }
@@ -9,7 +9,7 @@ public class TitanLogitech extends TitanJoystick {
         X, Y, Z, SLIDER;
     }
     
-    public TitanLogitech(final int port) {
+    public Logitech(final int port) {
         super(port);
     }
 }

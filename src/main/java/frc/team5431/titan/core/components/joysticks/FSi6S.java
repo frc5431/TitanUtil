@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components.joysticks;
 
-public class TitanFSi6S extends TitanJoystick {
+public class FSi6S extends Joystick {
     public enum SwitchPosition implements ButtonZone {
         DOWN, NEUTRAL, UP
     }
@@ -13,7 +13,7 @@ public class TitanFSi6S extends TitanJoystick {
         RIGHT_X, RIGHT_Y, LEFT_Y, LEFT_X
     }
 
-    public TitanFSi6S(int port) {
+    public FSi6S(int port) {
         super(port);
     }
 

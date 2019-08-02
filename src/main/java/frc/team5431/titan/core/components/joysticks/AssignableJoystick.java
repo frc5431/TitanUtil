@@ -4,12 +4,12 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import frc.team5431.titan.core.components.robot.TitanCommandQueue;
-import frc.team5431.titan.core.components.robot.TitanRobot;
+import frc.team5431.titan.core.components.robot.CommandQueue;
+import frc.team5431.titan.core.components.robot.Robot;
 
-public class TitanAssignableJoystick<T extends TitanRobot<T>> extends TitanJoystick {
-    private final Map<Integer, Supplier<TitanCommandQueue<T>>> assignments = new HashMap<>();
-    private final TitanCommandQueue<T> currentQueue = new TitanCommandQueue<>();
+public class AssignableJoystick<T extends Robot<T>> extends Joystick {
+    private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
+    private final CommandQueue<T> currentQueue = new CommandQueue<>();
 
     public void update(final T robot) {
         // Update all of the button commands
@@ -20,7 +20,7 @@ public class TitanAssignableJoystick<T extends TitanRobot<T>> extends TitanJoyst
         currentQueue.update(robot);
     }
 
-    public TitanAssignableJoystick(final int port) {
+    public AssignableJoystick(final int port) {
         super(port);
     }
 
@@ -37,11 +37,11 @@ public class TitanAssignableJoystick<T extends TitanRobot<T>> extends TitanJoyst
         return value;
     }
 
-    public void assign(final int button, final Supplier<TitanCommandQueue<T>> generator) {
+    public void assign(final int button, final Supplier<CommandQueue<T>> generator) {
         assignments.put(button, generator);
     }
 
-    public void assign(final ButtonZone button, final Supplier<TitanCommandQueue<T>> generator) {
+    public void assign(final ButtonZone button, final Supplier<CommandQueue<T>> generator) {
         assign(((Enum<?>) button).ordinal(), generator);
     }
 }

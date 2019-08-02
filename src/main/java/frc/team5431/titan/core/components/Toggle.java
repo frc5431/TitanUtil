@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.components;
 
-public class TitanToggle {
+public class Toggle {
     private boolean isToggled = false;
     private int prevButton = 0;
 

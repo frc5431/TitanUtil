@@ -1,6 +1,6 @@
 package frc.team5431.titan.mimic;
 
-import frc.team5431.titan.core.components.TitanLogger;
+import frc.team5431.titan.core.components.Logger;
 
 public class Stepper {
     public static final String mimicFile = "/media/sda1/%s.mimic";
@@ -29,7 +29,7 @@ public class Stepper {
             isHome = getBoolean(parts[5]);
             isSwitch = getBoolean(parts[6]);
         } catch (Exception e) {
-            TitanLogger.ee("MimicParse", e);
+            Logger.ee("MimicParse", e);
         }
     }
 

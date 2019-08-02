@@ -2,13 +2,13 @@ package frc.team5431.titan.core.components;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
-public class TitanPot extends AnalogInput {
+public class Pot extends AnalogInput {
     private double minAngle = 0, maxAngle = 180;
     private double minPotValue = 0, maxPotValue = 4096;
     private double absoluteReset = 0;
     private boolean potDirection = false;
 
-    public TitanPot(final int port) {
+    public Pot(final int port) {
         super(port);
     }
 

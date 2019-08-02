@@ -1,11 +1,11 @@
 package frc.team5431.titan.core.components.robot;
 
-public class TitanWaitCommand<T extends TitanRobot<T>> extends TitanCommand<T> {
+public class WaitCommand<T extends Robot<T>> extends Command<T> {
 
     private final long durationMS;
     private long startTime;
     
-    public TitanWaitCommand(final long ms) {
+    public WaitCommand(final long ms) {
         name = "WaitStep";
         properties = String.format("Millis %d", ms);
         durationMS = ms;

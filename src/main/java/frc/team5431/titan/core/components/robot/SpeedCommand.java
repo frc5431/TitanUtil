@@ -2,13 +2,13 @@ package frc.team5431.titan.core.components.robot;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
-public class TitanSpeedCommand<T extends TitanRobot<T>> extends TitanCommand<T> {
+public class SpeedCommand<T extends Robot<T>> extends Command<T> {
     private final SpeedController controller;
     private final double speed;
     private final long durationMS;
     private long startTime;
     
-    public TitanSpeedCommand(final double speed, final long durationMS, final SpeedController controller) {
+    public SpeedCommand(final double speed, final long durationMS, final SpeedController controller) {
         this.controller = controller;
         this.speed = speed;
         this.durationMS = durationMS;

@@ -1,8 +1,8 @@
 package frc.team5431.titan.core.components.robot;
 
-public class TitanClearQueueCommand<T extends TitanRobot<T>> extends TitanCommand<T>{
+public class ClearQueueCommand<T extends Robot<T>> extends Command<T>{
 
-    public TitanClearQueueCommand(){
+    public ClearQueueCommand(){
         name = "ClearQueueCommand";
         properties = "Clears the command queue";
     }

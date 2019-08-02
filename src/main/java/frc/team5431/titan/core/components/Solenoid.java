@@ -1,10 +1,7 @@
 package frc.team5431.titan.core.components;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
-
-public class TitanSolenoid{
-    public static class Single extends Solenoid{
+public class Solenoid{
+    public static class Single extends edu.wpi.first.wpilibj.Solenoid{
         private boolean currentState = false;
 
     public Single(final int channel){
@@ -24,7 +21,7 @@ public class TitanSolenoid{
     }
     }
 
-    public static class Double extends DoubleSolenoid {
+    public static class Double extends edu.wpi.first.wpilibj.DoubleSolenoid {
         private Value currentState = Value.kOff;
 
         public Double(final int forwardChannel, final int reverseChannel){
