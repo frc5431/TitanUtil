@@ -20,10 +20,18 @@ public class TitanJoystick {
         public interface ButtonZone {
         }
 
+		/**
+		 * @param value Pass ID of axis that the value is wanted
+		 * @return Returns a double of the axis either [0, 100] or [-100, 100]
+		 */
         public double getRawAxis(final AxisZone value) {
             return getRawAxis(((Enum<?>) value).ordinal());
         }
 
+		/**
+		 * @param value Pass the ID of button that the value is wanted
+		 * @return Returns a boolean of the button's state
+		 */
         public boolean getRawButton(final ButtonZone value) {
             return getRawButton(((Enum<?>) value).ordinal() + 1);
         }
