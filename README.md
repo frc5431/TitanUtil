@@ -26,26 +26,7 @@ that will do all of the grunt work for you.
 * Portability to add more complex mechanisms like intakes
 
 # Install
-There are a few ways of installing TitanUtil
-
-## Maven
-
-Add the following code to your `<repositories>` tag
-```
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-
-Then, add the following dependency (Make sure it's the latest release)
-```
-<dependency>
-    <groupId>com.github.frc5431</groupId>
-    <artifactId>TitanUtil</artifactId>
-    <version>1.0.5</version>
-</dependency>
-```
+There are a few ways of installing TitanUtil, the easiest way is to use gradle.
 
 ## Gradle
 Add the following to the root build.gradle
@@ -66,18 +47,24 @@ dependencies {
 }
 ```
 
+## Maven
 
-## Clone
-This is a idea (jetbrains) and eclipse tandem project. You may clone the repository
-and import it through either IDE. However, if you want to go through the troubles
-of cloning, why not just switch over to gradle and not have the worry about deleting
-and cloning again!
-
+Add the following code to your `<repositories>` tag
 ```
-$ user@computer: git clone git@github.com:frc5431/TitanUtil.git
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
 ```
 
-Now you can go into either intellij (recommended) or eclipse and import the project!
+Then, add the following dependency (Make sure it's the latest release)
+```
+<dependency>
+    <groupId>com.github.frc5431</groupId>
+    <artifactId>TitanUtil</artifactId>
+    <version>1.0.5</version>
+</dependency>
+```
 
 ## Jar
 You can go to the releases download the jar or you can clone the repo (look right above you)
@@ -86,8 +73,9 @@ add it relative to project in eclipse so that you can develop on multiple comput
 issues.
 
 ## Basic
-Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) into your project. All of
-the core/basic utilities are found in that one file
+Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) 
+and the [components](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/components/) folder into your project. All of
+the core/basic utilities are found in there.
 
 # License
 GNU GENERAL PUBLIC LICENSE
