@@ -26,7 +26,7 @@ that will do all of the grunt work for you.
 * Portability to add more complex mechanisms like intakes
 
 # Install
-There are a few ways of installing TitanUtil, the easiest way is to use gradle.
+There are a few ways of installing TitanUtil, the easiest way is to use Gradle as GradleRIO is the new compiler.
 
 ## Gradle
 Add the following to the root build.gradle
