@@ -12,9 +12,9 @@ public class TitanAssignableJoystick<T extends Robot<T>> extends TitanJoystick {
     private final CommandQueue<T> currentQueue = new CommandQueue<>();
 
     public void update(final T robot) {
-        //Update all of the button commands
+        // Update all of the button commands
         for (final Integer button : assignments.keySet()) {
-            getRawButton(button, true); //Call the queue update on the specified button
+            getRawButton(button, true); // Call the queue update on the specified button
         }
 
         currentQueue.update(robot);
@@ -29,8 +29,9 @@ public class TitanAssignableJoystick<T extends Robot<T>> extends TitanJoystick {
         if (assignments.containsKey(but) && value && update) {
             currentQueue.clear();
 
-            //call the associated function from the index in the map and then add it to the queue
-            currentQueue.addAll(assignments.get(but).get());//get
+            // call the associated function from the index in the map and then add it to the
+            // queue
+            currentQueue.addAll(assignments.get(but).get());// get
         }
 
         return value;
