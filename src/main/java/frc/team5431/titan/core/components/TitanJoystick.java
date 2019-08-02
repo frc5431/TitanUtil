@@ -3,8 +3,8 @@ package frc.team5431.titan.core.components;
 import java.util.*;
 import java.util.function.Supplier;
 
-import frc.team5431.titan.core.Titan.Robot;
-import frc.team5431.titan.core.Titan.CommandQueue;
+import frc.team5431.titan.core.components.TitanRobot.Robot;
+import frc.team5431.titan.core.components.TitanRobot.CommandQueue;
 
 public class TitanJoystick {
     /**
