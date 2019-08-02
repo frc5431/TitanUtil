@@ -7,7 +7,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.team5431.titan.core.components.TitanSolenoid;
-import frc.team5431.titan.core.components.joysticks.*;
+import frc.team5431.titan.core.components.joysticks.TitanJoystick;
+import frc.team5431.titan.core.components.joysticks.TitanXbox;
+import frc.team5431.titan.core.components.joysticks.TitanLogitech;
+import frc.team5431.titan.core.components.joysticks.TitanFSi6S;
+import frc.team5431.titan.core.components.joysticks.TitanAssignableJoystick;
 import frc.team5431.titan.core.components.TitanLidar;
 import frc.team5431.titan.core.components.TitanMimic;
 import frc.team5431.titan.core.components.TitanPot;
@@ -45,6 +49,12 @@ public final class Titan{
 
 	public static class LogitechExtreme3D extends TitanLogitech {
 		public LogitechExtreme3D(int port) {
+			super(port);
+		}
+	}
+
+	public static class AssignableJoystick<T extends Robot<T>> extends TitanAssignableJoystick<T> {
+		public AssignableJoystick(int port) {
 			super(port);
 		}
 	}
