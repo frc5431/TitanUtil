@@ -82,7 +82,7 @@ javadoc {
         copy {
             from "build/docs/javadoc"
             into "docs"
-            include "*"
+            include "**"
         }
         println "Finished Copying"
     }
