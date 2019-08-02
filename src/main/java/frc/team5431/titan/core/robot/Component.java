@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components.robot;
+package frc.team5431.titan.core.robot;
 
 public abstract class Component<T extends Robot<T>>{
     public abstract void init(final T robot);

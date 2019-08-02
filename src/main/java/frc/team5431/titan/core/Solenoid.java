@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components;
+package frc.team5431.titan.core;
 
 public class Solenoid{
     public static class Single extends edu.wpi.first.wpilibj.Solenoid{

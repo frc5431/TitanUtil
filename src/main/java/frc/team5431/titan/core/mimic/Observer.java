@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components.mimic;
+package frc.team5431.titan.core.mimic;
 
 import java.io.FileOutputStream;
 import java.util.EnumMap;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 
-import frc.team5431.titan.core.components.Logger;
+import frc.team5431.titan.core.Logger;
 
 public class Observer<R, PV extends Enum<PV> & PropertyValue<R>> {
     private FileOutputStream log = null;

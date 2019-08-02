@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components;
+package frc.team5431.titan.core;
 
 public class Toggle {
     private boolean isToggled = false;

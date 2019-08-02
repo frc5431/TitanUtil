@@ -1,11 +1,11 @@
-package frc.team5431.titan.core.components.joysticks;
+package frc.team5431.titan.core.joysticks;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import frc.team5431.titan.core.components.robot.CommandQueue;
-import frc.team5431.titan.core.components.robot.Robot;
+import frc.team5431.titan.core.robot.CommandQueue;
+import frc.team5431.titan.core.robot.Robot;
 
 public class AssignableJoystick<T extends Robot<T>> extends Joystick {
     private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();

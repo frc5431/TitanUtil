@@ -1,8 +1,8 @@
-package frc.team5431.titan.core.components.mimic;
+package frc.team5431.titan.core.mimic;
 
 import java.util.EnumMap;
 
-import frc.team5431.titan.core.components.Logger;
+import frc.team5431.titan.core.Logger;
 
 public class Step<PV extends Enum<PV> & PropertyValue<?>> {
     public EnumMap<PV, Object> values;

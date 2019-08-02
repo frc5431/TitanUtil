@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components;
+package frc.team5431.titan.core;
 
 public class Calc {
 	public static boolean approxEquals(final double a, final double b, final double epsilon) {

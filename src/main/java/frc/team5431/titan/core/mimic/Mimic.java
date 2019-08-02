@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components.mimic;
+package frc.team5431.titan.core.mimic;
 
 import java.util.List;
 import java.util.EnumMap;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import frc.team5431.titan.core.components.Logger;
+import frc.team5431.titan.core.Logger;
 
 public class Mimic {
 

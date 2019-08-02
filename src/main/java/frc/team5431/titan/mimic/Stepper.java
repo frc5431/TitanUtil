@@ -1,6 +1,6 @@
 package frc.team5431.titan.mimic;
 
-import frc.team5431.titan.core.components.Logger;
+import frc.team5431.titan.core.Logger;
 
 public class Stepper {
     public static final String mimicFile = "/media/sda1/%s.mimic";

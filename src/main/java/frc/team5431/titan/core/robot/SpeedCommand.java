@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.components.robot;
+package frc.team5431.titan.core.robot;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
