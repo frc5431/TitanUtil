@@ -6,7 +6,6 @@ import java.util.function.Function;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.SpeedController;
-import frc.team5431.titan.core.components.TitanDoubleSolenoid;
 import frc.team5431.titan.core.components.TitanSolenoid;
 import frc.team5431.titan.core.components.TitanJoystick;
 import frc.team5431.titan.core.components.TitanLidar;
