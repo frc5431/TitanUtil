@@ -36,7 +36,7 @@ public final class Titan{
 		}
 	}
 
-	public static class LogitechExtreme3D extends frc.team5431.titan.core.components.joysticks.Logitech {
+	public static class LogitechExtreme3D extends frc.team5431.titan.core.components.joysticks.LogitechExtreme3D {
 		public LogitechExtreme3D(int port) {
 			super(port);
 		}
