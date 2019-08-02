@@ -1,6 +1,7 @@
 package frc.team5431.titan.core.components;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.function.Supplier;
 
 import frc.team5431.titan.core.components.TitanRobot.Robot;
