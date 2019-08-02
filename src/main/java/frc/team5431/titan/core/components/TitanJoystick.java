@@ -28,6 +28,9 @@ public class TitanJoystick {
             return getRawButton(((Enum<?>) value).ordinal() + 1);
         }
 
+		/**
+		 * @param port Set the joystick USB ID
+		 */
 		public Joystick(final int port) {
 			super(port);
 		}
@@ -48,11 +51,18 @@ public class TitanJoystick {
 			this.deadzoneMax = deadzoneMax;
 		}
 
+		/**
+		 * @param min Set deadzome minimum
+		 * @param max Set deadzone maximum
+		 */
 		public void setDeadzone(final double min, final double max) {
 			setDeadzoneMin(min);
 			setDeadzoneMax(max);
 		}
 
+		/**
+		 * @param deadzone Set the absolute value for the deadzone
+		 */
 		public void setDeadzone(final double deadzone) {
 			setDeadzone(-deadzone, deadzone);
 		}
@@ -129,11 +139,17 @@ public class TitanJoystick {
             super(port);
         }
 
+		/**
+		 * Enums for Button Bindings
+		 */
         public enum Button implements ButtonZone {
             // ordered correctly, so ordinal reflects real mapping
             A, B, X, Y, BUMPER_L, BUMPER_R, BACK, START
         }
 
+		/**
+		 * Enums for Axis Bindings
+		 */
         public enum Axis implements AxisZone {
             LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
         }
