@@ -13,6 +13,7 @@ import frc.team5431.titan.core.components.joysticks.TitanLogitech;
 import frc.team5431.titan.core.components.joysticks.TitanFSi6S;
 import frc.team5431.titan.core.components.joysticks.TitanAssignableJoystick;
 import frc.team5431.titan.core.components.TitanLidar;
+import frc.team5431.titan.core.components.TitanMath;
 import frc.team5431.titan.core.components.TitanMimic;
 import frc.team5431.titan.core.components.TitanPot;
 import frc.team5431.titan.core.components.TitanRobot;
@@ -134,22 +135,5 @@ public final class Titan{
 
 	public static class Mimic extends TitanMimic {}
 
-	/*
-		These are Generic Functions
-	*/
-	public static boolean approxEquals(final double a, final double b, final double epsilon) {
-		if (a == b) {
-			return true;
-		}
-
-		return Math.abs(a - b) < epsilon;
-	}
-
-	public static double lerp(final double a, final double b, final double f){
-		return a + f * (b - a);
-	}
-
-	public static double clamp(final double val, final double min, final double max){
-		return Math.max(min, Math.min(max, val));
-	}
+	public static class Math extends TitanMath {}
 }
