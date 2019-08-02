@@ -6,18 +6,11 @@ import java.util.function.Function;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.SpeedController;
-import frc.team5431.titan.core.components.TitanSolenoid;
-import frc.team5431.titan.core.components.joysticks.TitanJoystick;
-import frc.team5431.titan.core.components.joysticks.TitanXbox;
-import frc.team5431.titan.core.components.joysticks.TitanLogitech;
-import frc.team5431.titan.core.components.joysticks.TitanFSi6S;
-import frc.team5431.titan.core.components.joysticks.TitanAssignableJoystick;
-import frc.team5431.titan.core.components.TitanLidar;
-import frc.team5431.titan.core.components.TitanMath;
-import frc.team5431.titan.core.components.TitanMimic;
-import frc.team5431.titan.core.components.TitanPot;
-import frc.team5431.titan.core.components.TitanToggle;
+
+import frc.team5431.titan.core.components.*;
+
 import frc.team5431.titan.core.components.robot.*;
+import frc.team5431.titan.core.components.joysticks.*;
 /**
  * Namespace for TitanUtil
  */
