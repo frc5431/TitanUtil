@@ -77,6 +77,8 @@ task buildJar(type: Jar) {
 
 
 javadoc {
+    title "TitanUtil API"
+
     doLast {
         println "Coping to docs folder"
         copy {
