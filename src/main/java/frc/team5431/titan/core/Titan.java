@@ -58,7 +58,7 @@ public final class Titan{
 		}
 	}
 
-	public static class Solenoid extends TitanSolenoid {
+	public static class Solenoid extends TitanSolenoid.Single {
 		public Solenoid(int channel) {
 			super(channel);
 		}
@@ -67,7 +67,7 @@ public final class Titan{
 		}
 	}
 
-	public static class DoubleSolenoid extends TitanDoubleSolenoid{
+	public static class DoubleSolenoid extends TitanSolenoid.Double {
 		public DoubleSolenoid(final int forwardChannel, final int reverseChannel){
 			super(forwardChannel, reverseChannel);
 		}
