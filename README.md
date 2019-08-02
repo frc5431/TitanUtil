@@ -73,9 +73,8 @@ add it relative to project in eclipse so that you can develop on multiple comput
 issues.
 
 ## Basic
-Copy [Titan.java](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/Titan.java) 
-and the [components](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/components/) folder into your project. All of
-the core/basic utilities are found in there.
+Copy the [components](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/components/) folder into your project. 
+All of the core/basic utilities are found in there.
 
 # License
 GNU GENERAL PUBLIC LICENSE
