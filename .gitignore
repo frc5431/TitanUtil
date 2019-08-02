@@ -80,3 +80,7 @@ crashlytics-build.properties
 fabric.properties
 
 /bin/
+
+# intellij
+*.iml
+*.ipr
