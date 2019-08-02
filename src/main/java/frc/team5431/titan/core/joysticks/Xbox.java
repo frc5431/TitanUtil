@@ -1,5 +1,9 @@
 package frc.team5431.titan.core.joysticks;
 
+/**
+ * Custom Xbox class that has enums for controller bindings
+ * deadzone management
+ */
 public class Xbox extends Joystick {
     public Xbox(int port) {
         super(port);

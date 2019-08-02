@@ -1,14 +1,27 @@
 package frc.team5431.titan.core.joysticks;
 
+/**
+ * Custom FSi6S class that has enums for controller bindings
+ * deadzone management
+ */
 public class FSi6S extends Joystick {
+    /**
+     * Enums for Switch Position Bindings
+     */
     public enum SwitchPosition implements ButtonZone {
         DOWN, NEUTRAL, UP
     }
 
+    /**
+     * Enums for Button Bindings
+     */
     public enum Switch implements ButtonZone {
         A, B, C, D
     }
 
+    /**
+     * Enums for Axis Bindings
+     */
     public enum Axis implements AxisZone {
         RIGHT_X, RIGHT_Y, LEFT_Y, LEFT_X
     }

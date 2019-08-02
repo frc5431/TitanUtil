@@ -1,10 +1,10 @@
 package frc.team5431.titan.core.joysticks;
 
+/**
+ * Custom joystick class that is identical to the WPILib version except it has
+ * deadzone management
+ */
 public class Joystick extends edu.wpi.first.wpilibj.Joystick {
-	/**
-	 * Custom joystick class that is identical to the WPILib version except it has
-	 * deadzone management
-	 */
 	private double deadzoneMin = 0.0f, deadzoneMax = 0.0f;
 	
 	public interface AxisZone{
