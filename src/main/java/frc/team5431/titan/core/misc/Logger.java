@@ -1,4 +1,4 @@
-package frc.team5431.titan.core;
+package frc.team5431.titan.core.misc;
 
 public class Logger {
     public static boolean DEBUG = false;
