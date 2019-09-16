@@ -9,10 +9,15 @@ import frc.team5431.titan.core.robot.Robot;
 public abstract class Hololens<T extends Robot<T>> extends Component<T> {
 
     private NetworkTable hololens_table;
+    private String custommsg = "";
 
     @Override
     public void init(T robot) {
         hololens_table = NetworkTableInstance.getDefault().getTable("hololens");
+    }
+
+    public void customMsg(final String msg) {
+        custommsg = msg;
     }
 
     @Override
@@ -33,5 +38,6 @@ public abstract class Hololens<T extends Robot<T>> extends Component<T> {
 
         hololens_table.getEntry("time").setDouble(time);
         hololens_table.getEntry("match").setNumber(matchNumber);
+        hololens_table.getEntry("custom").setString(custommsg);
     }
 }
