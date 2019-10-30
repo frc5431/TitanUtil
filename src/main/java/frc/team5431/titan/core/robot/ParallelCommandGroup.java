@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ParallelCommandGroup<T extends Robot<T>> extends Command<T> {
+public class ParallelCommandGroup<T extends TitanRobot<T>> extends Command<T> {
     private final List<CommandQueue<T>> queues = new ArrayList<>();
 
     private boolean init = false;

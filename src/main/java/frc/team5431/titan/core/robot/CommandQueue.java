@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import frc.team5431.titan.core.misc.Logger;
 
-public class CommandQueue<T extends Robot<T>> extends LinkedList<Command<T>> {
+public class CommandQueue<T extends TitanRobot<T>> extends LinkedList<Command<T>> {
     /**
      * 
      */

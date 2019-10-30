@@ -2,7 +2,7 @@ package frc.team5431.titan.core.robot;
 
 import java.util.function.Consumer;
 
-public class ConsumerCommand<T extends Robot<T>> extends Command<T> {
+public class ConsumerCommand<T extends TitanRobot<T>> extends Command<T> {
     private final Consumer<T> consumer;
     
     public ConsumerCommand(final Consumer<T> consumer) {

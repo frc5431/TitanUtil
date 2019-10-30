@@ -4,14 +4,13 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team5431.titan.core.robot.Component;
-import frc.team5431.titan.core.robot.Robot;
+import frc.team5431.titan.core.robot.TitanRobot;
 
 public class Hololens {
 
     private NetworkTable hololens_table;
     private String custommsg = "";
 
-    @Override
     public Hololens() {
         hololens_table = NetworkTableInstance.getDefault().getTable("hololens");
     }
@@ -20,7 +19,6 @@ public class Hololens {
         custommsg = msg;
     }
 
-    @Override
     public void tick() {
 
         DriverStation driverStation = DriverStation.getInstance();

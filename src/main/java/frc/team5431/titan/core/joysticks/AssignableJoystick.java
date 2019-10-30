@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.function.Supplier;
 
 import frc.team5431.titan.core.robot.CommandQueue;
-import frc.team5431.titan.core.robot.Robot;
+import frc.team5431.titan.core.robot.TitanRobot;
 
-public class AssignableJoystick<T extends Robot<T>> extends Joystick {
+public class AssignableJoystick<T extends TitanRobot<T>> extends Joystick {
     private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
     private final CommandQueue<T> currentQueue = new CommandQueue<>();
 

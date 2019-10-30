@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.robot;
 
-public abstract class Component<T extends Robot<T>>{
+public abstract class Component<T extends TitanRobot<T>>{
     public abstract void init(final T robot);
 
     public abstract void periodic(final T robot);

@@ -2,7 +2,7 @@ package frc.team5431.titan.core.robot;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
-public class SpeedCommand<T extends Robot<T>> extends Command<T> {
+public class SpeedCommand<T extends TitanRobot<T>> extends Command<T> {
     private final SpeedController controller;
     private final double speed;
     private final long durationMS;

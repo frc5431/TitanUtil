@@ -2,7 +2,7 @@ package frc.team5431.titan.core.robot;
 
 import java.util.function.Function;
 
-public class ConditionalCommand<T extends Robot<T>> extends Command<T>{
+public class ConditionalCommand<T extends TitanRobot<T>> extends Command<T>{
     private final Function<T, Boolean> func;
 
     public ConditionalCommand(final Function<T, Boolean> func) {

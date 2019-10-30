@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.robot;
 
-public class WaitCommand<T extends Robot<T>> extends Command<T> {
+public class WaitCommand<T extends TitanRobot<T>> extends Command<T> {
 
     private final long durationMS;
     private long startTime;

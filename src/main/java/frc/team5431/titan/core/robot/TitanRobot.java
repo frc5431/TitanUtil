@@ -4,6 +4,6 @@ import java.util.List;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
-public abstract class Robot<T extends Robot<T>> extends TimedRobot {
+public abstract class TitanRobot<T extends TitanRobot<T>> extends TimedRobot {
     public abstract List<Component<T>> getComponents();
 }
