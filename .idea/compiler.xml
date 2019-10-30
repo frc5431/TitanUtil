@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="academy.robotics.titan.util_main" target="1.8" />
       <module name="academy.robotics.titan.util_test" target="1.8" />
+      <module name="TitanUtil.main" target="11" />
+      <module name="TitanUtil.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

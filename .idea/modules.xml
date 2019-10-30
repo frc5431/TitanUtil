@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util.iml" filepath="$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util_main.iml" filepath="$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util_main.iml" group="academy.robotics.titan.util" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util_test.iml" filepath="$PROJECT_DIR$/.idea/modules/academy.robotics.titan.util_test.iml" group="academy.robotics.titan.util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TitanUtil.iml" filepath="$PROJECT_DIR$/.idea/modules/TitanUtil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TitanUtil.main.iml" filepath="$PROJECT_DIR$/.idea/modules/TitanUtil.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TitanUtil.test.iml" filepath="$PROJECT_DIR$/.idea/modules/TitanUtil.test.iml" />
     </modules>
   </component>
 </project>
