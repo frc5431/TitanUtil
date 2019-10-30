@@ -6,13 +6,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.team5431.titan.core.robot.Component;
 import frc.team5431.titan.core.robot.Robot;
 
-public abstract class Hololens<T extends Robot<T>> extends Component<T> {
+public class Hololens {
 
     private NetworkTable hololens_table;
     private String custommsg = "";
 
     @Override
-    public void init(T robot) {
+    public Hololens() {
         hololens_table = NetworkTableInstance.getDefault().getTable("hololens");
     }
 
@@ -21,23 +21,13 @@ public abstract class Hololens<T extends Robot<T>> extends Component<T> {
     }
 
     @Override
-    public void periodic(T robot) {
-    }
-
-    @Override
-    public void disabled(T robot) {
-    }
-
-    @Override
-    public void tick(T robot) {
-        super.tick(robot);
+    public void tick() {
 
         DriverStation driverStation = DriverStation.getInstance();
         double time  = driverStation.getMatchTime();
         int matchNumber = driverStation.getMatchNumber();
 
         hololens_table.getEntry("time").setDouble(time);
-        hololens_table.getEntry("match").setNumber(matchNumber);
         hololens_table.getEntry("custom").setString(custommsg);
     }
 }
