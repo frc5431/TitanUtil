@@ -43,7 +43,7 @@ allprojects {
 Add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    compile 'com.github.frc5431:TitanUtil:1.1.3' //Replace 1.1.3 with the latest release
+    compile 'com.github.frc5431:TitanUtil:2.0.0' //Replace 2.0.0 with the latest release
 }
 ```
 
@@ -62,7 +62,7 @@ Then, add the following dependency (Make sure it's the latest release)
 <dependency>
     <groupId>com.github.frc5431</groupId>
     <artifactId>TitanUtil</artifactId>
-    <version>1.0.5</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
