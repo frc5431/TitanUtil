@@ -84,3 +84,10 @@ fabric.properties
 # intellij
 *.iml
 *.ipr
+
+# Docs for TitanUtil
+# to add just force git to commit
+docs/*
+
+# binary
+*.jar
