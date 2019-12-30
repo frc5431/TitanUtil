@@ -5,7 +5,8 @@ package frc.team5431.titan.core.joysticks;
  * deadzone management
  */
 public class Joystick extends edu.wpi.first.wpilibj.Joystick {
-	private double deadzoneMin = 0.0f, deadzoneMax = 0.0f;
+	private double m_DeadzoneMin = 0.0f;
+	private double m_DeadzoneMax = 0.0f;
 	
 	public interface AxisZone{
 	}
@@ -14,7 +15,7 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
 	}
 
 	/**
-	 * @param value Pass ID of axis that the value is wanted
+	 * @param	value	Pass ID of axis that the value is wanted
 	 * @return Returns a double of the axis either [0, 100] or [-100, 100]
 	 */
 	public double getRawAxis(final AxisZone value) {
@@ -22,7 +23,7 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
 	}
 
 	/**
-	 * @param value Pass the ID of button that the value is wanted
+	 * @param	value	Pass the ID of button that the value is wanted
 	 * @return Returns a boolean of the button's state
 	 */
 	public boolean getRawButton(final ButtonZone value) {
@@ -36,25 +37,17 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
 		super(port);
 	}
 
-	public double getDeadzoneMin() {
-		return deadzoneMin;
-	}
+	public double getDeadzoneMin() { return m_DeadzoneMin; }
+	public double getDeadzoneMax() { return m_DeadzoneMax; }
 
-	public void setDeadzoneMin(final double deadzoneMin) {
-		this.deadzoneMin = deadzoneMin;
-	}
-
-	public double getDeadzoneMax() {
-		return deadzoneMax;
-	}
-
-	public void setDeadzoneMax(final double deadzoneMax) {
-		this.deadzoneMax = deadzoneMax;
-	}
+	public void setDeadzoneMax(final double val) { this.m_DeadzoneMax = val; }
+	public void setDeadzoneMin(final double val) { this.m_DeadzoneMin = val; }
 
 	/**
-	 * @param min Set deadzome minimum
-	 * @param max Set deadzone maximum
+	 * SetDeadzone is a function that sets the minimum deadzone and the maximum deadzone.
+	 * 
+	 * @param	min		Set deadzome minimum
+	 * @param	max		Set deadzone maximum
 	 */
 	public void setDeadzone(final double min, final double max) {
 		setDeadzoneMin(min);
@@ -62,19 +55,26 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
 	}
 
 	/**
-	 * @param deadzone Set the absolute value for the deadzone
+	 * SetDeadzone is a function that sets the joystick deadzone for both min and max
+	 * 
+	 * @param	value	Set the absolute value for the deadzone
 	 */
-	public void setDeadzone(final double deadzone) {
-		setDeadzone(-deadzone, deadzone);
+	public void setDeadzone(final double value) {
+		setDeadzone(-value, value);
 	}
 
+	/**
+	 * GetRawAxis is a function that allows for you to get joystick data from the device.
+	 * 
+	 * @param	axis	Set the axis value, this is chosen via DriverStation or TitanUtil Enums
+	 * @return			This returns a double in the range of (-1, 1)
+	 */
 	@Override
 	public double getRawAxis(final int axis) {
-		final double val = super.getRawAxis(axis);
-		if (val >= deadzoneMin && val <= deadzoneMax) {
-			return 0.0;
-		} else {
-			return val;
-		}
+		double val = super.getRawAxis(axis);
+		if (val >= m_DeadzoneMin && val <= m_DeadzoneMax)
+			val = 0.0;
+
+		return val;
 	}
 }
