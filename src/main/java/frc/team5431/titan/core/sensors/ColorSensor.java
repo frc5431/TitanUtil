@@ -32,6 +32,19 @@ public class ColorSensor extends ColorSensorV3 {
         }
     }
 
+    /**
+     * Alternative Constructor which sets the I2C device by default
+     * this only works when on the RoboRIO port.
+     * 
+     * @param confidence This is a double in the range of [0.0 to 1.0] which
+     * the color sensor will use to make its prediction with.
+     * @param colors This is an array of colors which you will pass to the ColorSensor
+     * so the program can create the proper predition of which color it sees.
+     */
+    public ColorSensor(double confidence, Color[] colors) {
+        this(I2C.Port.kOnboard, confidence, colors);
+    }
+
     public void setConfidence(double confidence) {
         assert(confidence >= 0.0);
         assert(confidence <= 1.0);
