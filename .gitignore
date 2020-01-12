@@ -87,7 +87,9 @@ fabric.properties
 
 # Docs for TitanUtil
 # to add just force git to commit
-# docs/*
+docs/**
+docs/*
+docs/
 
 # binary
 *.jar
