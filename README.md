@@ -33,7 +33,6 @@ Add the following to the root build.gradle
 ```
 allprojects {
     repositories {
-        ...
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
@@ -43,7 +42,7 @@ allprojects {
 Add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    compile 'com.github.frc5431:TitanUtil:2.0.0' //Replace 2.0.0 with the latest release
+    implementation 'com.github.frc5431:TitanUtil:2.1.0' //Replace 2.1.0 with the latest release
 }
 ```
 
