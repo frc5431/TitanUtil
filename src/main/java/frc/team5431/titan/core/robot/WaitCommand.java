@@ -28,4 +28,4 @@ public class WaitCommand<T extends TitanRobot<T>> extends Command<T> {
     @Override
     public void done(final T robot) {
     }
-}`
+}
