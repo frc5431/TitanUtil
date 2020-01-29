@@ -20,8 +20,8 @@ dependencies {
     // compile wpilib()
     // compile ctre()
     // compile navx()
-    compile wpi.deps.wpilib()
-    compile wpi.deps.vendor.java()
+    implementation wpi.deps.wpilib()
+    implementation wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
@@ -34,14 +34,8 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
 artifacts {
     archives sourcesJar
-    archives javadocJar
 }
 
 //To install this as a dependency
@@ -72,20 +66,5 @@ task buildJar(type: Jar) {
             from 'build/libs/titan-util.jar'
             into '.'
         }
-    }
-}
-
-
-javadoc {
-    title "TitanUtil API"
-
-    doLast {
-        println "Coping to docs folder"
-        copy {
-            from "build/docs/javadoc"
-            into "docs"
-            include "**"
-        }
-        println "Finished Copying"
     }
 }
