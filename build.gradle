@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 	id 'idea'
 	id 'eclipse'
-    id "edu.wpi.first.GradleRIO" version "2020.1.2"
+    id "edu.wpi.first.GradleRIO" version "2020.2.2"
 }
 
 group = 'com.github.frc5431'
@@ -20,13 +20,13 @@ dependencies {
     // compile wpilib()
     // compile ctre()
     // compile navx()
-    compile wpi.deps.wpilib()
-    compile wpi.deps.vendor.java()
+    compileOnly wpi.deps.wpilib()
+    compileOnly wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-    testCompile 'junit:junit:4.12'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'junit:junit:4.12'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -34,14 +34,8 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
 artifacts {
     archives sourcesJar
-    archives javadocJar
 }
 
 //To install this as a dependency
@@ -72,20 +66,5 @@ task buildJar(type: Jar) {
             from 'build/libs/titan-util.jar'
             into '.'
         }
-    }
-}
-
-
-javadoc {
-    title "TitanUtil API"
-
-    doLast {
-        println "Coping to docs folder"
-        copy {
-            from "build/docs/javadoc"
-            into "docs"
-            include "**"
-        }
-        println "Finished Copying"
     }
 }
