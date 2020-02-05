@@ -9,10 +9,7 @@ import java.nio.file.Files;
 
 import static frc.team5431.titan.mimic.Stepper.mimicFile;
 
-/**
- * @deprecated
- */
-public class Observer {
+public abstract class Observer<T>{
     private static FileOutputStream log = null;
     /*
     private static boolean homed = false;
@@ -33,6 +30,8 @@ public class Observer {
             Logger.ee("Mimic", e);
         }
     }
+
+    public abstract void addStep(final T robot, final double driveVals[]);
 
     /*public static void addStep(final Robot robot, final double driveVals[]) {
         try {
