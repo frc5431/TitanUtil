@@ -3,7 +3,7 @@ package frc.team5431.titan.mimic;
 /**
  * @author Ryan Hirasaki
  */
-interface DrivebaseAnalyzer {
+public interface DrivebaseAnalyzer {
     // Get Speed Functions
     public double getLeftSpeed();
     public double getRightSpeed();
