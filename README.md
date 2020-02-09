@@ -1,5 +1,5 @@
 # TitanUtil
-[![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil)
+[![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil) [![Build Status](https://dev.azure.com/TitanRobotics/TitanUtil/_apis/build/status/frc5431.TitanUtil?branchName=master)](https://dev.azure.com/TitanRobotics/TitanUtil/_build/latest?definitionId=2&branchName=master)
 
 A collection of utility classes to make robot programming easier.
 Do not riddle yourself with redundant and repetitive code when you have a library
