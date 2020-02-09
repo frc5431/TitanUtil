@@ -1,5 +1,8 @@
 package frc.team5431.titan.core.vision;
 
+/**
+ * @author Ryan Hirasaki
+ */
 public enum CameraMode {
     VISION(0), DRIVER(1);
 
@@ -11,5 +14,13 @@ public enum CameraMode {
 
     public int getId() {
         return id;
+    }
+
+    public static CameraMode getModeFromInt(int value) {
+        for (CameraMode x : CameraMode.values()) {
+            if (x.getId() == value)
+                return x;
+        }
+        return null;
     }
 }
