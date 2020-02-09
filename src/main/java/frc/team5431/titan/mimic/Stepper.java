@@ -2,20 +2,23 @@ package frc.team5431.titan.mimic;
 
 import frc.team5431.titan.core.misc.Logger;
 
+/**
+ * @author David Smerkous
+ * @author Ryan Hirasaki
+ */
 public class Stepper {
     public static final String mimicFile = "/media/sda1/%s.mimic";
-    public static final String formatString = "%.2f,%.2f,%.2f,%.4f,%.4f,%d,%d\n"; //LEFT ENCODER, RIGHT ENCODER, GYRO ANGLE, LEFT POWER, RIGHT POWER, HOME, SWITCH SHOOT
+    public static final String formatString = "%.2f,%.2f,%.2f,%.4f,%.4f,%d,%d\n"; //LEFT ENCODER, RIGHT ENCODER, GYRO ANGLE, LEFT POWER, RIGHT POWER, HOME
     public double leftDistance, rightDistance, angle, leftPower, rightPower;
-    public boolean isHome, isSwitch;
+    public boolean isHome;
 
-    public Stepper(final double lD, final double rD, final double a, final double lP, final double rP, final boolean h, final boolean sw) {
+    public Stepper(final double lD, final double rD, final double a, final double lP, final double rP, final boolean h) {
         leftDistance = lD;
         rightDistance = rD;
         angle = a;
         leftPower = lP;
         rightPower = rP;
         isHome = h;
-        isSwitch = sw;
     }
 
     public Stepper(final String toParse) {
@@ -27,7 +30,6 @@ public class Stepper {
             leftPower = getDouble(parts[3]);
             rightPower = getDouble(parts[4]);
             isHome = getBoolean(parts[5]);
-            isSwitch = getBoolean(parts[6]);
         } catch (Exception e) {
             Logger.ee("MimicParse", e);
         }
@@ -58,6 +60,6 @@ public class Stepper {
     }
 
     public String toString() {
-        return String.format(formatString, leftDistance, rightDistance, angle, leftPower, rightPower, (isHome) ? 1 : 0, (isSwitch) ? 1 : 0);
+        return String.format(formatString, leftDistance, rightDistance, angle, leftPower, rightPower, (isHome) ? 1 : 0);
     }
 }
