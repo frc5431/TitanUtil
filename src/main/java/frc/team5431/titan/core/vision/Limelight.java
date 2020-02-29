@@ -57,4 +57,8 @@ public class Limelight {
     public final void setLEDState(LEDState state) {
         table.getEntry("ledMode").setNumber(state.getId());
     }
+
+    public final void setPipeline(int pipeline) {
+        table.getEntry("pipeline").setNumber(pipeline);
+    }
 }
