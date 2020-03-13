@@ -5,6 +5,10 @@ import java.util.LinkedList;
 
 import frc.team5431.titan.core.misc.Logger;
 
+/**
+ * @deprecated
+ * @param <T>
+ */
 public class CommandQueue<T extends TitanRobot<T>> extends LinkedList<Command<T>> {
     /**
      * 

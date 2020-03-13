@@ -1,5 +1,9 @@
 package frc.team5431.titan.core.robot.legacy;
 
+/**
+ * @deprecated
+ * @param <T>
+ */
 public class WaitCommand<T extends TitanRobot<T>> extends Command<T> {
 
     private final long durationMS;

@@ -2,6 +2,10 @@ package frc.team5431.titan.core.robot.legacy;
 
 import java.util.function.Function;
 
+/**
+ * @deprecated
+ * @param <T>
+ */
 public class ConditionalCommand<T extends TitanRobot<T>> extends Command<T>{
     private final Function<T, Boolean> func;
 

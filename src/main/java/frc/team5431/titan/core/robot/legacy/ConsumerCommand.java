@@ -2,6 +2,10 @@ package frc.team5431.titan.core.robot.legacy;
 
 import java.util.function.Consumer;
 
+/**
+ * @deprecated
+ * @param <T>
+ */
 public class ConsumerCommand<T extends TitanRobot<T>> extends Command<T> {
     private final Consumer<T> consumer;
     

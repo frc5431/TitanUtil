@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @deprecated
+ * @param <T>
+ */
 public class ParallelCommandGroup<T extends TitanRobot<T>> extends Command<T> {
     private final List<CommandQueue<T>> queues = new ArrayList<>();
 
