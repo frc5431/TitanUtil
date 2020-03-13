@@ -3,6 +3,7 @@ package frc.team5431.titan.core.robot;
 import java.util.Set;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
@@ -42,6 +43,7 @@ public class ThreadedCommand implements Command {
         }
     }
 
+    private final double period;
     private final Command baseCommand;
     private final CommandExecuter commandExecuter;
 
@@ -56,7 +58,7 @@ public class ThreadedCommand implements Command {
      * @throws IllegalArgumentException thrown when the period is less than zero
      * @throws NullPointerException     thrown if the base command or period is null
      */
-    public ThreadedCommand(Command baseCommand, double period) {
+    public ThreadedCommand(CommandBase baseCommand, double period) {
         if (period < 0)
             throw new IllegalArgumentException();
         if ((Object) period == null)
@@ -65,6 +67,7 @@ public class ThreadedCommand implements Command {
             throw new NullPointerException();
 
         this.baseCommand = baseCommand;
+        this.period = period;
 
         commandExecuter = new CommandExecuter(baseCommand, period);
     }
@@ -102,4 +105,7 @@ public class ThreadedCommand implements Command {
         return baseCommand.getRequirements();
     }
 
+    public double getPeriod() {
+        return period;
+    }
 }

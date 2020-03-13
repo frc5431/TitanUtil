@@ -16,6 +16,14 @@ repositories {
     mavenCentral()
 }
 
+List<String> wpilibDesktopJni(String platform) {
+    return ["edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:${wpi.opencvVersion}:${platform}@jar".toString(),
+            "edu.wpi.first.hal:hal-jni:${wpi.wpilibVersion}:${platform}@jar".toString(),
+            "edu.wpi.first.wpiutil:wpiutil-jni:${wpi.wpilibVersion}:${platform}@jar".toString(),
+            "edu.wpi.first.ntcore:ntcore-jni:${wpi.wpilibVersion}:${platform}@jar".toString(),
+            "edu.wpi.first.cscore:cscore-jni:${wpi.wpilibVersion}:${platform}@jar".toString()]
+}
+
 dependencies {
     // compile wpilib()
     // compile ctre()
@@ -23,9 +31,11 @@ dependencies {
     compileOnly wpi.deps.wpilib()
     compileOnly wpi.deps.vendor.java()
 
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+    testImplementation wpi.deps.wpilib()
+    testImplementation wpi.deps.vendor.java()
     
+    testImplementation(wpilibDesktopJni(wpi.platforms.desktop))
+
     testImplementation 'junit:junit:4.12'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
