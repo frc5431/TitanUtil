@@ -5,8 +5,8 @@ package frc.team5431.titan.core.joysticks;
  * deadzone management
  */
 public class Joystick extends edu.wpi.first.wpilibj.Joystick {
-	private double m_DeadzoneMin = 0.0f;
-	private double m_DeadzoneMax = 0.0f;
+	private double m_DeadzoneMin = 0.0;
+	private double m_DeadzoneMax = 0.0;
 	
 	public interface AxisZone{
 	}
