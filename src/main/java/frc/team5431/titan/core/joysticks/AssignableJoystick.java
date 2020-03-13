@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import frc.team5431.titan.core.robot.CommandQueue;
-import frc.team5431.titan.core.robot.TitanRobot;
+import frc.team5431.titan.core.robot.legacy.*;
 
 public class AssignableJoystick<T extends TitanRobot<T>> extends Joystick {
     private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();

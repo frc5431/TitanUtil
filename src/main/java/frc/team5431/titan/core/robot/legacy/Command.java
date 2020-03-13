@@ -1,4 +1,4 @@
-package frc.team5431.titan.core.robot;
+package frc.team5431.titan.core.robot.legacy;
 
 public abstract class Command<T extends TitanRobot<T>> {
     public String name = "Command";
