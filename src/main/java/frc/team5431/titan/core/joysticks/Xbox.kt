@@ -4,15 +4,13 @@ package frc.team5431.titan.core.joysticks;
  * Custom Xbox class that has enums for controller bindings
  * deadzone management
  */
-public class Xbox extends Joystick {
-    public Xbox(int port) {
-        super(port);
-    }
+open class Xbox:Joystick {
+    constructor(port: Int) : super(port);
 
     /**
      * Enums for Button Bindings
      */
-    public enum Button implements ButtonZone {
+    enum class Button:ButtonZone {
         // ordered correctly, so ordinal reflects real mapping
         A, B, X, Y, BUMPER_L, BUMPER_R, BACK, START
     }
@@ -20,7 +18,7 @@ public class Xbox extends Joystick {
     /**
      * Enums for Axis Bindings
      */
-    public enum Axis implements AxisZone {
+    enum class Axis:AxisZone {
         LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
     }
 }
