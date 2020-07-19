@@ -5,27 +5,31 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Navx extends AHRS {
+	private static enum Direction {
+		LEFT, RIGHT
+	}
+
 	private double absoluteReset = 0;
-	private boolean yawDirection = false;
+	private Direction yawDirection = Direction.LEFT;
 
 	public Navx() {
-			super(SPI.Port.kMXP);
+		super(SPI.Port.kMXP);
 
-			reset();
-			resetDisplacement();
-		}
+		reset();
+		resetDisplacement();
+	}
 
 	public void resetYaw() {
 		absoluteReset = getYaw();
 		if (absoluteReset <= 0) {
-			yawDirection = false; // false == left
+			yawDirection = Direction.LEFT; // false == left
 		} else {
-			yawDirection = true; // true == right
+			yawDirection = Direction.RIGHT; // true == right
 		}
 	}
 
 	public double getAbsoluteYaw() {
-		if (!yawDirection) {
+		if (yawDirection == Direction.LEFT) {
 			return getYaw() + absoluteReset;
 		} else {
 			return getYaw() - absoluteReset;
