@@ -37,8 +37,7 @@ jobs:
           git add -A
           git commit -m "Automated API website updates."
         fi
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3.6.0
+    - name: Merge Changes
+      uses: ridedott/merge-me-action@v1
       with:
-        title: "Automated API website updates."
-        commit-message: "Automated API documentation website updates."
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

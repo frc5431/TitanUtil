@@ -21,7 +21,7 @@ public class Mimic {
         final ArrayList<Step<PV>> pathData = new ArrayList<>();
         final String fName = String.format(DEFAULT_MIMIC_PATH, fileName);
         try (final BufferedReader reader = new BufferedReader(new FileReader(fName))) {
-            Logger.l("Loading the Mimic file " + fileName);
+            Logger.l("Loading the Mimic file: " + fileName);
             if (!Files.exists(new File(fName).toPath())) {
                 Logger.e("The requested Mimic data was not found");
             }
