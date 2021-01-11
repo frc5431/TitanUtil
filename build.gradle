@@ -44,6 +44,7 @@ artifacts {
 }
 
 //To install this as a dependency
+/*
 install {
     repositories.mavenInstaller {
         pom.project {
@@ -57,6 +58,7 @@ install {
         }
     }
 }
+*/
 
 task buildJar(type: Jar) {
     /*manifest {
