@@ -26,10 +26,10 @@ that will do all of the grunt work for you.
 * Portability to add more complex mechanisms like intakes
 
 # Install
-There are a few ways of installing TitanUtil, the easiest way is to use Gradle as GradleRIO is the new compiler.
+The supported way of introducing TitanUtil to a project is via Gradle. Gradle 
+is the current build system for WPILib robot projects.
 
-## Gradle
-Add the following to the root build.gradle
+To install, add the following to the root build.gradle
 ```
 allprojects {
     repositories {
@@ -39,45 +39,19 @@ allprojects {
 }
 ```
 
-Add the dependency (Make sure it's the latest release)
+and, add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    implementation 'com.github.frc5431:TitanUtil:2.1.0' //Replace 2.1.0 with the latest release
+    implementation 'com.github.frc5431:TitanUtil:2021.10.1' //Replace tag with the latest release if needed
 }
 ```
 
-## Maven
-
-Add the following code to your `<repositories>` tag
-```
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-
-Then, add the following dependency (Make sure it's the latest release)
-```
-<dependency>
-    <groupId>com.github.frc5431</groupId>
-    <artifactId>TitanUtil</artifactId>
-    <version>2.0.0</version>
-</dependency>
-```
-
-## Jar
-You can go to the releases download the jar or you can clone the repo (look right above you)
-to download the compiled library. Added this to your build path, and it's recommended that you
-add it relative to project in eclipse so that you can develop on multiple computers without library
-issues.
-
-## Basic
-Copy the [components](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/components/) folder into your project. 
-All of the core/basic utilities are found in there.
-
-### License
+# License
 
 BSD 2-Clause License
 
 Copyright (c) 2021, 5431 Titan Robotics
 All rights reserved
+
+Refer to LICENSE file for more information, located in the base of this project
+
