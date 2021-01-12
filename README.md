@@ -75,19 +75,9 @@ issues.
 Copy the [components](https://raw.githubusercontent.com/frc5431/TitanUtil/master/src/main/java/frc/team5431/titan/components/) folder into your project. 
 All of the core/basic utilities are found in there.
 
-# License
-GNU GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007
+### License
 
-Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>
+BSD 2-Clause License
 
-Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-![](https://sites.google.com/a/pisd.edu/titan-robotics/_/rsrc/1493840311490/home-1/FullColorlogo%20with%20numbers.png?height=950&width=950)
+Copyright (c) 2021, 5431 Titan Robotics
+All rights reserved
