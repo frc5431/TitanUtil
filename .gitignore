@@ -87,3 +87,7 @@ fabric.properties
 
 # binary
 *.jar
+
+.settings/
+.classpath
+.project
