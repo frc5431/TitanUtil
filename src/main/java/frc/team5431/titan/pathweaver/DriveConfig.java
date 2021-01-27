@@ -1,5 +1,7 @@
+package frc.team5431.titan.pathweaver;
+
 public class DriveConfig {
-    public DriveConfig(double sVolts.
+    public DriveConfig(double sVolts,
                         double vVoltSPM,
                         double aVoltSSPM,
                         double trackwidth,
