@@ -3,9 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.21' //Set the Kotlin version here
     id 'maven'
     id 'maven-publish'
-	id 'idea'
-	id 'eclipse'
-    id "edu.wpi.first.GradleRIO" version "2021.1.2"
+    id 'idea'
+    id 'eclipse'
+    id "edu.wpi.first.GradleRIO" version "2021.2.1"
 }
 
 group = 'com.github.frc5431'
