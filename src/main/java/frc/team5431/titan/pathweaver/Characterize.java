@@ -45,7 +45,7 @@ public class Characterize {
         this.driveConstraint = new DifferentialDriveVoltageConstraint(
             this.motorFeedForward,
             this.driveKinematics,
-            10); // What does this do int do?
+            10); // What does this int do?
         this.tragectoryConfig = new TrajectoryConfig(
                 config.kMaxSpeedMetersPerSecond,
                 config.kMaxAccelerationMetersPerSecondSquared)
