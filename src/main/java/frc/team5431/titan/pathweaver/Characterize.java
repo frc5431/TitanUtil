@@ -61,6 +61,8 @@ public class Characterize {
 
     /**
      * @param json path in filesystem to alternative robot path
+     * 
+     * Call getCommand() for new trajectory
      */
     public void loadAlternativePath(String json) throws IOException {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(json);
