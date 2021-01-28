@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import frc.team5431.titan.core.robot.legacy.*;
 
+@Deprecated
 public class AssignableJoystick<T extends TitanRobot<T>> extends Joystick {
     private final Map<Integer, Supplier<CommandQueue<T>>> assignments = new HashMap<>();
     private final CommandQueue<T> currentQueue = new CommandQueue<>();
