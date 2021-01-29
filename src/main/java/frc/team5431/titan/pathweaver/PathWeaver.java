@@ -25,6 +25,7 @@ public class PathWeaver {
     private DifferentialDriveKinematics driveKinematics;
     private DifferentialDriveVoltageConstraint driveConstraint;
     private SimpleMotorFeedforward motorFeedForward;
+    private TrajectoryConfig tragectoryConfig;
     private RamseteController ramseteController;
     private Trajectory trajectory;
     private PIDController velocityPID;
