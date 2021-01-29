@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.team5431.titan.core.misc.Logger;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -22,66 +22,89 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  * 
  */
 public class PathWeaver {
-    private DifferentialDriveKinematics driveKinematics;
-    private DifferentialDriveVoltageConstraint driveConstraint;
-    private SimpleMotorFeedforward motorFeedForward;
-    private TrajectoryConfig tragectoryConfig;
-    private RamseteController ramseteController;
+    private static final String NAMESPACE = "frc.team5431.titan.pathweaver";
+
+    public static enum Status {
+        UNLOADED, LOADED, ERROR
+    }
+
+    private final RamseteController ramseteController;
+    private final SimpleMotorFeedforward motorFeedForward;
+    private final DifferentialDriveKinematics driveKinematics;
+    private final PIDController velocityPID;
+
     private Trajectory trajectory;
-    private PIDController velocityPID;
+    private Status status = Status.UNLOADED;
 
     /**
-     * @param json path in filesystem to alternative robot path
      * @param config data for setting up math
      */
-    public PathWeaver(String json, final DriveConfig config) throws IOException {
-        // Throw early and not do setup if not needed
-        loadAlternativePath(json);
-
-        this.motorFeedForward = new SimpleMotorFeedforward(
-            config.ksVolts,
-            config.kvVoltSecondsPerMeter,
-            config.kaVoltSecondsSquaredPerMeter);
+    public PathWeaver(final DriveConfig config) {
+        this.motorFeedForward = new SimpleMotorFeedforward(config.ksVolts, config.kvVoltSecondsPerMeter,
+                config.kaVoltSecondsSquaredPerMeter);
         this.driveKinematics = new DifferentialDriveKinematics(config.kTrackwidthMeters);
-        this.driveConstraint = new DifferentialDriveVoltageConstraint(
-            this.motorFeedForward,
-            this.driveKinematics,
-            10); // What does this int do?
-        this.tragectoryConfig = new TrajectoryConfig(
-                config.kMaxSpeedMetersPerSecond,
-                config.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(this.driveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(this.driveConstraint);
+
         this.ramseteController = new RamseteController(config.kRamseteB, config.kRamseteZeta);
-        
+
         // Not sure why we need this but docs say so...
         this.velocityPID = new PIDController(config.kPDriveVel, 0, 0);
     }
 
     /**
-     * @param json path in filesystem to alternative robot path
-     * 
-     * Call getCommand() for new trajectory
+     * @param config data for setting up math
+     * @param json   path in filesystem to alternative robot path
      */
-    public void loadAlternativePath(String json) throws IOException {
-        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(json);
-        this.trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    public PathWeaver(final DriveConfig config, final String json) {
+        this(config); // Call simple constructor
+        loadAlternativePath(json);
     }
 
+    /**
+     * Call getCommand() for new trajectory
+     * 
+     * @param json path in filesystem to alternative robot patt
+     */
+    public void loadAlternativePath(final String json) {
+        try {
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(json);
+            this.trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+            this.status = Status.LOADED;
+        } catch (IOException e) {
+            Logger.ee(NAMESPACE, e);
+            this.trajectory = null;
+            this.status = Status.ERROR;
+        }
+    }
+
+    /**
+     * Generates a new command on call for playing back a path from PathWeaver
+     * 
+     * @param subsystem
+     * @param drivebase
+     * @return New Command object
+     */
     public Command getCommand(Subsystem subsystem, DrivebaseCallback drivebase) {
-        return new RamseteCommand(
-            this.trajectory,
-            drivebase::getPose, // callback
-            this.ramseteController,
-            this.motorFeedForward,
-            this.driveKinematics,
-            drivebase::getWheelSpeeds, // callback
-            this.velocityPID,
-            this.velocityPID,
-            drivebase::tankDriveVolts, // callback
-            subsystem
-        ).andThen(() -> drivebase.tankDriveVolts(0, 0));
+        if (status == Status.LOADED) {
+            assert (trajectory != null);
+            return new RamseteCommand(this.trajectory, // Loaded Path
+                    drivebase::getPose, // callback
+                    this.ramseteController, // IDK
+                    this.motorFeedForward, // IDK
+                    this.driveKinematics, // IDK
+                    drivebase::getWheelSpeeds, // callback
+                    this.velocityPID, // PID
+                    this.velocityPID, // PID
+                    drivebase::tankDriveVolts, // callback
+                    subsystem).andThen(() -> drivebase.tankDriveVolts(0, 0));
+        } else if (status == Status.ERROR) {
+            Logger.e("Cannot run unlocatable path");
+        }
+
+        return new CommandBase() {
+        };
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

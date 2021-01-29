@@ -1,12 +1,11 @@
 package frc.team5431.titan.pathweaver;
 
 public class DriveConfig {
+    // TODO: Convert this into a builder
     public DriveConfig(double sVolts,
                         double vVoltSPM,
                         double aVoltSSPM,
                         double trackwidth,
-                        double maxSpeedMPS,
-                        double maxAccelMPSS,
                         double ramseteb,
                         double ramsetezeta,
                         double pDriveVel) {
@@ -14,8 +13,6 @@ public class DriveConfig {
         this.kvVoltSecondsPerMeter = vVoltSPM;
         this.kaVoltSecondsSquaredPerMeter = aVoltSSPM;
         this.kTrackwidthMeters = trackwidth;
-        this.kMaxSpeedMetersPerSecond = maxSpeedMPS;
-        this.kMaxAccelerationMetersPerSecondSquared = maxAccelMPSS;
         this.kRamseteB = ramseteb;
         this.kRamseteZeta = ramsetezeta;
         this.kPDriveVel = pDriveVel;
@@ -24,8 +21,6 @@ public class DriveConfig {
     public final double kvVoltSecondsPerMeter;
     public final double kaVoltSecondsSquaredPerMeter;
     public final double kTrackwidthMeters;
-    public final double kMaxSpeedMetersPerSecond;
-    public final double kMaxAccelerationMetersPerSecondSquared;
     public final double kRamseteB;
     public final double kRamseteZeta;
     public final double kPDriveVel;
