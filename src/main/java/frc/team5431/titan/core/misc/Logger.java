@@ -1,7 +1,5 @@
 package frc.team5431.titan.core.misc;
 
-import java.sql.Driver;
-
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class Logger {
