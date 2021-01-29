@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -22,11 +21,10 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  * @author Ryan Hirasaki
  * 
  */
-public class Characterize {
+public class PathWeaver {
     private DifferentialDriveKinematics driveKinematics;
     private DifferentialDriveVoltageConstraint driveConstraint;
     private SimpleMotorFeedforward motorFeedForward;
-    private TrajectoryConfig tragectoryConfig;
     private RamseteController ramseteController;
     private Trajectory trajectory;
     private PIDController velocityPID;
@@ -35,7 +33,7 @@ public class Characterize {
      * @param json path in filesystem to alternative robot path
      * @param config data for setting up math
      */
-    public Characterize(String json, final DriveConfig config) throws IOException {
+    public PathWeaver(String json, final DriveConfig config) throws IOException {
         // Throw early and not do setup if not needed
         loadAlternativePath(json);
 
