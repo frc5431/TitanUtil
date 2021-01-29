@@ -1,7 +1,7 @@
 package frc.team5431.titan.pathweaver;
 
 public class DriveConfig {
-    public DriveConfig(Builder builder) {
+    private DriveConfig(Builder builder) {
         this.ksVolts = builder.ksVolts;
         this.kvVoltSecondsPerMeter = builder.kvVoltSecondsPerMeter;
         this.kaVoltSecondsSquaredPerMeter = builder.kaVoltSecondsSquaredPerMeter;
