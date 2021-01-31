@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil)
 [![](https://github.com/frc5431/TitanUtil/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/frc5431/TitanUtil/actions)
 
-[Docs](https://www.frc5431.com/TitanUtil/)
+[Documentation](https://www.frc5431.com/TitanUtil/)
 
 A collection of utility classes to make robot programming easier.
 Do not riddle yourself with redundant and repetitive code when you have a library
