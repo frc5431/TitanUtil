@@ -1,5 +1,8 @@
-package frc.team5431.titan.pathweaver;
+package frc.team5431.titan.pathfinder;
 
+/**
+ * @author Ryan Hirasaki
+ */
 public class DriveConfig {
     private DriveConfig(Builder builder) {
         this.ksVolts = builder.ksVolts;

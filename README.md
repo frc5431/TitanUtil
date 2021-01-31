@@ -20,6 +20,11 @@ that will do all of the grunt work for you.
 * Builtin core utilities
 * Added Components and Cross-Class Sensor Data
 
+## Path Finder
+* Wrapper to WPI PathWeaver
+* Portable interfaces for drivebase
+* Loading PathWeaver exports from a flash drive
+
 ## Mimic
 * Observing and Mimicing basic drivebase pathfinding data
 * Saving mimic data to a flash drive

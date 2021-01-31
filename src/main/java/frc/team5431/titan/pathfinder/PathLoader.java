@@ -1,4 +1,4 @@
-package frc.team5431.titan.pathweaver;
+package frc.team5431.titan.pathfinder;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,16 +13,14 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.team5431.titan.core.misc.Logger;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
  * @author Ryan Hirasaki
- * 
  */
-public class PathWeaver {
-    private static final String NAMESPACE = "frc.team5431.titan.pathweaver";
+public class PathLoader {
+    private static final String NAMESPACE = "frc.team5431.titan.pathfinder";
 
     public static enum Status {
         UNLOADED, LOADED, ERROR
@@ -39,7 +37,7 @@ public class PathWeaver {
     /**
      * @param config data for setting up math
      */
-    public PathWeaver(final DriveConfig config) {
+    public PathLoader(final DriveConfig config) {
         this.motorFeedForward = new SimpleMotorFeedforward(config.ksVolts, config.kvVoltSecondsPerMeter,
                 config.kaVoltSecondsSquaredPerMeter);
         this.driveKinematics = new DifferentialDriveKinematics(config.kTrackwidthMeters);
@@ -54,7 +52,7 @@ public class PathWeaver {
      * @param config data for setting up math
      * @param json   path in filesystem to alternative robot path
      */
-    public PathWeaver(final DriveConfig config, final String json) {
+    public PathLoader(final DriveConfig config, final String json) {
         this(config); // Call simple constructor
         loadAlternativePath(json);
     }
@@ -83,7 +81,7 @@ public class PathWeaver {
      * @param drivebase
      * @return New Command object
      */
-    public Command getCommand(Subsystem subsystem, DrivebaseCallback drivebase) {
+    public Command generateCommand(PathFinderControls drivebase) {
         if (status == Status.LOADED) {
             assert (trajectory != null);
             return new RamseteCommand(this.trajectory, // Loaded Path
@@ -95,7 +93,7 @@ public class PathWeaver {
                     this.velocityPID, // PID
                     this.velocityPID, // PID
                     drivebase::tankDriveVolts, // callback
-                    subsystem).andThen(() -> drivebase.tankDriveVolts(0, 0));
+                    drivebase).andThen(() -> drivebase.tankDriveVolts(0, 0));
         } else if (status == Status.ERROR) {
             Logger.e("Cannot run unlocatable path");
         }
