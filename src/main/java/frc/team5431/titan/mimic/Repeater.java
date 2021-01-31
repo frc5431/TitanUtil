@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import frc.team5431.titan.core.misc.Logger;
 
+@Deprecated
 public class Repeater {
     private static FileInputStream log = null;
     private static BufferedReader reader = null;

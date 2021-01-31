@@ -6,6 +6,7 @@ import frc.team5431.titan.core.misc.Logger;
  * @author David Smerkous
  * @author Ryan Hirasaki
  */
+@Deprecated
 public class Stepper {
     public static final String mimicFile = "/media/sda1/%s.mimic";
     public static final String formatString = "%.2f,%.2f,%.2f,%.4f,%.4f,%d\n"; //LEFT ENCODER, RIGHT ENCODER, GYRO ANGLE, LEFT POWER, RIGHT POWER, HOME
