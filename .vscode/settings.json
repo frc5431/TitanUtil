@@ -5,5 +5,9 @@
     ],
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "java.format.enabled": true,
+    "java.completion.enabled": true,
+    "java.dependency.autoRefresh": true,
+    "java.import.gradle.enabled": true,
 }
