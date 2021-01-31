@@ -29,9 +29,9 @@ public abstract class DrivebaseSubsystem extends SubsystemBase {
 
     /**
      * A basic implementation of arcade drive using a
-     * Arbitrary Feed Forward like formula 
-     * 
-     * @see https://docs.ctre-phoenix.com/en/latest/ch16_ClosedLoop.html#arbitrary-feed-forward
+     * Arbitrary Feed Forward like formula
+     * go to https://docs.ctre-phoenix.com/en/latest/ch16_ClosedLoop.html#arbitrary-feed-forward
+     * for more information
      * 
      * @param power speed [-1, 1]
      * @param turn gravitation [-1, 1]
