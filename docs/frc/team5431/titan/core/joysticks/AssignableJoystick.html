@@ -29,8 +29,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":42,"i1":42,"i2":42,"i3":42};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -147,9 +147,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - </dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">AssignableJoystick&lt;T extends <a href="../robot/legacy/TitanRobot.html" title="class in frc.team5431.titan.core.robot.legacy">TitanRobot</a>&lt;T&gt;&gt;</span>
 extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joysticks">Joystick</a></pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 </div>
@@ -219,7 +224,9 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">AssignableJoystick</a></span>&#8203;(int&nbsp;port)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -233,7 +240,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -243,24 +250,32 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assign(int,java.util.function.Supplier)">assign</a></span>&#8203;(int&nbsp;button,
       java.util.function.Supplier&lt;<a href="../robot/legacy/CommandQueue.html" title="class in frc.team5431.titan.core.robot.legacy">CommandQueue</a>&lt;<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&gt;&gt;&nbsp;generator)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assign(frc.team5431.titan.core.joysticks.Joystick.ButtonZone,java.util.function.Supplier)">assign</a></span>&#8203;(<a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>&nbsp;button,
       java.util.function.Supplier&lt;<a href="../robot/legacy/CommandQueue.html" title="class in frc.team5431.titan.core.robot.legacy">CommandQueue</a>&lt;<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&gt;&gt;&nbsp;generator)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRawButton(int,boolean)">getRawButton</a></span>&#8203;(int&nbsp;but,
             boolean&nbsp;update)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(T)">update</a></span>&#8203;(<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&nbsp;robot)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -314,6 +329,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <li class="blockList">
 <h4>AssignableJoystick</h4>
 <pre>public&nbsp;AssignableJoystick&#8203;(int&nbsp;port)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 </li>
@@ -335,6 +351,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <li class="blockList">
 <h4>update</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;update&#8203;(<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&nbsp;robot)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="getRawButton(int,boolean)">
@@ -345,6 +362,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <h4>getRawButton</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;getRawButton&#8203;(int&nbsp;but,
                             boolean&nbsp;update)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="assign(int,java.util.function.Supplier)">
@@ -355,6 +373,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <h4>assign</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;assign&#8203;(int&nbsp;button,
                    java.util.function.Supplier&lt;<a href="../robot/legacy/CommandQueue.html" title="class in frc.team5431.titan.core.robot.legacy">CommandQueue</a>&lt;<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&gt;&gt;&nbsp;generator)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="assign(frc.team5431.titan.core.joysticks.Joystick.ButtonZone,java.util.function.Supplier)">
@@ -365,6 +384,7 @@ extends <a href="Joystick.html" title="class in frc.team5431.titan.core.joystick
 <h4>assign</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;assign&#8203;(<a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>&nbsp;button,
                    java.util.function.Supplier&lt;<a href="../robot/legacy/CommandQueue.html" title="class in frc.team5431.titan.core.robot.legacy">CommandQueue</a>&lt;<a href="AssignableJoystick.html" title="type parameter in AssignableJoystick">T</a>&gt;&gt;&nbsp;generator)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 </li>

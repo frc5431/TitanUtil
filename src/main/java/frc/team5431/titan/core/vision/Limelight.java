@@ -39,23 +39,23 @@ public class Limelight {
     }
 
     public final boolean getValid() {
-        return get("tv").intValue() == 0 ? false : true;
+        return get("tv").intValue() > 0;
     }
 
     public final LEDState getLEDState() {
-        return LEDState.getStateFromInt(get("ledMode").intValue());
+        return LEDState.values()[get("ledMode").intValue()];
     }
 
     public final CameraMode getCameraMode() {
-        return CameraMode.getModeFromInt(get("camMode").intValue());
+        return CameraMode.values()[get("camMode").intValue()];
     }
 
     public final void setCameraMode(CameraMode state) {
-        table.getEntry("camMode").setNumber(state.getId());
+        table.getEntry("camMode").setNumber(state.ordinal());
     }
 
     public final void setLEDState(LEDState state) {
-        table.getEntry("ledMode").setNumber(state.getId());
+        table.getEntry("ledMode").setNumber(state.ordinal());
     }
 
     public final void setPipeline(int pipeline) {
