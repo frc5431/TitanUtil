@@ -9,5 +9,5 @@
     "java.format.enabled": true,
     "java.completion.enabled": true,
     "java.dependency.autoRefresh": true,
-    "java.import.gradle.enabled": true,
+    "java.import.gradle.enabled": true
 }
