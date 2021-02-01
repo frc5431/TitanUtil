@@ -9,7 +9,7 @@ public class EnumZone {
     // simple wrapper to POVZone.find which will loop around to find itself
     // no real application other that to test the find function
     private <T extends ZoneTools> ZoneTools getter(T v) {
-        return ZoneTools.find(v.getClass(), v.getPosition());
+        return ZoneTools.find(v.getClass(), v.getData());
     }
 
     @Test

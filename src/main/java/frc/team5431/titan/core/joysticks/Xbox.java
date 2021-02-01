@@ -18,10 +18,12 @@ public class Xbox extends Joystick implements POVTools {
         LEFT_X, LEFT_Y, TRIGGER_LEFT, TRIGGER_RIGHT, RIGHT_X, RIGHT_Y
     }
 
+    @Override
     public ZoneTools getPOVZone() {
         return getPOVZone(0);
     }
 
+    @Override
     public ZoneTools getPOVZone(int pov) {
         return ZoneTools.find(CompassPOV.class, getPOV(pov));
     }

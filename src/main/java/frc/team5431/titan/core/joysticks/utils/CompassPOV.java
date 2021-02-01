@@ -14,7 +14,7 @@ public enum CompassPOV implements ZoneTools {
     }
 
     @Override
-    public int getPosition() {
+    public int getData() {
         return coord;
     }
 }

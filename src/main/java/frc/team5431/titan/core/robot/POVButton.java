@@ -16,13 +16,16 @@ public class POVButton extends edu.wpi.first.wpilibj2.command.button.POVButton {
         super(joystick, angle);
     }
 
+    /**
+     *
+     * @param joystick The GenericHID object that has the POV
+     * @param angle    The desired angle in enum format
+     */
     public POVButton(Joystick joystick, POVZone pov) {
-        super(joystick, ZoneTools.isZoneTools(//
-                pov.getClass()) ? //
-                        ((ZoneTools) pov).getPosition() : //
-                        ((Enum<?>) pov).ordinal() //
+        super(joystick, ZoneTools.class.isAssignableFrom(pov.getClass()) ? //
+                ((ZoneTools) pov).getData() : //
+                ((Enum<?>) pov).ordinal() //
         );
-        // Arrays.asList(pov.getClass().getInterfaces()).contains(ZoneTools.class);
     }
 
 }
