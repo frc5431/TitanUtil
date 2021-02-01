@@ -17,6 +17,9 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
     public interface ButtonZone {
     };
 
+    public interface POVZone {
+    };
+
     /**
      * @param value Pass ID of axis that the value is wanted
      * @return Returns a double of the axis either [0, 100] or [-100, 100]
