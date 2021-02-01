@@ -20,12 +20,12 @@ public class LogitechExtreme3D extends Joystick implements POVTools {
     }
 
     @Override
-    public ZoneTools getPOVZone() {
+    public POVZone getPOVZone() {
         return getPOVZone(0);
     }
 
     @Override
-    public ZoneTools getPOVZone(int pov) {
-        return ZoneTools.find(CompassPOV.class, getPOV(pov));
+    public POVZone getPOVZone(int pov) {
+        return CompassPOV.find(pov);
     }
 }

@@ -3,25 +3,22 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import frc.team5431.titan.core.joysticks.utils.CompassPOV;
-import frc.team5431.titan.core.joysticks.utils.ZoneTools;
 
 public class EnumZone {
-    // simple wrapper to POVZone.find which will loop around to find itself
-    // no real application other that to test the find function
-    private <T extends ZoneTools> ZoneTools getter(T v) {
-        return ZoneTools.find(v.getClass(), v.getData());
+    private CompassPOV conversion(CompassPOV v) {
+        return CompassPOV.find(CompassPOV.getPOV(v));
     }
 
     @Test
     public void pov() {
-        assertEquals(getter(CompassPOV.NORTH), CompassPOV.NORTH);
-        assertEquals(getter(CompassPOV.SOUTH), CompassPOV.SOUTH);
-        assertEquals(getter(CompassPOV.EAST), CompassPOV.EAST);
-        assertEquals(getter(CompassPOV.WEST), CompassPOV.WEST);
+        assertEquals(conversion(CompassPOV.NORTH), CompassPOV.NORTH);
+        assertEquals(conversion(CompassPOV.SOUTH), CompassPOV.SOUTH);
+        assertEquals(conversion(CompassPOV.EAST), CompassPOV.EAST);
+        assertEquals(conversion(CompassPOV.WEST), CompassPOV.WEST);
 
-        assertEquals(getter(CompassPOV.NORTHEAST), CompassPOV.NORTHEAST);
-        assertEquals(getter(CompassPOV.SOUTHEAST), CompassPOV.SOUTHEAST);
-        assertEquals(getter(CompassPOV.NORTHWEST), CompassPOV.NORTHWEST);
-        assertEquals(getter(CompassPOV.SOUTHWEST), CompassPOV.SOUTHWEST);
+        assertEquals(conversion(CompassPOV.NORTHEAST), CompassPOV.NORTHEAST);
+        assertEquals(conversion(CompassPOV.SOUTHEAST), CompassPOV.SOUTHEAST);
+        assertEquals(conversion(CompassPOV.NORTHWEST), CompassPOV.NORTHWEST);
+        assertEquals(conversion(CompassPOV.SOUTHWEST), CompassPOV.SOUTHWEST);
     }
 }
