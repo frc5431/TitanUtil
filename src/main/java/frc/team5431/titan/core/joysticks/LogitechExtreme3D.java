@@ -1,13 +1,29 @@
 package frc.team5431.titan.core.joysticks;
 
-public class LogitechExtreme3D extends Joystick {
+import frc.team5431.titan.core.joysticks.utils.*;
+
+/**
+ * Custom Logitech Extreme class that has enums for controller bindings deadzone
+ * management
+ */
+public class LogitechExtreme3D extends Joystick implements POVTools {
     public LogitechExtreme3D(int port) {
         super(port);
     }
+
     public static enum Button implements ButtonZone {
         TRIGGER, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE
     }
+
     public static enum Axis implements AxisZone {
         X, Y, Z, SLIDER
+    }
+
+    public ZoneTools getPOVZone() {
+        return getPOVZone(0);
+    }
+
+    public ZoneTools getPOVZone(int pov) {
+        return ZoneTools.find(CompassPOV.class, getPOV(pov));
     }
 }
