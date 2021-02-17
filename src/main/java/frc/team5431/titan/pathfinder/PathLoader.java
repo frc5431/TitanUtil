@@ -104,4 +104,12 @@ public class PathLoader {
     public Status getStatus() {
         return status;
     }
+
+    public DifferentialDriveKinematics getDriveKinematics() {
+        return driveKinematics;
+    }
+
+    public Trajectory getTrajectory() {
+        return trajectory;
+    }
 }
