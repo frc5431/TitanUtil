@@ -9,20 +9,28 @@ public class ToggleTest {
     public void flip() {
         Toggle toggle = new Toggle();
 
-        // emulate joystick button press to enable
-        for (int x = 0; x < 100; x++) {
-            toggle.update(true);
-            assertTrue(toggle.getState());
-        }
-        // emulate joystick button release
-        for (int x = 0; x < 100; x++) {
-            toggle.update(false);
-            assertTrue(toggle.getState());
-        }
-        // emulate joystick button press to disable
-        for (int x = 0; x < 100; x++) {
-            toggle.update(true);
+        for (int y = 0; y < 100; y++) {
             assertFalse(toggle.getState());
+            // emulate joystick button press to enable
+            for (int x = 0; x < 100; x++) {
+                toggle.update(true);
+                assertTrue(toggle.getState());
+            }
+            // emulate joystick button release
+            for (int x = 0; x < 100; x++) {
+                toggle.update(false);
+                assertTrue(toggle.getState());
+            }
+            // emulate joystick button press to disable
+            for (int x = 0; x < 100; x++) {
+                toggle.update(true);
+                assertFalse(toggle.getState());
+            }
+            // emulate joystick button release
+            for (int x = 0; x < 100; x++) {
+                toggle.update(false);
+                assertFalse(toggle.getState());
+            }
         }
     }
 }
