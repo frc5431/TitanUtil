@@ -1,6 +1,8 @@
 package frc.team5431.titan.core.subsystem;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class DrivebaseSubsystem extends SubsystemBase {
@@ -50,4 +52,8 @@ public abstract class DrivebaseSubsystem extends SubsystemBase {
         getLeft().setVoltage(left);
         getRight().setVoltage(-right);
     }
+
+    public abstract Pose2d getPose();
+
+    public abstract DifferentialDriveWheelSpeeds getWheelSpeeds();
 }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team5431.titan.core.misc.Logger;
+import frc.team5431.titan.core.subsystem.DrivebaseSubsystem;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -80,7 +81,7 @@ public class PathLoader {
      * @param drivebase
      * @return New Command object
      */
-    public Command generateCommand(PathFinderControls drivebase) {
+    public Command generateCommand(DrivebaseSubsystem drivebase) {
         if (status == Status.LOADED) {
             assert (trajectory != null);
             return new RamseteCommand(this.trajectory, // Loaded Path
@@ -91,8 +92,8 @@ public class PathLoader {
                     drivebase::getWheelSpeeds, // callback
                     this.velocityPID, // PID
                     this.velocityPID, // PID
-                    drivebase::tankDriveVolts, // callback
-                    drivebase).andThen(() -> drivebase.tankDriveVolts(0, 0));
+                    drivebase::driveVolts, // callback
+                    drivebase).andThen(() -> drivebase.driveVolts(0, 0));
         } else if (status == Status.ERROR) {
             Logger.e("Cannot run unlocatable path");
         }
