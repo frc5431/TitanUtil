@@ -27,12 +27,6 @@ that will do all of the grunt work for you.
 * Portable interfaces for drivebase
 * Loading PathWeaver exports from a flash drive
 
-## Mimic
-* Observing and Mimicing basic drivebase pathfinding data
-* Saving mimic data to a flash drive
-* Loading mimic data from a flash drive
-* Portability to add more complex mechanisms like intakes
-
 # Install
 The supported way of introducing TitanUtil to a project is via Gradle. Gradle 
 is the current build system for WPILib robot projects.
