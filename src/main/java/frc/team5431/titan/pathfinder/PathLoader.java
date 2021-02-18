@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team5431.titan.core.misc.Logger;
-import frc.team5431.titan.core.subsystem.DrivebaseSubsystem;
+import frc.team5431.titan.core.subsystem.TitanBaseDrivebase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -81,7 +81,7 @@ public class PathLoader {
      * @param drivebase
      * @return New Command object
      */
-    public Command generateCommand(DrivebaseSubsystem drivebase) {
+    public Command generateCommand(TitanBaseDrivebase drivebase) {
         if (status == Status.LOADED) {
             assert (trajectory != null);
             return new RamseteCommand(this.trajectory, // Loaded Path
