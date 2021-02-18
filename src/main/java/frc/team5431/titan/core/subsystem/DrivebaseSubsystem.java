@@ -6,27 +6,25 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class DrivebaseSubsystem extends SubsystemBase {
-    /**
-     * 
-     * @return Motor
-     */
-    protected abstract SpeedController getLeft();
+    private static final String IMPROPER_CAST_DETECTED = "Improper Cast Detected";
+    private SpeedController left;
+    private SpeedController right;
+    private double maxTurnValue;
 
-    /**
-     * 
-     * @return Motor where reverse is assumed true via SpeedController.setInverted()
-     */
-    protected abstract SpeedController getRight();
-
-    /**
-     * 
-     * @return rate on how fast the turn should be
-     */
-    protected abstract double getMaxTurnValue();
+    protected DrivebaseSubsystem(SpeedController left, SpeedController right, double maxTurnValue) {
+        assert left instanceof SpeedController : IMPROPER_CAST_DETECTED;
+        assert right instanceof SpeedController : IMPROPER_CAST_DETECTED;
+        this.left = left;
+        this.right = right;
+        this.maxTurnValue = maxTurnValue;
+    }
 
     public final void driveTank(double left, double right) {
-        getLeft().set(left);
-        getRight().set(right);
+        if (this.left.getInverted() == this.right.getInverted()) {
+            throw new RuntimeException("Both sides of drivebase are either not or are inverted");
+        }
+        this.left.set(left);
+        this.right.set(right);
     }
 
     /**
@@ -43,14 +41,14 @@ public abstract class DrivebaseSubsystem extends SubsystemBase {
         // and can cause undefined behavior on speed controllers
         if (Math.abs(power) == -0.0)
             power = 0.0;
-        double feedFoward = turn * getMaxTurnValue();
-        getLeft().set(power - feedFoward);
-        getRight().set(power + feedFoward);
+        double feedFoward = turn * maxTurnValue;
+        this.left.set(power - feedFoward);
+        this.right.set(power + feedFoward);
     }
 
     public final void driveVolts(double left, double right) {
-        getLeft().setVoltage(left);
-        getRight().setVoltage(-right);
+        this.left.setVoltage(left);
+        this.right.setVoltage(-right);
     }
 
     public abstract Pose2d getPose();
