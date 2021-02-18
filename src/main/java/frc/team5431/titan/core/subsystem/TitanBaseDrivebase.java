@@ -1,10 +1,9 @@
 package frc.team5431.titan.core.subsystem;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public abstract class TitanBaseDrivebase extends SubsystemBase {
+public abstract class TitanBaseDrivebase<WheelSpeed> extends SubsystemBase {
     /**
      * @param left  percentage [-1.0, 1.0]
      * @param right percentage [-1.0, 1.0]
@@ -25,5 +24,5 @@ public abstract class TitanBaseDrivebase extends SubsystemBase {
 
     public abstract Pose2d getPose();
 
-    public abstract DifferentialDriveWheelSpeeds getWheelSpeeds();
+    public abstract WheelSpeed getWheelSpeeds();
 }

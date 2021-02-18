@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team5431.titan.core.misc.Logger;
-import frc.team5431.titan.core.subsystem.TitanBaseDrivebase;
+import frc.team5431.titan.core.subsystem.TitanDifferentalDrivebase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -78,10 +78,11 @@ public class PathLoader {
     /**
      * Generates a new command on call for playing back a path from PathWeaver
      * 
-     * @param drivebase
+     * @param drivebase Drivebase subsystem. Currently only supports differential
+     *                  drivebases
      * @return New Command object
      */
-    public Command generateCommand(TitanBaseDrivebase drivebase) {
+    public Command generateCommand(TitanDifferentalDrivebase drivebase) {
         if (status == Status.LOADED) {
             assert (trajectory != null);
             return new RamseteCommand(this.trajectory, // Loaded Path
