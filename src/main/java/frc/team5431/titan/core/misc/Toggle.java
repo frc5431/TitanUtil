@@ -1,8 +1,8 @@
 package frc.team5431.titan.core.misc;
 
 public class Toggle {
-    private boolean state = false;
-    private boolean prevState = false;
+    private boolean curr_state = false;
+    private boolean prev_state = false;
 
     /**
      * @deprecated use update() as it is more descriptive
@@ -21,15 +21,15 @@ public class Toggle {
      * @param pressed button status
      */
     public void update(boolean pressed) {
-        if (pressed && !prevState) {
-            state = !state;
+        if (pressed && !prev_state) {
+            curr_state = !curr_state;
         }
 
-        this.prevState = pressed;
+        this.prev_state = pressed;
     }
 
     public boolean getState() {
-        return state;
+        return curr_state;
     }
 
     /**
@@ -38,6 +38,6 @@ public class Toggle {
      * @param value new state value
      */
     public void setState(boolean value) {
-        state = value;
+        curr_state = value;
     }
 }
