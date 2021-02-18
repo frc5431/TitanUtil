@@ -21,9 +21,11 @@ public class Toggle {
      * @param pressed button status
      */
     public void update(boolean pressed) {
-        if (pressed && !prev_state) {
-            curr_state = !curr_state;
-        }
+        // "^=true" will toggle bool, "^=false" will not.
+        // "pressed && !prev_state" checks whether state needs to be changed.
+        // Using this over if/else logic allows the JVM to better optimize the logic to
+        // CPU instructions.
+        curr_state ^= pressed && !prev_state;
 
         this.prev_state = pressed;
     }
