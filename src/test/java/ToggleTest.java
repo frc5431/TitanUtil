@@ -9,25 +9,20 @@ public class ToggleTest {
     public void flip() {
         Toggle toggle = new Toggle();
 
+        // emulate joystick button press to enable
         for (int x = 0; x < 100; x++) {
-            toggle.isToggled(true);
+            toggle.update(true);
             assertTrue(toggle.getState());
         }
-        toggle.isToggled(false);
-        assertTrue(toggle.getState());
-    }
-
-    @Test
-    public void kotlinGeneratedGettersAndSetters() {
-        Toggle toggle = new Toggle();
-
-
+        // emulate joystick button release
         for (int x = 0; x < 100; x++) {
-            toggle.setState(false);
-            assertFalse(toggle.getState());
-
-            toggle.setState(true);
+            toggle.update(false);
             assertTrue(toggle.getState());
+        }
+        // emulate joystick button press to disable
+        for (int x = 0; x < 100; x++) {
+            toggle.update(true);
+            assertFalse(toggle.getState());
         }
     }
 }
