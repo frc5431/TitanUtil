@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 /**
  * @deprecated
  */
+@Deprecated
 public abstract class TitanRobot<T extends TitanRobot<T>> extends TimedRobot {
     public abstract List<Component<T>> getComponents();
 }

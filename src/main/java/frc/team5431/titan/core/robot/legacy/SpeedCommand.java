@@ -6,12 +6,13 @@ import edu.wpi.first.wpilibj.SpeedController;
  * @deprecated
  * @param <T>
  */
+@Deprecated
 public class SpeedCommand<T extends TitanRobot<T>> extends Command<T> {
     private final SpeedController controller;
     private final double speed;
     private final long durationMS;
     private long startTime;
-    
+
     public SpeedCommand(final double speed, final long durationMS, final SpeedController controller) {
         this.controller = controller;
         this.speed = speed;
@@ -29,7 +30,7 @@ public class SpeedCommand<T extends TitanRobot<T>> extends Command<T> {
     @Override
     public CommandResult update(T robot) {
         controller.set(speed);
-        
+
         if (System.currentTimeMillis() >= startTime + durationMS) {
             return CommandResult.COMPLETE;
         }

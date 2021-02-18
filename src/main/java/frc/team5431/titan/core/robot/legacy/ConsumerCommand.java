@@ -6,9 +6,10 @@ import java.util.function.Consumer;
  * @deprecated
  * @param <T>
  */
+@Deprecated
 public class ConsumerCommand<T extends TitanRobot<T>> extends Command<T> {
     private final Consumer<T> consumer;
-    
+
     public ConsumerCommand(final Consumer<T> consumer) {
         this.consumer = consumer;
 

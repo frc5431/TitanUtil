@@ -4,6 +4,7 @@ package frc.team5431.titan.core.robot.legacy;
  * @deprecated
  * @param <T>
  */
+@Deprecated
 public abstract class Command<T extends TitanRobot<T>> {
     public String name = "Command";
     public String properties = "None";

@@ -9,17 +9,18 @@ import frc.team5431.titan.core.misc.Logger;
  * @deprecated
  * @param <T>
  */
+@Deprecated
 public class CommandQueue<T extends TitanRobot<T>> extends LinkedList<Command<T>> {
     /**
      * 
      */
     public static final long serialVersionUID = 1L;
 
-    public CommandQueue(){
+    public CommandQueue() {
         super();
     }
 
-    public CommandQueue(final Collection<Command<T>> col){
+    public CommandQueue(final Collection<Command<T>> col) {
         super(col);
     }
 
@@ -71,8 +72,8 @@ public class CommandQueue<T extends TitanRobot<T>> extends LinkedList<Command<T>
         return true;
     }
 
-    public boolean done(final T robot){
-        if(!isEmpty()){
+    public boolean done(final T robot) {
+        if (!isEmpty()) {
             final Command<T> command = peek();
             command.done(robot);
             clear();

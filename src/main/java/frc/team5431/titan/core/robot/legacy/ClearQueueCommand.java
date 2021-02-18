@@ -4,9 +4,10 @@ package frc.team5431.titan.core.robot.legacy;
  * @deprecated
  * @param <T>
  */
-public class ClearQueueCommand<T extends TitanRobot<T>> extends Command<T>{
+@Deprecated
+public class ClearQueueCommand<T extends TitanRobot<T>> extends Command<T> {
 
-    public ClearQueueCommand(){
+    public ClearQueueCommand() {
         name = "ClearQueueCommand";
         properties = "Clears the command queue";
     }

@@ -4,11 +4,12 @@ package frc.team5431.titan.core.robot.legacy;
  * @deprecated
  * @param <T>
  */
+@Deprecated
 public class WaitCommand<T extends TitanRobot<T>> extends Command<T> {
 
     private final long durationMS;
     private long startTime;
-    
+
     public WaitCommand(final long ms) {
         name = "WaitStep";
         properties = String.format("Millis %d", ms);
