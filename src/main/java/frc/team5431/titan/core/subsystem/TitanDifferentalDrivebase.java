@@ -39,6 +39,6 @@ public abstract class TitanDifferentalDrivebase extends TitanBaseDrivebase<Diffe
     @Override
     public final void driveArcade(double power, double turn) {
         left.set(power + turn * maxTurnValue);
-        right.set(power + turn * maxTurnValue);
+        right.set(power - turn * maxTurnValue);
     }
 }
