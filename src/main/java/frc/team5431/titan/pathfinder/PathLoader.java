@@ -1,6 +1,7 @@
 package frc.team5431.titan.pathfinder;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -24,7 +25,7 @@ public class PathLoader {
     private static final String NAMESPACE = "frc.team5431.titan.pathfinder";
 
     public static enum Status {
-        UNLOADED, LOADED, ERROR
+        UNLOADED, LOADED, ERROR_NON_REAL, ERROR_PARSE
     }
 
     private final RamseteController ramseteController;
@@ -64,14 +65,19 @@ public class PathLoader {
      * @param json path in filesystem to alternative robot patt
      */
     public void loadAlternativePath(final String json) {
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(json);
+        if (!Files.exists(trajectoryPath)) {
+            System.out.println(trajectoryPath.getFileName() + " Does not exist");
+            status = Status.ERROR_NON_REAL;
+            return;
+        }
         try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(json);
             this.trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
             this.status = Status.LOADED;
         } catch (IOException e) {
             Logger.ee(NAMESPACE, e);
             this.trajectory = null;
-            this.status = Status.ERROR;
+            this.status = Status.ERROR_PARSE;
         }
     }
 
@@ -97,8 +103,6 @@ public class PathLoader {
                     drivebase).andThen(() -> drivebase.driveVolts(0, 0));
             cmd.addRequirements(drivebase);
             return cmd;
-        } else if (status == Status.ERROR) {
-            Logger.e("Cannot run unlocatable path");
         }
 
         return new CommandBase() {
