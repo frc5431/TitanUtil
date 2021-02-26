@@ -96,6 +96,7 @@ public class PathLoader {
                     drivebase::driveVolts, // callback
                     drivebase).andThen(() -> drivebase.driveVolts(0, 0));
             cmd.addRequirements(drivebase);
+            return cmd;
         } else if (status == Status.ERROR) {
             Logger.e("Cannot run unlocatable path");
         }
