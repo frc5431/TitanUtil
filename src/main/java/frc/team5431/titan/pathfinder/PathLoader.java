@@ -85,7 +85,7 @@ public class PathLoader {
     public Command generateCommand(TitanDifferentalDrivebase drivebase) {
         if (status == Status.LOADED) {
             assert (trajectory != null);
-            return new RamseteCommand(this.trajectory, // Loaded Path
+            var cmd = new RamseteCommand(this.trajectory, // Loaded Path
                     drivebase::getPose, // callback
                     this.ramseteController, // IDK
                     this.motorFeedForward, // IDK
@@ -95,6 +95,7 @@ public class PathLoader {
                     this.velocityPID, // PID
                     drivebase::driveVolts, // callback
                     drivebase).andThen(() -> drivebase.driveVolts(0, 0));
+            cmd.addRequirements(drivebase);
         } else if (status == Status.ERROR) {
             Logger.e("Cannot run unlocatable path");
         }
