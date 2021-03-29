@@ -45,7 +45,7 @@ allprojects {
 and, add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    implementation 'com.github.frc5431:TitanUtil:2021.10.1' //Replace tag with the latest release if needed
+    implementation 'com.github.frc5431:TitanUtil:2021.2.1' //Replace tag with the latest release if needed
 }
 ```
 
