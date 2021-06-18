@@ -203,19 +203,25 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#e(java.lang.String,java.lang.Object...)">e</a></span>&#8203;(java.lang.String&nbsp;base,
  java.lang.Object...&nbsp;a)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Logs errors</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ee(java.lang.String,java.lang.Exception)">ee</a></span>&#8203;(java.lang.String&nbsp;namespace,
   java.lang.Exception&nbsp;e)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Logs exceptions</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#l(java.lang.String,java.lang.Object...)">l</a></span>&#8203;(java.lang.String&nbsp;base,
  java.lang.Object...&nbsp;a)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Logs information</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -287,6 +293,12 @@ extends java.lang.Object</pre>
 <h4>l</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;l&#8203;(java.lang.String&nbsp;base,
                      java.lang.Object...&nbsp;a)</pre>
+<div class="block">Logs information</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>base</code> - base string, use %s for objects</dd>
+<dd><code>a</code> - objects to replace %s in order</dd>
+</dl>
 </li>
 </ul>
 <a id="e(java.lang.String,java.lang.Object...)">
@@ -297,6 +309,12 @@ extends java.lang.Object</pre>
 <h4>e</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;e&#8203;(java.lang.String&nbsp;base,
                      java.lang.Object...&nbsp;a)</pre>
+<div class="block">Logs errors</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>base</code> - base string, use %s for objects</dd>
+<dd><code>a</code> - objects to replace %s in order</dd>
+</dl>
 </li>
 </ul>
 <a id="ee(java.lang.String,java.lang.Exception)">
@@ -307,6 +325,12 @@ extends java.lang.Object</pre>
 <h4>ee</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;ee&#8203;(java.lang.String&nbsp;namespace,
                       java.lang.Exception&nbsp;e)</pre>
+<div class="block">Logs exceptions</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>namespace</code> - exception namespace (before the colon)</dd>
+<dd><code>e</code> - exception to log</dd>
+</dl>
 </li>
 </ul>
 </li>

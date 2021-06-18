@@ -29,7 +29,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -181,21 +181,38 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#approxEquals(double,double,double)">approxEquals</a></span>&#8203;(double&nbsp;a,
             double&nbsp;b,
             double&nbsp;epsilon)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Detects whether two values are within a certain range of each other.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clamp(double,double,double)">clamp</a></span>&#8203;(double&nbsp;val,
      double&nbsp;min,
      double&nbsp;max)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Clamps a number between two values.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lerp(double,double,double)">lerp</a></span>&#8203;(double&nbsp;a,
     double&nbsp;b,
     double&nbsp;f)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Lerps two values by the given factor.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#map(double,double,double,double,double)">map</a></span>&#8203;(double&nbsp;val,
+   double&nbsp;in_min,
+   double&nbsp;in_max,
+   double&nbsp;out_min,
+   double&nbsp;out_max)</code></th>
+<td class="colLast">
+<div class="block">Maps a value from one range to another.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -248,7 +265,19 @@ extends java.lang.Object</pre>
 <h4>approxEquals</h4>
 <pre class="methodSignature">public static final&nbsp;boolean&nbsp;approxEquals&#8203;(double&nbsp;a,
                                          double&nbsp;b,
-                                         double&nbsp;epsilon)</pre>
+                                         double&nbsp;epsilon)
+                                  throws java.lang.IllegalArgumentException</pre>
+<div class="block">Detects whether two values are within a certain range of each other.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>a</code> - the first value</dd>
+<dd><code>b</code> - the second value</dd>
+<dd><code>epsilon</code> - the range</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether they are approximately equal according to the range</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if epsilon is negative</dd>
+</dl>
 </li>
 </ul>
 <a id="lerp(double,double,double)">
@@ -260,17 +289,65 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public static final&nbsp;double&nbsp;lerp&#8203;(double&nbsp;a,
                                 double&nbsp;b,
                                 double&nbsp;f)</pre>
+<div class="block">Lerps two values by the given factor. Example: having values 4 and 7 and a
+ factor of 1.33 gives 8, and having values 10 and 20 with a factor of 0.65
+ gives 16.5.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>a</code> - the first value</dd>
+<dd><code>b</code> - the second value</dd>
+<dd><code>f</code> - the multiplier of the difference</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the result of the lerp</dd>
+</dl>
 </li>
 </ul>
 <a id="clamp(double,double,double)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>clamp</h4>
 <pre class="methodSignature">public static final&nbsp;double&nbsp;clamp&#8203;(double&nbsp;val,
                                  double&nbsp;min,
-                                 double&nbsp;max)</pre>
+                                 double&nbsp;max)
+                          throws java.lang.IllegalArgumentException</pre>
+<div class="block">Clamps a number between two values.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>val</code> - the value to clamp</dd>
+<dd><code>min</code> - the minimum allowed value</dd>
+<dd><code>max</code> - the maximum allowed value</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the clamped value</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if max is less than min</dd>
+</dl>
+</li>
+</ul>
+<a id="map(double,double,double,double,double)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>map</h4>
+<pre class="methodSignature">public static final&nbsp;double&nbsp;map&#8203;(double&nbsp;val,
+                               double&nbsp;in_min,
+                               double&nbsp;in_max,
+                               double&nbsp;out_min,
+                               double&nbsp;out_max)</pre>
+<div class="block">Maps a value from one range to another. Note: min and maxes can be swapped
+ for easy flipping over a range.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>val</code> - the value to map</dd>
+<dd><code>in_min</code> - the initial range's minimum</dd>
+<dd><code>in_max</code> - the initial range's maximum</dd>
+<dd><code>out_min</code> - the output range's minimum</dd>
+<dd><code>out_max</code> - the output range's maximum</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the mapped value</dd>
+</dl>
 </li>
 </ul>
 </li>

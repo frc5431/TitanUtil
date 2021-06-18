@@ -135,6 +135,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Toggle</span>
 extends java.lang.Object</pre>
+<div class="block">Helper class to store button states</div>
 </li>
 </ul>
 </div>
@@ -156,7 +157,15 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Toggle</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates a new toggle with a default state of false.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(boolean)">Toggle</a></span>&#8203;(boolean&nbsp;defaultState)</code></th>
+<td class="colLast">
+<div class="block">Creates a new toggle with the specified default state.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -231,10 +240,25 @@ extends java.lang.Object</pre>
 <a id="&lt;init&gt;()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>Toggle</h4>
 <pre>public&nbsp;Toggle()</pre>
+<div class="block">Creates a new toggle with a default state of false.</div>
+</li>
+</ul>
+<a id="&lt;init&gt;(boolean)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Toggle</h4>
+<pre>public&nbsp;Toggle&#8203;(boolean&nbsp;defaultState)</pre>
+<div class="block">Creates a new toggle with the specified default state.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>defaultState</code> - the default state of the toggle</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -258,11 +282,12 @@ public&nbsp;boolean&nbsp;isToggled&#8203;(boolean&nbsp;buttonState)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated, for removal: This API element is subject to removal in a future version.</span>
 <div class="deprecationComment">use update() as it is more descriptive</div>
 </div>
+<div class="block">Whether the toggle is active</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>buttonState</code> - button status</dd>
+<dd><code>buttonState</code> - raw button status</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>current state</dd>
+<dd>the toggle state after raw data is received</dd>
 </dl>
 </li>
 </ul>
@@ -276,7 +301,7 @@ public&nbsp;boolean&nbsp;isToggled&#8203;(boolean&nbsp;buttonState)</pre>
 <div class="block">Updates internal state for if toggle has changed</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pressed</code> - button status</dd>
+<dd><code>pressed</code> - raw button data</dd>
 </dl>
 </li>
 </ul>
@@ -287,6 +312,10 @@ public&nbsp;boolean&nbsp;isToggled&#8203;(boolean&nbsp;buttonState)</pre>
 <li class="blockList">
 <h4>getState</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;getState()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the toggle state</dd>
+</dl>
 </li>
 </ul>
 <a id="setState(boolean)">
@@ -299,7 +328,7 @@ public&nbsp;boolean&nbsp;isToggled&#8203;(boolean&nbsp;buttonState)</pre>
 <div class="block">Use with caution, can break internal logic</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>value</code> - new state value</dd>
+<dd><code>value</code> - the new state value</dd>
 </dl>
 </li>
 </ul>
