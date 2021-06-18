@@ -39,7 +39,7 @@ public class Toggle {
     /**
      * Updates internal state for if toggle has changed
      * 
-     * @param raw button data
+     * @param pressed raw button data
      */
     public void update(boolean pressed) {
         // "^=true" will toggle bool, "^=false" will not.

@@ -1,10 +1,10 @@
 package frc.team5431.titan.core.robot.legacy;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use subsystems
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public abstract class Component<T extends TitanRobot<T>> {
     public abstract void init(final T robot);
 

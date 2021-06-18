@@ -1,10 +1,10 @@
 package frc.team5431.titan.core.robot.legacy;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class WaitCommand<T extends TitanRobot<T>> extends Command<T> {
 
     private final long durationMS;

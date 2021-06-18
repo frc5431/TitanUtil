@@ -3,10 +3,10 @@ package frc.team5431.titan.core.robot.legacy;
 import java.util.function.Function;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class ConditionalCommand<T extends TitanRobot<T>> extends Command<T> {
     private final Function<T, Boolean> func;
 

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * 
- * This class will allow for you to wrap a command inside a seperate thread and
+ * This class will allow you to wrap a command inside a seperate thread and
  * still act as a command
  * 
  * @author Ryan Hirasaki

@@ -1,10 +1,10 @@
 package frc.team5431.titan.core.robot.legacy;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public abstract class Command<T extends TitanRobot<T>> {
     public String name = "Command";
     public String properties = "None";

@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class ParallelCommandGroup<T extends TitanRobot<T>> extends Command<T> {
     private final List<CommandQueue<T>> queues = new ArrayList<>();
 

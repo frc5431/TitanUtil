@@ -3,10 +3,10 @@ package frc.team5431.titan.core.robot.legacy;
 import edu.wpi.first.wpilibj.SpeedController;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class SpeedCommand<T extends TitanRobot<T>> extends Command<T> {
     private final SpeedController controller;
     private final double speed;

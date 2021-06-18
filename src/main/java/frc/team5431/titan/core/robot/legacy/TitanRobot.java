@@ -5,9 +5,10 @@ import java.util.List;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
- * @deprecated
+ * @deprecated use subsystems
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public abstract class TitanRobot<T extends TitanRobot<T>> extends TimedRobot {
     public abstract List<Component<T>> getComponents();
 }

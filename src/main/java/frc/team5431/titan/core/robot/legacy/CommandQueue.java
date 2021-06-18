@@ -6,10 +6,10 @@ import java.util.LinkedList;
 import frc.team5431.titan.core.misc.Logger;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class CommandQueue<T extends TitanRobot<T>> extends LinkedList<Command<T>> {
     /**
      * 
