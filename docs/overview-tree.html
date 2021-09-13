@@ -99,6 +99,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <span class="packageHierarchyLabel">Package Hierarchies:</span>
 <ul class="horizontal">
 <li><a href="frc/team5431/titan/core/joysticks/package-tree.html">frc.team5431.titan.core.joysticks</a>, </li>
+<li><a href="frc/team5431/titan/core/joysticks/utils/package-tree.html">frc.team5431.titan.core.joysticks.utils</a>, </li>
 <li><a href="frc/team5431/titan/core/mimic/package-tree.html">frc.team5431.titan.core.mimic</a>, </li>
 <li><a href="frc/team5431/titan/core/misc/package-tree.html">frc.team5431.titan.core.misc</a>, </li>
 <li><a href="frc/team5431/titan/core/robot/package-tree.html">frc.team5431.titan.core.robot</a>, </li>
@@ -168,8 +169,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/AssignableJoystick.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">AssignableJoystick</span></a>&lt;T&gt;</li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/FSi6S.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">FSi6S</span></a></li>
-<li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/LogitechExtreme3D.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">LogitechExtreme3D</span></a></li>
-<li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Xbox.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">Xbox</span></a></li>
+<li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/LogitechExtreme3D.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">LogitechExtreme3D</span></a> (implements frc.team5431.titan.core.joysticks.utils.<a href="frc/team5431/titan/core/joysticks/utils/POVTools.html" title="interface in frc.team5431.titan.core.joysticks.utils">POVTools</a>)</li>
+<li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Xbox.html" title="class in frc.team5431.titan.core.joysticks"><span class="typeNameLink">Xbox</span></a> (implements frc.team5431.titan.core.joysticks.utils.<a href="frc/team5431/titan/core/joysticks/utils/POVTools.html" title="interface in frc.team5431.titan.core.joysticks.utils">POVTools</a>)</li>
 </ul>
 </li>
 </ul>
@@ -197,7 +198,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="circle">edu.wpi.first.wpilibj.SendableBase (implements java.lang.AutoCloseable, edu.wpi.first.wpilibj.Sendable)
 <ul>
-<li class="circle">com.kauailabs.navx.frc.AHRS (implements edu.wpi.first.wpilibj.PIDSource, edu.wpi.first.wpilibj.Sendable)
+<li class="circle">com.kauailabs.navx.frc.AHRS (implements edu.wpi.first.wpilibj.interfaces.Gyro, edu.wpi.first.wpilibj.PIDSource, edu.wpi.first.wpilibj.Sendable)
 <ul>
 <li class="circle">frc.team5431.titan.core.sensors.<a href="frc/team5431/titan/core/sensors/Navx.html" title="class in frc.team5431.titan.core.sensors"><span class="typeNameLink">Navx</span></a></li>
 </ul>
@@ -236,6 +237,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="circle">frc.team5431.titan.core.robot.<a href="frc/team5431/titan/core/robot/JoystickButton.html" title="class in frc.team5431.titan.core.robot"><span class="typeNameLink">JoystickButton</span></a></li>
 </ul>
 </li>
+<li class="circle">edu.wpi.first.wpilibj2.command.button.POVButton
+<ul>
+<li class="circle">frc.team5431.titan.core.robot.<a href="frc/team5431/titan/core/robot/POVButton.html" title="class in frc.team5431.titan.core.robot"><span class="typeNameLink">POVButton</span></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -250,6 +256,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="circle">frc.team5431.titan.mimic.<a href="frc/team5431/titan/mimic/DrivebaseAnalyzer.html" title="interface in frc.team5431.titan.mimic"><span class="typeNameLink">DrivebaseAnalyzer</span></a></li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.AxisZone.html" title="interface in frc.team5431.titan.core.joysticks"><span class="typeNameLink">Joystick.AxisZone</span></a></li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks"><span class="typeNameLink">Joystick.ButtonZone</span></a></li>
+<li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.POVZone.html" title="interface in frc.team5431.titan.core.joysticks"><span class="typeNameLink">Joystick.POVZone</span></a></li>
+<li class="circle">frc.team5431.titan.core.joysticks.utils.<a href="frc/team5431/titan/core/joysticks/utils/POVTools.html" title="interface in frc.team5431.titan.core.joysticks.utils"><span class="typeNameLink">POVTools</span></a></li>
 <li class="circle">frc.team5431.titan.core.mimic.<a href="frc/team5431/titan/core/mimic/PropertyValue.html" title="interface in frc.team5431.titan.core.mimic"><span class="typeNameLink">PropertyValue</span></a>&lt;R&gt;</li>
 </ul>
 </section>
@@ -262,6 +270,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">frc.team5431.titan.core.vision.<a href="frc/team5431/titan/core/vision/CameraMode.html" title="enum in frc.team5431.titan.core.vision"><span class="typeNameLink">CameraMode</span></a></li>
 <li class="circle">frc.team5431.titan.core.robot.legacy.<a href="frc/team5431/titan/core/robot/legacy/Command.CommandResult.html" title="enum in frc.team5431.titan.core.robot.legacy"><span class="typeNameLink">Command.CommandResult</span></a></li>
+<li class="circle">frc.team5431.titan.core.joysticks.utils.<a href="frc/team5431/titan/core/joysticks/utils/CompassPOV.html" title="enum in frc.team5431.titan.core.joysticks.utils"><span class="typeNameLink">CompassPOV</span></a> (implements frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.POVZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.POVZone</a>)</li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/FSi6S.Axis.html" title="enum in frc.team5431.titan.core.joysticks"><span class="typeNameLink">FSi6S.Axis</span></a> (implements frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.AxisZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.AxisZone</a>)</li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/FSi6S.Switch.html" title="enum in frc.team5431.titan.core.joysticks"><span class="typeNameLink">FSi6S.Switch</span></a> (implements frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>)</li>
 <li class="circle">frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/FSi6S.SwitchPosition.html" title="enum in frc.team5431.titan.core.joysticks"><span class="typeNameLink">FSi6S.SwitchPosition</span></a> (implements frc.team5431.titan.core.joysticks.<a href="frc/team5431/titan/core/joysticks/Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>)</li>

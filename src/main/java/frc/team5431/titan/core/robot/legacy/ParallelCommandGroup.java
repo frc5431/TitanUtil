@@ -5,66 +5,68 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @deprecated
- * @param <T>
+ * @deprecated use wpilib commands
+ * @param <T> robot class
  */
+@Deprecated(forRemoval = true)
 public class ParallelCommandGroup<T extends TitanRobot<T>> extends Command<T> {
     private final List<CommandQueue<T>> queues = new ArrayList<>();
 
     private boolean init = false;
 
-    public ParallelCommandGroup(){
+    public ParallelCommandGroup() {
         name = "ParallelCommandGroup";
         properties = "Runs a group of commands in parallel";
     }
 
-    public void addCommand(final Command<T> command){
+    public void addCommand(final Command<T> command) {
         final CommandQueue<T> newQueue = new CommandQueue<T>();
         newQueue.add(command);
         addQueue(newQueue);
     }
 
-    public void addQueue(final CommandQueue<T> queue){
-        if(init){
-            throw new IllegalArgumentException("Can't add new commands to a ParallelCommandGroup after init() was called");
+    public void addQueue(final CommandQueue<T> queue) {
+        if (init) {
+            throw new IllegalArgumentException(
+                    "Can't add new commands to a ParallelCommandGroup after init() was called");
         }
         queues.add(queue);
     }
 
-    public void addQueue(final List<Command<T>> list){
+    public void addQueue(final List<Command<T>> list) {
         addQueue(new CommandQueue<T>(list));
     }
 
-    public void init(final T robot){
-        for(final CommandQueue<T> queue : queues){
+    public void init(final T robot) {
+        for (final CommandQueue<T> queue : queues) {
             queue.init(robot);
         }
         init = true;
     }
 
-    public CommandResult update(final T robot){
+    public CommandResult update(final T robot) {
         final Iterator<CommandQueue<T>> queueIter = queues.iterator();
-        while(queueIter.hasNext()){
+        while (queueIter.hasNext()) {
             final CommandQueue<T> queue = queueIter.next();
-            if(!queue.update(robot)){
+            if (!queue.update(robot)) {
                 queueIter.remove();
             }
         }
 
-        if(queues.isEmpty()){
+        if (queues.isEmpty()) {
             return CommandResult.COMPLETE;
         }
 
         return CommandResult.IN_PROGRESS;
     }
 
-    public void done(final T robot){
-        for(final CommandQueue<T> queue : queues){
+    public void done(final T robot) {
+        for (final CommandQueue<T> queue : queues) {
             queue.done(robot);
         }
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return queues.isEmpty();
     }
 }
