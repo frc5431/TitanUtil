@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.subsystem;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class DrivebaseSubsystem extends SubsystemBase {
@@ -8,13 +8,13 @@ public abstract class DrivebaseSubsystem extends SubsystemBase {
      * 
      * @return Motor
      */
-    protected abstract SpeedController getLeft();
+    protected abstract MotorController getLeft();
 
     /**
      * 
      * @return Motor where reverse is assumed true via SpeedController.setInverted()
      */
-    protected abstract SpeedController getRight();
+    protected abstract MotorController getRight();
 
     /**
      * 

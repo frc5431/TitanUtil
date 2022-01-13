@@ -1,13 +1,12 @@
 package frc.team5431.titan.core.sensors;
 
-import com.revrobotics.ColorSensorV3;
-
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.team5431.titan.core.misc.Logger;
 
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorSensorV3;
 
 public class ColorSensor extends ColorSensorV3 {
     private Color[] m_Colors;
@@ -16,12 +15,14 @@ public class ColorSensor extends ColorSensorV3 {
 
     /**
      * 
-     * @param port This is the the port of the sensor, you can grab it with
-     * (I2C.Port.kOnboard)
+     * @param port       This is the the port of the sensor, you can grab it with
+     *                   (I2C.Port.kOnboard)
      * @param confidence This is a double in the range of [0.0 to 1.0] which
-     * the color sensor will use to make its prediction with.
-     * @param colors This is an array of colors which you will pass to the ColorSensor
-     * so the program can create the proper predition of which color it sees.
+     *                   the color sensor will use to make its prediction with.
+     * @param colors     This is an array of colors which you will pass to the
+     *                   ColorSensor
+     *                   so the program can create the proper predition of which
+     *                   color it sees.
      */
     public ColorSensor(I2C.Port port, double confidence, Color[] colors) {
         super(port);
@@ -37,24 +38,27 @@ public class ColorSensor extends ColorSensorV3 {
      * this only works when on the RoboRIO port.
      * 
      * @param confidence This is a double in the range of [0.0 to 1.0] which
-     * the color sensor will use to make its prediction with.
-     * @param colors This is an array of colors which you will pass to the ColorSensor
-     * so the program can create the proper predition of which color it sees.
+     *                   the color sensor will use to make its prediction with.
+     * @param colors     This is an array of colors which you will pass to the
+     *                   ColorSensor
+     *                   so the program can create the proper predition of which
+     *                   color it sees.
      */
     public ColorSensor(double confidence, Color[] colors) {
         this(I2C.Port.kOnboard, confidence, colors);
     }
 
     public void setConfidence(double confidence) {
-        assert(confidence >= 0.0);
-        assert(confidence <= 1.0);
+        assert (confidence >= 0.0);
+        assert (confidence <= 1.0);
         m_Confidence = confidence;
     }
 
     /**
      * 
      * @return the integer returned will be equal to the position in the color
-     * array passes to the constructor. Will return -1 if the confidence in not high enough.
+     *         array passes to the constructor. Will return -1 if the confidence in
+     *         not high enough.
      */
     public int findColorMatch() {
         int position = -1;
@@ -68,7 +72,7 @@ public class ColorSensor extends ColorSensorV3 {
                     position = i;
             }
         }
-        
+
         if (position == -1)
             Logger.e("WARNING: No Color Found in TitanUtil's Color Sensor");
 
