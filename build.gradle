@@ -12,6 +12,18 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.frc5431'
+            artifactId = 'TitanUtil'
+            version = '2022.1.1.1'
+
+            from components.java
+        }
+    }
+}
+
 allprojects {
     repositories {
         mavenCentral()

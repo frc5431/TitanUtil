@@ -53,7 +53,7 @@ dependencies {
 
 BSD 2-Clause License
 
-Copyright (c) 2021, 5431 Titan Robotics
+Copyright (c) 2022, 5431 Titan Robotics
 All rights reserved
 
 Refer to LICENSE file for more information, located in the base of this project
