@@ -36,8 +36,9 @@ dependencies {
 }
 
 task buildJar(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     baseName = 'titan-util'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 
     doLast {
