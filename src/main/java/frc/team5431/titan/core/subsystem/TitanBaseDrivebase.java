@@ -1,6 +1,6 @@
 package frc.team5431.titan.core.subsystem;
 
-import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class TitanBaseDrivebase<WheelSpeed> extends SubsystemBase {

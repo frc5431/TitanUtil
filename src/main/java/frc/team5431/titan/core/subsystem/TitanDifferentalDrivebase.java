@@ -1,13 +1,13 @@
 package frc.team5431.titan.core.subsystem;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import frc.team5431.titan.core.misc.Logger;
 
 public abstract class TitanDifferentalDrivebase extends TitanBaseDrivebase<DifferentialDriveWheelSpeeds> {
     private static final String PATH = "frc.team5431.titan.core.subsystem.TitanDifferentalDrivebase";
-    private SpeedController left;
-    private SpeedController right;
+    private MotorController left;
+    private MotorController right;
     private final double maxTurnValue;
 
     protected TitanDifferentalDrivebase(Object left, Object right) {
@@ -15,8 +15,8 @@ public abstract class TitanDifferentalDrivebase extends TitanBaseDrivebase<Diffe
     }
 
     protected TitanDifferentalDrivebase(Object left, Object right, double maxTurnValue) {
-        this.left = (SpeedController) left;
-        this.right = (SpeedController) right;
+        this.left = (MotorController) left;
+        this.right = (MotorController) right;
         this.maxTurnValue = maxTurnValue;
 
         if (this.left.getInverted() == this.right.getInverted()) {
