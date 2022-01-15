@@ -1,71 +1,56 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21' //Set the Kotlin version here
-    id 'maven'
-    id 'maven-publish'
     id 'idea'
     id 'eclipse'
-    id "edu.wpi.first.GradleRIO" version "2021.2.2"
+    id 'maven-publish'
+    id "edu.wpi.first.GradleRIO" version "2022.1.1"
+    id 'edu.wpi.first.GradleVsCode' version '1.3.0'
 }
 
-group = 'com.github.frc5431'
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
-// sourceCompatibility = JavaVersion.VERSION_11
-// targetCompatibility = JavaVersion.VERSION_11
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.frc5431'
+            artifactId = 'TitanUtil'
+            version = '2022.1.1.1'
 
-repositories {
-    mavenCentral()
+            from components.java
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    group = 'com.github.frc5431'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    
-    implementation wpi.deps.wpilib()
-    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+    implementation wpi.java.deps.wpilib()
+    implementation wpi.java.vendor.java()
 
-
-    implementation wpi.deps.vendor.java()
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+    // Remove Native Zips with GradleRIO 2022
+    // nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
+    // nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+    // nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
+    // nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
     testImplementation 'junit:junit:4.12'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-//To install this as a dependency
-/*
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            licenses {
-                license {
-                    name 'GNU GENERAL PUBLIC LICENSE, Version 4.0'
-                    url 'https://www.gnu.org/licenses/gpl-3.0.en.html'
-                    distribution 'repo'
-                }
-            }
-        }
-    }
-}
-*/
-
 task buildJar(type: Jar) {
-    /*manifest {
-        attributes 'Main-Class': 'frc.team5431.titan.examples.TitanUtilRobot'
-    }*/
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     baseName = 'titan-util'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 
     doLast {
@@ -80,7 +65,7 @@ javadoc {
     title "TitanUtil API"
 
     doLast {
-        println "Coping to docs folder"
+        println "Copying to docs folder"
         copy {
             from "build/docs/javadoc"
             into "docs"
