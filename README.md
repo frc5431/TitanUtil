@@ -22,7 +22,7 @@ that will do all of the grunt work for you.
 * Builtin core utilities
 * Added Components and Cross-Class Sensor Data
 
-## Mimic
+## Mimic (Deprecated)
 * Observing and Mimicing basic drivebase pathfinding data
 * Saving mimic data to a flash drive
 * Loading mimic data from a flash drive
