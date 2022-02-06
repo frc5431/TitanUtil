@@ -29,8 +29,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":42,"i2":10,"i3":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
+var data = {"i0":10,"i1":10,"i2":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -179,7 +179,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -191,22 +191,13 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isToggled(boolean)">isToggled</a></span>&#8203;(boolean&nbsp;buttonState)</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated, for removal: This API element is subject to removal in a future version.</span>
-<div class="deprecationComment">use update() as it is more descriptive</div>
-</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setState(boolean)">setState</a></span>&#8203;(boolean&nbsp;value)</code></th>
 <td class="colLast">
 <div class="block">Use with caution, can break internal logic</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(boolean)">update</a></span>&#8203;(boolean&nbsp;pressed)</code></th>
 <td class="colLast">
@@ -271,26 +262,6 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="isToggled(boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isToggled</h4>
-<pre class="methodSignature">@Deprecated(forRemoval=true)
-public&nbsp;boolean&nbsp;isToggled&#8203;(boolean&nbsp;buttonState)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated, for removal: This API element is subject to removal in a future version.</span>
-<div class="deprecationComment">use update() as it is more descriptive</div>
-</div>
-<div class="block">Whether the toggle is active</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>buttonState</code> - raw button status</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the toggle state after raw data is received</dd>
-</dl>
-</li>
-</ul>
 <a id="update(boolean)">
 <!--   -->
 </a>

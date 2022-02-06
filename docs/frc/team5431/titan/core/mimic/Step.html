@@ -29,8 +29,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":42,"i5":42};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -133,8 +133,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <hr>
-<pre>public class <span class="typeNameLabel">Step&lt;PV extends java.lang.Enum&lt;PV&gt; &amp; <a href="PropertyValue.html" title="interface in frc.team5431.titan.core.mimic">PropertyValue</a>&lt;?&gt;&gt;</span>
+<pre>@Deprecated
+public class <span class="typeNameLabel">Step&lt;PV extends java.lang.Enum&lt;PV&gt; &amp; <a href="PropertyValue.html" title="interface in frc.team5431.titan.core.mimic">PropertyValue</a>&lt;?&gt;&gt;</span>
 extends java.lang.Object</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">since 2022.3.1.0</div>
+</div>
 </li>
 </ul>
 </div>
@@ -158,7 +162,9 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a>,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#values">values</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -180,11 +186,15 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.Class)">Step</a></span>&#8203;(java.lang.String&nbsp;toParse,
     java.lang.Class&lt;<a href="Step.html" title="type parameter in Step">PV</a>&gt;&nbsp;clazz)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.EnumMap)">Step</a></span>&#8203;(java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a>,&#8203;java.lang.Object&gt;&nbsp;values)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -198,7 +208,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -207,32 +217,44 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.Object</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(PV)">get</a></span>&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBoolean(PV)">getBoolean</a></span>&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDouble(PV)">getDouble</a></span>&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInteger(PV)">getInteger</a></span>&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a>,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getValues()">getValues</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -265,6 +287,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>values</h4>
 <pre>public&nbsp;java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a> extends java.lang.Enum&lt;<a href="Step.html" title="type parameter in Step">PV</a>&gt; &amp; <a href="PropertyValue.html" title="interface in frc.team5431.titan.core.mimic">PropertyValue</a>&lt;?&gt;,&#8203;java.lang.Object&gt; values</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 </li>
@@ -284,6 +307,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Step</h4>
 <pre>public&nbsp;Step&#8203;(java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a>,&#8203;java.lang.Object&gt;&nbsp;values)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="&lt;init&gt;(java.lang.String,java.lang.Class)">
@@ -294,6 +318,7 @@ extends java.lang.Object</pre>
 <h4>Step</h4>
 <pre>public&nbsp;Step&#8203;(java.lang.String&nbsp;toParse,
             java.lang.Class&lt;<a href="Step.html" title="type parameter in Step">PV</a>&gt;&nbsp;clazz)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 </li>
@@ -313,6 +338,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getValues</h4>
 <pre class="methodSignature">public&nbsp;java.util.EnumMap&lt;<a href="Step.html" title="type parameter in Step">PV</a>,&#8203;java.lang.Object&gt;&nbsp;getValues()</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="get(java.lang.Enum)">
@@ -324,6 +350,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>get</h4>
 <pre class="methodSignature">public&nbsp;java.lang.Object&nbsp;get&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="getDouble(java.lang.Enum)">
@@ -335,6 +362,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getDouble</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getDouble&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="getBoolean(java.lang.Enum)">
@@ -346,6 +374,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getBoolean</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;getBoolean&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="getInteger(java.lang.Enum)">
@@ -357,6 +386,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getInteger</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getInteger&#8203;(<a href="Step.html" title="type parameter in Step">PV</a>&nbsp;value)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="toString()">
@@ -366,6 +396,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
