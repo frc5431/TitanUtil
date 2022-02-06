@@ -1,7 +1,14 @@
 package frc.team5431.titan.core.misc;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
+/**
+ * Logger helper for logging to the Driver Station
+ * 
+ * @author Ryan Hirasaki
+ * @author Colin Wong
+ */
 public class Logger {
-	public static boolean DEBUG = false;
 
 	/**
 	 * Logs information
@@ -10,8 +17,9 @@ public class Logger {
 	 * @param a    objects to replace %s in order
 	 */
 	public static void l(String base, Object... a) {
-		if (DEBUG)
-			System.out.println(String.format(base, a));
+		String msg = String.format(base, a);
+		// System.out.println(msg);
+		DriverStation.reportWarning(msg, false);
 	}
 
 	/**
@@ -21,8 +29,9 @@ public class Logger {
 	 * @param a    objects to replace %s in order
 	 */
 	public static void e(String base, Object... a) {
-		if (DEBUG)
-			System.err.println(String.format(base, a));
+		String msg = String.format(base, a);
+		// System.err.println(msg);
+		DriverStation.reportError(msg, false);
 	}
 
 	/**
@@ -32,8 +41,7 @@ public class Logger {
 	 * @param e         exception to log
 	 */
 	public static void ee(String namespace, Exception e) {
-		if (DEBUG)
-			e("%s: %s", namespace, e.getMessage());
+		String msg = String.format("%s: %s", namespace, e.getMessage());
+		DriverStation.reportError(msg, e.getStackTrace());
 	}
-
 }

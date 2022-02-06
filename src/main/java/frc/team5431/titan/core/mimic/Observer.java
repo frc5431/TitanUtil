@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-
 import frc.team5431.titan.core.misc.Logger;
 
+/**
+ * @deprecated since 2022.3.1.0
+ */
+@Deprecated
 public class Observer<R, PV extends Enum<PV> & PropertyValue<R>> {
     private FileOutputStream log = null;
 

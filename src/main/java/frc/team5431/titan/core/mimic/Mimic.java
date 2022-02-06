@@ -11,11 +11,20 @@ import java.util.ArrayList;
 
 import frc.team5431.titan.core.misc.Logger;
 
+/**
+ * Mimic robot behavior with generated "steps"
+ * 
+ * @author Ryan Hirasaki
+ * @author David Smerkous
+ * @author Liav Turkia
+ * @deprecated since 2022.3.1.0, use PathWeaver
+ */
+@Deprecated
 public class Mimic {
 
     public static final String DEFAULT_MIMIC_DIRECTORY = "/media/sda1/";
     public static final String DEFAULT_MIMIC_PATH = DEFAULT_MIMIC_DIRECTORY + "%s.mimic";
-    
+
     public static <PV extends Enum<PV> & PropertyValue<?>> List<Step<PV>> load(final String fileName,
             final Class<PV> clazz) {
         final ArrayList<Step<PV>> pathData = new ArrayList<>();

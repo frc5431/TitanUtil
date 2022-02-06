@@ -5,14 +5,18 @@ import frc.team5431.titan.core.misc.Logger;
 /**
  * @author David Smerkous
  * @author Ryan Hirasaki
+ * @deprecated since 2022.3.1.0
  */
+@Deprecated
 public class Stepper {
     public static final String mimicFile = "/media/sda1/%s.mimic";
-    public static final String formatString = "%.2f,%.2f,%.2f,%.4f,%.4f,%d\n"; //LEFT ENCODER, RIGHT ENCODER, GYRO ANGLE, LEFT POWER, RIGHT POWER, HOME
+    public static final String formatString = "%.2f,%.2f,%.2f,%.4f,%.4f,%d\n"; // LEFT ENCODER, RIGHT ENCODER, GYRO
+                                                                               // ANGLE, LEFT POWER, RIGHT POWER, HOME
     public double leftDistance, rightDistance, angle, leftPower, rightPower;
     public boolean isHome;
 
-    public Stepper(final double lD, final double rD, final double a, final double lP, final double rP, final boolean h) {
+    public Stepper(final double lD, final double rD, final double a, final double lP, final double rP,
+            final boolean h) {
         leftDistance = lD;
         rightDistance = rD;
         angle = a;

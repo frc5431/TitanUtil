@@ -24,19 +24,6 @@ public class Toggle {
     }
 
     /**
-     * Whether the toggle is active
-     * 
-     * @deprecated use update() as it is more descriptive
-     * @param buttonState raw button status
-     * @return the toggle state after raw data is received
-     */
-    @Deprecated(forRemoval = true)
-    public boolean isToggled(boolean buttonState) {
-        update(buttonState);
-        return getState();
-    }
-
-    /**
      * Updates internal state for if toggle has changed
      * 
      * @param pressed raw button data

@@ -13,10 +13,12 @@ import static frc.team5431.titan.mimic.Stepper.mimicFile;
 
 /**
  * @author David Smerkous
+ * @deprecated since 2022.3.1.0
  */
-public class Observer{
+@Deprecated
+public class Observer {
     private static FileOutputStream log = null;
-    
+
     private static boolean homed = false;
     private static boolean saved = true;
 
@@ -44,12 +46,13 @@ public class Observer{
             final double rightPower = driveVals[1];
             boolean home = xbox.getRawButton(Xbox.Button.START);
 
-            if(home && !homed) {
+            if (home && !homed) {
                 drivebase.setHome();
             }
 
             if (!saved)
-                log.write(new Stepper(lDistance, rDistance, angle, leftPower, rightPower, home).toString().getBytes(StandardCharsets.UTF_16));
+                log.write(new Stepper(lDistance, rDistance, angle, leftPower, rightPower, home).toString()
+                        .getBytes(StandardCharsets.UTF_16));
 
             homed = home;
         } catch (Exception e) {
@@ -59,7 +62,8 @@ public class Observer{
 
     public static void saveMimic() {
         try {
-            if (log == null || saved) return;
+            if (log == null || saved)
+                return;
             Logger.l("Finished observing");
             log.flush();
             log.close();
