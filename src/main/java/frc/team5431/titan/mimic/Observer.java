@@ -13,9 +13,7 @@ import static frc.team5431.titan.mimic.Stepper.mimicFile;
 
 /**
  * @author David Smerkous
- * @deprecated since 2022.3.1.0
  */
-@Deprecated
 public class Observer {
     private static FileOutputStream log = null;
 

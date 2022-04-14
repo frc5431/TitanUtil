@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/frc5431/TitanUtil.svg)](https://jitpack.io/#frc5431/TitanUtil)
 [![](https://github.com/frc5431/TitanUtil/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/frc5431/TitanUtil/actions)
 
-[Documentation](https://www.frc5431.com/TitanUtil/)
+[Documentation](http://www.frc5431.com/TitanUtil/)
 
 A collection of utility classes to make robot programming easier.
 Do not riddle yourself with redundant and repetitive code when you have a library
@@ -22,15 +22,15 @@ that will do all of the grunt work for you.
 * Builtin core utilities
 * Added Components and Cross-Class Sensor Data
 
-## Mimic (Deprecated)
+## Mimic
 * Observing and Mimicing basic drivebase pathfinding data
 * Saving mimic data to a flash drive
 * Loading mimic data from a flash drive
 * Portability to add more complex mechanisms like intakes
 
 # Install
-The supported way of introducing TitanUtil to a project is via Gradle. Gradle 
-is the current build system for WPILib robot projects.
+The supported way of introducing TitanUtil to a project is via Gradle. 
+Gradle is the current build system for WPILib robot projects.
 
 To install, add the following to the root build.gradle
 ```
@@ -45,7 +45,7 @@ allprojects {
 and, add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    implementation 'com.github.frc5431:TitanUtil:2022.3.1.0' //Replace tag with the latest release if needed
+    implementation 'com.github.frc5431:TitanUtil:2022.4.1.1' //Replace tag with the latest release if needed
 }
 ```
 

@@ -1,5 +1,9 @@
 package frc.team5431.titan.core.joysticks;
 
+import frc.team5431.titan.core.joysticks.utils.CompassPOV;
+import frc.team5431.titan.core.robot.JoystickButton;
+import frc.team5431.titan.core.robot.POVButton;
+
 public class Joystick extends edu.wpi.first.wpilibj.Joystick {
     /**
      * @param port Set the joystick USB ID
@@ -34,6 +38,14 @@ public class Joystick extends edu.wpi.first.wpilibj.Joystick {
      */
     public boolean getRawButton(ButtonZone value) {
         return getRawButton(((Enum<?>) value).ordinal() + 1);
+    }
+
+    public JoystickButton getButton(ButtonZone value) {
+        return new JoystickButton(this, value);
+    }
+
+    public POVButton getButton(CompassPOV value) {
+        return new POVButton(this, value);
     }
 
     public double getDeadzoneMin() {

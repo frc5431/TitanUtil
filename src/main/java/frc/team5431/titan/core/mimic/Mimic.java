@@ -17,9 +17,7 @@ import frc.team5431.titan.core.misc.Logger;
  * @author Ryan Hirasaki
  * @author David Smerkous
  * @author Liav Turkia
- * @deprecated since 2022.3.1.0, use PathWeaver
  */
-@Deprecated
 public class Mimic {
 
     public static final String DEFAULT_MIMIC_DIRECTORY = "/media/sda1/";
