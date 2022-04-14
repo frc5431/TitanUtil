@@ -29,7 +29,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -255,16 +255,26 @@ extends edu.wpi.first.wpilibj.Joystick</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="../robot/JoystickButton.html" title="class in frc.team5431.titan.core.robot">JoystickButton</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getButton(frc.team5431.titan.core.joysticks.Joystick.ButtonZone)">getButton</a></span>&#8203;(<a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="../robot/POVButton.html" title="class in frc.team5431.titan.core.robot">POVButton</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getButton(frc.team5431.titan.core.joysticks.utils.CompassPOV)">getButton</a></span>&#8203;(<a href="utils/CompassPOV.html" title="enum in frc.team5431.titan.core.joysticks.utils">CompassPOV</a>&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeadzoneMax()">getDeadzoneMax</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeadzoneMin()">getDeadzoneMin</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRawAxis(int)">getRawAxis</a></span>&#8203;(int&nbsp;axis)</code></th>
 <td class="colLast">
@@ -272,17 +282,17 @@ extends edu.wpi.first.wpilibj.Joystick</pre>
  device.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRawAxis(frc.team5431.titan.core.joysticks.Joystick.AxisZone)">getRawAxis</a></span>&#8203;(<a href="Joystick.AxisZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.AxisZone</a>&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRawButton(frc.team5431.titan.core.joysticks.Joystick.ButtonZone)">getRawButton</a></span>&#8203;(<a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeadzone(double)">setDeadzone</a></span>&#8203;(double&nbsp;value)</code></th>
 <td class="colLast">
@@ -290,7 +300,7 @@ extends edu.wpi.first.wpilibj.Joystick</pre>
  max</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeadzone(double,double)">setDeadzone</a></span>&#8203;(double&nbsp;min,
            double&nbsp;max)</code></th>
@@ -299,12 +309,12 @@ extends edu.wpi.first.wpilibj.Joystick</pre>
  deadzone.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeadzoneMax(double)">setDeadzoneMax</a></span>&#8203;(double&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeadzoneMin(double)">setDeadzoneMin</a></span>&#8203;(double&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -398,6 +408,24 @@ extends edu.wpi.first.wpilibj.Joystick</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Returns a boolean of the button's state</dd>
 </dl>
+</li>
+</ul>
+<a id="getButton(frc.team5431.titan.core.joysticks.Joystick.ButtonZone)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getButton</h4>
+<pre class="methodSignature">public&nbsp;<a href="../robot/JoystickButton.html" title="class in frc.team5431.titan.core.robot">JoystickButton</a>&nbsp;getButton&#8203;(<a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a>&nbsp;value)</pre>
+</li>
+</ul>
+<a id="getButton(frc.team5431.titan.core.joysticks.utils.CompassPOV)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getButton</h4>
+<pre class="methodSignature">public&nbsp;<a href="../robot/POVButton.html" title="class in frc.team5431.titan.core.robot">POVButton</a>&nbsp;getButton&#8203;(<a href="utils/CompassPOV.html" title="enum in frc.team5431.titan.core.joysticks.utils">CompassPOV</a>&nbsp;value)</pre>
 </li>
 </ul>
 <a id="getDeadzoneMin()">
