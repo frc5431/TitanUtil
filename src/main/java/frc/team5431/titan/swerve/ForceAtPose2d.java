@@ -17,11 +17,11 @@ public class ForceAtPose2d {
   }
 
   /**
-   * Constructs a Force2d with the X and Y components equal to the
+   * Constructs a ForceAtPose2d with the force and pose components equal to the
    * provided values.
    *
-   * @param x The x component of the force.
-   * @param y The y component of the force.
+   * @param force_in The force component of the force-pose.
+   * @param pos_in   The pose component of the force-pose.
    */
   public ForceAtPose2d(Force2d force_in, Pose2d pos_in) {
     force = force_in;
@@ -31,6 +31,9 @@ public class ForceAtPose2d {
   /**
    * Returns the torque associated with this force at distance
    * positive is counter-clockwise, negative is clockwise
+   * 
+   * @param centerOfRotation Center of rotation to measure torque around
+   * @return torque around center of rotation
    */
   public double getTorque(Pose2d centerOfRotation) {
     Transform2d transCORtoF = new Transform2d(centerOfRotation, pos);

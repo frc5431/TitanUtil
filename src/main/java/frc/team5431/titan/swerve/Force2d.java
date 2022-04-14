@@ -54,7 +54,7 @@ public class Force2d {
   /**
    * Constructs a Force2d with the provided vector assumed to represent the force
    *
-   * @param force_vec
+   * @param force_vec The vector as a force
    */
   public Force2d(Vector2d force_vec) {
     this(force_vec.x, force_vec.y);
@@ -139,7 +139,6 @@ public class Force2d {
    *
    *
    * @param other The force to add.
-   * @return nothing (acts on this force in-place)
    */
   public void accum(Force2d other) {
     this.m = this.m.plus(other.m);
@@ -199,6 +198,8 @@ public class Force2d {
 
   /**
    * Creates a Vector2d object from the force this object represents
+   * 
+   * @return The force as a vector
    */
   public Vector2d getVector2d() {
     return new Vector2d(this.getX(), this.getY());
