@@ -1,8 +1,9 @@
 package frc.team5431.titan.core.leds;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Blinkin {
+public class Blinkin extends SubsystemBase {
     private Spark spark;
     private BlinkinPattern currentPattern;
 
@@ -35,5 +36,9 @@ public class Blinkin {
 
     public void prevPattern() {
         set(currentPattern.previous());
+    }
+
+    public BlinkinPattern getPattern() {
+        return currentPattern;
     }
 }
