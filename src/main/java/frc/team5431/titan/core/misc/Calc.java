@@ -2,6 +2,11 @@ package frc.team5431.titan.core.misc;
 
 import java.lang.Math;
 
+/**
+ * Utility math functions.
+ * 
+ * @see edu.wpi.first.math.MathUtil
+ */
 public final class Calc {
 
 	/**
@@ -25,9 +30,11 @@ public final class Calc {
 	}
 
 	/**
-	 * Lerps two values by the given factor. Example: having values 4 and 7 and a
-	 * factor of 1.33 gives 8, and having values 10 and 20 with a factor of 0.65
-	 * gives 16.5.
+	 * Lerps two values by the given factor. Replacement for
+	 * {@link edu.wpi.first.math.MathUtil#interpolate(double, double, double)} that
+	 * does not restrict the multiplier to [0, 1]. Example: having values 4 and 7
+	 * and a factor of 1.33 gives 8, and having values 10 and 20 with a factor of
+	 * 0.65 gives 16.5.
 	 * 
 	 * @param a the first value
 	 * @param b the second value
@@ -41,12 +48,16 @@ public final class Calc {
 	/**
 	 * Clamps a number between two values.
 	 * 
+	 * @deprecated use
+	 *             {@link edu.wpi.first.math.MathUtil#clamp(double, double, double)}
+	 * 
 	 * @param val the value to clamp
 	 * @param min the minimum allowed value
 	 * @param max the maximum allowed value
 	 * @return the clamped value
 	 * @throws IllegalArgumentException if max is less than min
 	 */
+	@Deprecated
 	public final static double clamp(final double val, final double min, final double max)
 			throws IllegalArgumentException {
 		if (min > max)
@@ -67,5 +78,29 @@ public final class Calc {
 	 */
 	public final static double map(double val, double in_min, double in_max, double out_min, double out_max) {
 		return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+	}
+
+	/**
+	 * Helper function for quadratic equations:
+	 * 
+	 * <code>ax^2 + bx + c</code>
+	 */
+	public static double quadratic(double x, double a, double b, double c) {
+		return a * x * x
+				+ b * x
+				+ c;
+	}
+
+	/**
+	 * Helper function for logarithmic equations:
+	 * 
+	 * <code>a * log(x - c) + b</code>
+	 */
+	public static double logarithm(double x, double a, double b, double c) {
+		return a * Math.log10(x - c) + b;
+	}
+
+	private Calc() {
+		throw new AssertionError("Utility class should not be instantiated!");
 	}
 }

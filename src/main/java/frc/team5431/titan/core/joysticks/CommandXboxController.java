@@ -1,5 +1,7 @@
 package frc.team5431.titan.core.joysticks;
 
+import edu.wpi.first.math.MathUtil;
+
 /**
  * Subclass of WPILib's CommandXboxController for deadzone management
  */
@@ -15,34 +17,10 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
         super(port);
     }
 
-    private double m_DeadzoneMin = 0.0;
-    private double m_DeadzoneMax = 0.0;
+    private double m_Deadzone = 0.0;
 
-    public double getDeadzoneMin() {
-        return m_DeadzoneMin;
-    }
-
-    public void setDeadzoneMin(double val) {
-        m_DeadzoneMin = val;
-    }
-
-    public double getDeadzoneMax() {
-        return m_DeadzoneMax;
-    }
-
-    public void setDeadzoneMax(double val) {
-        m_DeadzoneMax = val;
-    }
-
-    /**
-     * Sets the minimum deadzone and the maximum deadzone.
-     * 
-     * @param min deadzone minimum
-     * @param max deadzone maximum
-     */
-    public void setDeadzone(double min, double max) {
-        setDeadzoneMin(min);
-        setDeadzoneMax(max);
+    public double getDeadzone() {
+        return m_Deadzone;
     }
 
     /**
@@ -51,7 +29,7 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
      * @param value Set the absolute value for the deadzone
      */
     public void setDeadzone(double value) {
-        setDeadzone(-value, value);
+        this.m_Deadzone = value;
     }
 
     /**
@@ -63,10 +41,6 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
     @Override
     public double getRawAxis(int axis) {
         double value = super.getRawAxis(axis);
-        if (value > m_DeadzoneMin && value < m_DeadzoneMax) {
-            value = 0.0;
-        }
-
-        return value;
+        return MathUtil.applyDeadband(value, m_Deadzone, 1);
     }
 }
