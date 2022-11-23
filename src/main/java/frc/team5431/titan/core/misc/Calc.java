@@ -2,7 +2,7 @@ package frc.team5431.titan.core.misc;
 
 import java.lang.Math;
 
-public class Calc {
+public final class Calc {
 
 	/**
 	 * Detects whether two values are within a certain range of each other.

@@ -3,7 +3,7 @@ package frc.team5431.titan.swerve;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -32,11 +32,11 @@ public class SwerveModuleSim {
     double steerVoltage;
 
     private ShuffleboardTab tab = Shuffleboard.getTab("SimSwerve");
-    private NetworkTableEntry azmthVoltageEntry;
-    private NetworkTableEntry wheelVoltageEntry;
-    private NetworkTableEntry azmthSpeedEntry;
-    private NetworkTableEntry azmthPosEntry;
-    private NetworkTableEntry wheelSpeedEntry;
+    private GenericEntry azmthVoltageEntry;
+    private GenericEntry wheelVoltageEntry;
+    private GenericEntry azmthSpeedEntry;
+    private GenericEntry azmthPosEntry;
+    private GenericEntry wheelSpeedEntry;
 
     public SwerveModuleSim(
             DCMotor azimuthMotor,

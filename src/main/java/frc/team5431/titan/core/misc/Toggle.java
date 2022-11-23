@@ -1,7 +1,13 @@
 package frc.team5431.titan.core.misc;
 
 /**
- * Helper class to store button states
+ * Helper class to store button states.
+ * 
+ * If using for binding buttons, use WPILib Trigger toggleOnTrue/False methods
+ * instead.
+ * 
+ * @author Ryan Hirasaki
+ * @author Colin Wong
  */
 public class Toggle {
     private boolean toggleState;

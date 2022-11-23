@@ -1,6 +1,6 @@
 package frc.team5431.titan.mimic;
 
-import frc.team5431.titan.core.joysticks.Xbox;
+import frc.team5431.titan.core.joysticks.CommandXboxController;
 import frc.team5431.titan.core.misc.Logger;
 
 import java.io.File;
@@ -34,7 +34,8 @@ public class Observer {
         }
     }
 
-    public static void addStep(final DrivebaseAnalyzer drivebase, final double driveVals[], final Xbox xbox) {
+    public static void addStep(final DrivebaseAnalyzer drivebase, final double driveVals[],
+            final CommandXboxController xbox) {
         try {
             final double lDistance = drivebase.getLeftDistance();
             final double rDistance = drivebase.getRightDistance();
@@ -42,7 +43,7 @@ public class Observer {
 
             final double leftPower = driveVals[0];
             final double rightPower = driveVals[1];
-            boolean home = xbox.getRawButton(Xbox.Button.START);
+            boolean home = xbox.getHID().getStartButton();
 
             if (home && !homed) {
                 drivebase.setHome();

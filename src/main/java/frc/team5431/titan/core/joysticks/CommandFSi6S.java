@@ -1,7 +1,10 @@
 package frc.team5431.titan.core.joysticks;
 
-public class FSi6S extends Joystick {
-    public FSi6S(int port) {
+import edu.wpi.first.wpilibj.event.EventLoop;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+public class CommandFSi6S extends CommandJoystick {
+    public CommandFSi6S(int port) {
         super(port);
     }
 
@@ -47,11 +50,51 @@ public class FSi6S extends Joystick {
         }
     }
 
+    /**
+     * Creates a Trigger that evaluates to true when the switch is in the specified
+     * position
+     * 
+     * @param swit desired switch to check
+     * @param pos  position to check for
+     * @return a new Trigger for the switch
+     */
+    public Trigger switchTrigger(Switch swit, SwitchPosition pos) {
+        return new Trigger(() -> getSwitch(swit) == pos);
+    }
+
+    /**
+     * Creates a Trigger that evaluates to true when the switch is in the specified
+     * position
+     * 
+     * @param swit desired switch to check
+     * @param pos  position to check for
+     * @return a new Trigger for the switch
+     */
+    public Trigger switchTrigger(Switch swit, SwitchPosition pos, EventLoop loop) {
+        return new Trigger(loop, () -> getSwitch(swit) == pos);
+    }
+
     public boolean getBackLeft() {
         return getRawButton(7);
     }
 
+    public Trigger backLeft() {
+        return button(7);
+    }
+
+    public Trigger backLeft(EventLoop loop) {
+        return button(7, loop);
+    }
+
     public boolean getBackRight() {
         return getRawButton(8);
+    }
+
+    public Trigger backRight() {
+        return button(8);
+    }
+
+    public Trigger backRight(EventLoop loop) {
+        return button(8, loop);
     }
 }
