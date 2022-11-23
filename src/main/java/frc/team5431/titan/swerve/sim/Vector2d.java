@@ -1,4 +1,4 @@
-package frc.team5431.titan.swerve;
+package frc.team5431.titan.swerve.sim;
 
 /**
  * This is a 2D vector struct that supports basic vector operations.

@@ -1,6 +1,7 @@
 package frc.team5431.titan.core.sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import frc.team5431.titan.core.misc.Calc;
 
 public class Pot extends AnalogInput {
     private double minAngle = 0, maxAngle = 180;
@@ -55,12 +56,6 @@ public class Pot extends AnalogInput {
     }
 
     public double getAbsoluteAngle() {
-        return -linearMap(getAverageVoltage(), minPotValue, maxPotValue, minAngle, maxAngle);
-    }
-
-    private static double linearMap(final double currentValue, final double minInputValue,
-            final double maxInputValue, final double minOutputValue, final double maxOutputValue) {
-        return (currentValue - minInputValue) * (maxOutputValue - minOutputValue) / (minInputValue - maxInputValue)
-                + minOutputValue;
+        return -Calc.map(getAverageVoltage(), minPotValue, maxPotValue, minAngle, maxAngle);
     }
 }

@@ -1,4 +1,4 @@
-package frc.team5431.titan.swerve;
+package frc.team5431.titan.swerve.sim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;

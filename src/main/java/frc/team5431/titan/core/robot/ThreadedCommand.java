@@ -11,8 +11,12 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * This class will allow you to wrap a command inside a seperate thread and
  * still act as a command
  * 
+ * @deprecated This is a bad idea; alternatively, look at
+ *             https://docs.wpilib.org/en/stable/docs/software/convenience-features/scheduling-functions.html
+ * 
  * @author Ryan Hirasaki
  */
+@Deprecated
 public class ThreadedCommand implements Command {
 
     private static class CommandExecuter extends Thread {

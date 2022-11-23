@@ -2,6 +2,19 @@ package frc.team5431.titan.core.solenoid;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
+/**
+ * Solenoid class for running high voltage Digital Output on a pneumatics
+ * module.
+ *
+ * <p>
+ * The Solenoid class is typically used for pneumatic solenoids, but could be
+ * used for any device within the current spec of the module.
+ *
+ * <p>
+ * Modified to ensure set() is called only when changing state.
+ *
+ * @author Ryan Hirasaki
+ */
 public class SingleSolenoid extends edu.wpi.first.wpilibj.Solenoid {
     private boolean currentState = false;
 
