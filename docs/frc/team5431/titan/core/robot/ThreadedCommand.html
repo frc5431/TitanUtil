@@ -9,15 +9,16 @@
 <title>ThreadedCommand (TitanUtil API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
 <script type="text/javascript" src="../../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -90,7 +91,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -148,8 +149,25 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a id="nested.classes.inherited.from.class.edu.wpi.first.wpilibj2.command.Command">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Command</h3>
+<code>edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior</code></li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.summary">
 <!--   -->
@@ -174,7 +192,7 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 </ul>
 </section>
 <!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.summary">
 <!--   -->
@@ -235,7 +253,7 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Command</h3>
-<code>alongWith, andThen, andThen, asProxy, beforeStarting, beforeStarting, cancel, deadlineWith, hasRequirement, isFinished, isScheduled, perpetually, raceWith, schedule, schedule, until, withInterrupt, withTimeout</code></li>
+<code>alongWith, andThen, andThen, asProxy, beforeStarting, beforeStarting, cancel, deadlineWith, finallyDo, getInterruptionBehavior, handleInterrupt, hasRequirement, ignoringDisable, isFinished, isScheduled, perpetually, raceWith, repeatedly, schedule, setName, unless, until, withInterrupt, withInterruptBehavior, withName, withTimeout</code></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +265,7 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.detail">
 <!--   -->
@@ -278,7 +296,7 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 </ul>
 </section>
 <!-- ============ METHOD DETAIL ========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.detail">
 <!--   -->
@@ -422,7 +440,7 @@ implements edu.wpi.first.wpilibj2.command.Command</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

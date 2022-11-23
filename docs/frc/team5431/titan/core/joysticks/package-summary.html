@@ -9,15 +9,16 @@
 <title>frc.team5431.titan.core.joysticks (TitanUtil API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
 <script type="text/javascript" src="../../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -108,16 +109,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="Joystick.AxisZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.AxisZone</a></th>
-<td class="colLast">&nbsp;</td>
+<th class="colFirst" scope="row"><a href="CommandJoystick.AxisZone.html" title="interface in frc.team5431.titan.core.joysticks">CommandJoystick.AxisZone</a></th>
+<td class="colLast">
+<div class="block">Enumeration of axes in order of DriverStation listing</div>
+</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Joystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.ButtonZone</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="Joystick.POVZone.html" title="interface in frc.team5431.titan.core.joysticks">Joystick.POVZone</a></th>
-<td class="colLast">&nbsp;</td>
+<th class="colFirst" scope="row"><a href="CommandJoystick.ButtonZone.html" title="interface in frc.team5431.titan.core.joysticks">CommandJoystick.ButtonZone</a></th>
+<td class="colLast">
+<div class="block">Enumeration of buttons in order of DriverStation listing</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -131,24 +132,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="FSi6S.html" title="class in frc.team5431.titan.core.joysticks">FSi6S</a></th>
+<th class="colFirst" scope="row"><a href="CommandFSi6S.html" title="class in frc.team5431.titan.core.joysticks">CommandFSi6S</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Joystick.html" title="class in frc.team5431.titan.core.joysticks">Joystick</a></th>
+<th class="colFirst" scope="row"><a href="CommandJoystick.html" title="class in frc.team5431.titan.core.joysticks">CommandJoystick</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="LogitechExtreme3D.html" title="class in frc.team5431.titan.core.joysticks">LogitechExtreme3D</a></th>
+<th class="colFirst" scope="row"><a href="CommandLogitechExtreme3D.html" title="class in frc.team5431.titan.core.joysticks">CommandLogitechExtreme3D</a></th>
 <td class="colLast">
 <div class="block">Custom Logitech Extreme class that has enums for controller bindings deadzone
  management</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Xbox.html" title="class in frc.team5431.titan.core.joysticks">Xbox</a></th>
+<th class="colFirst" scope="row"><a href="CommandXboxController.html" title="class in frc.team5431.titan.core.joysticks">CommandXboxController</a></th>
 <td class="colLast">
-<div class="block">Custom Xbox class that has enums for controller bindings deadzone management</div>
+<div class="block">Subclass of WPILib's CommandXboxController for deadzone management</div>
 </td>
 </tr>
 </tbody>
@@ -163,31 +164,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="FSi6S.Axis.html" title="enum in frc.team5431.titan.core.joysticks">FSi6S.Axis</a></th>
+<th class="colFirst" scope="row"><a href="CommandFSi6S.Axis.html" title="enum in frc.team5431.titan.core.joysticks">CommandFSi6S.Axis</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="FSi6S.Switch.html" title="enum in frc.team5431.titan.core.joysticks">FSi6S.Switch</a></th>
+<th class="colFirst" scope="row"><a href="CommandFSi6S.Switch.html" title="enum in frc.team5431.titan.core.joysticks">CommandFSi6S.Switch</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="FSi6S.SwitchPosition.html" title="enum in frc.team5431.titan.core.joysticks">FSi6S.SwitchPosition</a></th>
+<th class="colFirst" scope="row"><a href="CommandFSi6S.SwitchPosition.html" title="enum in frc.team5431.titan.core.joysticks">CommandFSi6S.SwitchPosition</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="LogitechExtreme3D.Axis.html" title="enum in frc.team5431.titan.core.joysticks">LogitechExtreme3D.Axis</a></th>
+<th class="colFirst" scope="row"><a href="CommandLogitechExtreme3D.Axis.html" title="enum in frc.team5431.titan.core.joysticks">CommandLogitechExtreme3D.Axis</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="LogitechExtreme3D.Button.html" title="enum in frc.team5431.titan.core.joysticks">LogitechExtreme3D.Button</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Xbox.Axis.html" title="enum in frc.team5431.titan.core.joysticks">Xbox.Axis</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="Xbox.Button.html" title="enum in frc.team5431.titan.core.joysticks">Xbox.Button</a></th>
+<th class="colFirst" scope="row"><a href="CommandLogitechExtreme3D.Button.html" title="enum in frc.team5431.titan.core.joysticks">CommandLogitechExtreme3D.Button</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
