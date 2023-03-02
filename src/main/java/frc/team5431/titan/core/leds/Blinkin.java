@@ -15,6 +15,7 @@ public class Blinkin extends SubsystemBase {
 
     public Blinkin(int pwmPort, BlinkinPattern initialPattern) {
         this.spark = new Spark(pwmPort);
+        this.spark.setSafetyEnabled(false);
         if (initialPattern == null) {
             this.currentPattern = BlinkinPattern.fromNumber(0);
         } else {
@@ -61,5 +62,20 @@ public class Blinkin extends SubsystemBase {
             return Commands.runOnce(() -> this.prevPattern());
         else
             return Commands.runOnce(() -> this.nextPattern());
+    }
+
+    public Command ledRunCommand(double pwmValue) {
+        return Commands.run(() -> this.set(pwmValue), this);
+    }
+
+    public Command ledRunCommand(BlinkinPattern pattern) {
+        return Commands.run(() -> this.set(pattern), this);
+    }
+
+    public Command ledRunCommand(COMMAND cmd) {
+        if (cmd == COMMAND.PREV)
+            return Commands.run(() -> this.prevPattern(), this);
+        else
+            return Commands.run(() -> this.nextPattern(), this);
     }
 }
