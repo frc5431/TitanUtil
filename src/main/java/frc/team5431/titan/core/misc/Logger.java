@@ -1,5 +1,6 @@
 package frc.team5431.titan.core.misc;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -19,7 +20,7 @@ public class Logger {
 	public static void l(String base, Object... a) {
 		String msg = String.format(base, a);
 		// System.out.println(msg);
-		DriverStation.reportWarning(msg, false);
+		DataLogManager.log(msg);
 	}
 
 	/**
