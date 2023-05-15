@@ -114,20 +114,36 @@ public class CommandHoriSteeringWheel extends CommandGenericHID {
     return m_hid.y(loop).castTo(Trigger::new);
   }
 
+  public Trigger l2() {
+    return l2(CommandScheduler.getInstance().getDefaultButtonLoop());
+  }
+
+  public Trigger l2(double threshold) {
+    return l2(CommandScheduler.getInstance().getDefaultButtonLoop(), threshold);
+  }
+
+  public Trigger l2(EventLoop loop) {
+    return m_hid.l2(loop).castTo(Trigger::new);
+  }
+
   public Trigger l2(EventLoop loop, double threshold) {
     return m_hid.l2(threshold, loop).castTo(Trigger::new);
   }
 
-  public Trigger l2(double threshold) {
-    return m_hid.l2(CommandScheduler.getInstance().getDefaultButtonLoop()).castTo(Trigger::new);
+  public Trigger r2() {
+    return r2(CommandScheduler.getInstance().getDefaultButtonLoop());
+  }
+
+  public Trigger r2(double threshold) {
+    return r2(CommandScheduler.getInstance().getDefaultButtonLoop(), threshold);
+  }
+
+  public Trigger r2(EventLoop loop) {
+    return m_hid.r2(loop).castTo(Trigger::new);
   }
 
   public Trigger r2(EventLoop loop, double threshold) {
     return m_hid.r2(threshold, loop).castTo(Trigger::new);
-  }
-
-  public Trigger r2(double threshold) {
-    return m_hid.r2(CommandScheduler.getInstance().getDefaultButtonLoop()).castTo(Trigger::new);
   }
 
   public Trigger leftPaddle() {
