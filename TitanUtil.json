@@ -1,0 +1,19 @@
+{
+    "fileName": "TitanUtil.json",
+    "name": "TitanUtil",
+    "version": "2023.1.1.1",
+    "uuid": "63d70b22-2b32-494e-8c57-9633835a2b3b",
+    "mavenUrls": [
+        "https://jitpack.io"
+    ],
+    "jsonUrl": "https://raw.githubusercontent.com/frc5431/TitanUtil/master/TitanUtil.json",
+    "javaDependencies": [
+        {
+            "groupId": "com.github.frc5431",
+            "artifactId": "TitanUtil",
+            "version": "2023.1.1.1"
+        }
+    ],
+    "jniDependencies": [],
+    "cppDependencies": []
+}
