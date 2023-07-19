@@ -28,7 +28,7 @@ public class CommandSkyFlyController extends CommandGenericHID {
      * @return range from -1 to 1
      */
     public double toFullRange(double in) {
-        return Math.min(Math.max(Calc.map(in, -0.83, 0.83, 0, 1), -1), 1);
+        return Calc.map(in, -0.83, 0.83, -1, 1);
     }
 
     public double getLeftX() {
