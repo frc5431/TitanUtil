@@ -1,8 +1,9 @@
 {
     "fileName": "TitanUtil.json",
     "name": "TitanUtil",
-    "version": "2023.1.2.1",
+    "version": "2020.0.0",
     "uuid": "63d70b22-2b32-494e-8c57-9633835a2b3b",
+    "frcYear": "2024",
     "mavenUrls": [
         "https://jitpack.io"
     ],
@@ -11,7 +12,7 @@
         {
             "groupId": "com.github.frc5431",
             "artifactId": "TitanUtil",
-            "version": "2023.1.2.1"
+            "version": "2024.0.0"
         }
     ],
     "jniDependencies": [],
