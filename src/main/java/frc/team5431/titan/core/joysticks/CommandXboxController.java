@@ -1,11 +1,13 @@
 package frc.team5431.titan.core.joysticks;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.GenericHID;
 
 /**
  * Subclass of WPILib's CommandXboxController for deadzone management
  */
 public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button.CommandXboxController {
+    private final GenericHID m_hid;
 
     /**
      * Construct an instance of a controller.
@@ -15,6 +17,7 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
      */
     public CommandXboxController(int port) {
         super(port);
+        m_hid = new GenericHID(port);
     }
 
     private double m_Deadzone = 0.0;
@@ -30,6 +33,15 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
      */
     public void setDeadzone(double value) {
         this.m_Deadzone = value;
+    }
+
+    /**
+     * Set the rumble output for the CommandXboxController
+     *
+     * @param value The normalized value for rumble intensity
+     */
+    public void rumble(double value) {
+        m_hid.setRumble(GenericHID.RumbleType.kBothRumble, value);
     }
 
     /**
