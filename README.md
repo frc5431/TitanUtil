@@ -32,6 +32,20 @@ that will do all of the grunt work for you.
 The supported way of introducing TitanUtil to a project is via Gradle. 
 Gradle is the current build system for WPILib robot projects.
 
+To install as a vendordep:
+1. Open WPILIB Vscode
+
+2. Open the command pallete by pressing Ctr+Shift+P
+
+3. Select Manage Vendordeps
+
+4. Then select ``Install New Libraries (Online)``
+
+5. Put the following in the input field:
+```
+https://raw.githubusercontent.com/frc5431/TitanUtil/master/TitanUtil.json
+```
+
 To install, add the following to the root build.gradle
 ```
 allprojects {
@@ -45,7 +59,7 @@ allprojects {
 and, add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    implementation 'com.github.frc5431:TitanUtil:2022.4.1.2' //Replace tag with the latest release if needed
+    implementation 'com.github.frc5431:TitanUtil:2024.1.0' //Replace tag with the latest release if needed
 }
 ```
 
@@ -53,7 +67,7 @@ dependencies {
 
 BSD 2-Clause License
 
-Copyright (c) 2022, 5431 Titan Robotics
+Copyright (c) 2024, 5431 Titan Robotics
 All rights reserved
 
 Refer to LICENSE file for more information, located in the base of this project
