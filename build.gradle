@@ -56,8 +56,8 @@ dependencies {
     // nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     // nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
-    // implementation 'com.ctre.phoenix:api-java:24.0.0-beta-latest'
-    // implementation 'com.ctre.phoenix:wpiapi-java:24.0.0-yebeta-latest'
+    implementation 'com.ctre.phoenix6:api-java:24.1.0'
+    implementation 'com.ctre.phoenix6:wpiapi-java:24.1.0'
 
     implementation 'com.revrobotics.frc:REVLib-java:2024.2.0'
 
