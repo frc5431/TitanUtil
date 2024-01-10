@@ -40,8 +40,8 @@ public class CommandXboxController extends edu.wpi.first.wpilibj2.command.button
      *
      * @param value The normalized value for rumble intensity
      */
-    public void rumble(double value) {
-        m_hid.setRumble(GenericHID.RumbleType.kBothRumble, value);
+    public void rumble(double intensity) {
+        m_hid.setRumble(GenericHID.RumbleType.kBothRumble, intensity);
     }
 
     /**

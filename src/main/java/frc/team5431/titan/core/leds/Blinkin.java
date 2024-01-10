@@ -1,5 +1,7 @@
 package frc.team5431.titan.core.leds;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -26,6 +28,21 @@ public class Blinkin extends SubsystemBase {
 
     public void set(double value) {
         spark.set(value);
+    }
+
+    /**
+     * Sets blinkin lights to current team color in Teleop
+     */
+    public void setTeamColor() {
+        var robotTeam = DriverStation.getAlliance();
+        if (DriverStation.isTeleop()) {
+            if (robotTeam.get() == Alliance.Red) {
+                set(BlinkinPattern.RED);
+            }
+            if (robotTeam.get() == Alliance.Blue) {
+                set(BlinkinPattern.BLUE);
+            }
+        }
     }
 
     public void set(BlinkinPattern pattern) {
