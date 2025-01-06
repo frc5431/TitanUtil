@@ -19,12 +19,12 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.units.Angle;
-import edu.wpi.first.units.Current;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
-import edu.wpi.first.units.Velocity;
-import edu.wpi.first.units.Voltage;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Current;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
@@ -66,7 +66,7 @@ public abstract class CTREMecanism implements Subsystem {
      *
      * @param position Measure of Angle; Converted to Rotations
      */
-    public void setMotorPosition(Measure<Angle> position) {
+    public void setMotorPosition(Angle position) {
         if (attached) {
             motor.setPosition(position.in(Units.Rotations));
         }
@@ -75,12 +75,13 @@ public abstract class CTREMecanism implements Subsystem {
     /**
      * Closed-loop Velocity Motion Magic with torque control (requires Pro)
      *
-     * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
+     * @param velocity Mesure of Velocity in Terms of Angle; Converted to
+     *                 Rotations/Revolutions Per Second
      */
-    public void setMMVelocityFOC(Measure<Velocity<Angle>> velocity) {
+    public void setMMVelocityFOC(AngularVelocity velocity) {
         if (attached) {
             MotionMagicVelocityTorqueCurrentFOC mm = config.mmVelocityFOC
-                    .withVelocity(velocity.in(Units.RotationsPerSecond));
+                    .withVelocity(velocity.in(Units.RevolutionsPerSecond));
             motor.setControl(mm);
         }
     }
@@ -91,7 +92,7 @@ public abstract class CTREMecanism implements Subsystem {
      * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
      *                 Per Second
      */
-    public void setVelocityTorqueCurrentFOC(Measure<Velocity<Angle>> velocity) {
+    public void setVelocityTorqueCurrentFOC(AngularVelocity velocity) {
         if (attached) {
             VelocityTorqueCurrentFOC output = config.velocityTorqueCurrentFOC
                     .withVelocity(velocity.in(Units.RotationsPerSecond));
@@ -104,17 +105,14 @@ public abstract class CTREMecanism implements Subsystem {
      * 
      * Closed-loop Velocity with torque control (requires Pro)
      *
-     * @param velocityRPM Mesure of Velocity in Terms of Angle; Converted to WRONG
-     *                    Per FALSE
+     * @param velocity Mesure of Velocity in Terms of Angle; Use Rotations Per
+     *                 Second
      * 
      */
-    public void setVelocityTCFOCrpm(DoubleSupplier velocityRPM) {
+    public void setVelocityTCFOCrpm(AngularVelocity velocity) {
         if (attached) {
             VelocityTorqueCurrentFOC output = config.velocityTorqueCurrentFOC.withVelocity(
-                    // please mr peter johnson rename math.util.units
-                    // TODO: Incorrectaly converting to Radians Persecond, figure this out, or
-                    // justify
-                    (edu.wpi.first.math.util.Units.rotationsPerMinuteToRadiansPerSecond(velocityRPM.getAsDouble())));
+                    (velocity.in(Units.RotationsPerSecond)));
             motor.setControl(output);
         }
     }
@@ -125,7 +123,7 @@ public abstract class CTREMecanism implements Subsystem {
      * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
      *                 Per Second
      */
-    public void setVelocity(Measure<Velocity<Angle>> velocity) {
+    public void setVelocity(AngularVelocity velocity) {
         if (attached) {
             VelocityVoltage output = config.velocityControl.withVelocity(velocity.in(Units.RotationsPerSecond));
             motor.setControl(output);
@@ -137,7 +135,7 @@ public abstract class CTREMecanism implements Subsystem {
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
      */
-    public void setMMPositionFOC(Measure<Angle> position) {
+    public void setMMPositionFOC(Angle position) {
         if (attached) {
             MotionMagicTorqueCurrentFOC mm = config.mmPositionFOC.withPosition(position.in(Units.Rotations));
             motor.setControl(mm);
@@ -149,7 +147,7 @@ public abstract class CTREMecanism implements Subsystem {
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
      */
-    public void setMMPosition(Measure<Angle> position) {
+    public void setMMPosition(Angle position) {
         if (attached) {
             MotionMagicVoltage mm = config.mmPositionVoltage.withPosition(position.in(Units.Rotations));
             motor.setControl(mm);
@@ -174,7 +172,7 @@ public abstract class CTREMecanism implements Subsystem {
      * @param position rotations
      * @param slot     gains slot
      */
-    public void setMMPosition(Measure<Angle> position, int slot) {
+    public void setMMPosition(Angle position, int slot) {
         if (attached) {
             MotionMagicVoltage mm = config.mmPositionVoltageSlot.withSlot(slot)
                     .withPosition(position.in(Units.Rotations));
@@ -209,7 +207,7 @@ public abstract class CTREMecanism implements Subsystem {
         }
     }
 
-    public void toggleTorqueCurrentLimit(Measure<Current> enabledLimit, boolean enabled) {
+    public void toggleTorqueCurrentLimit(Current enabledLimit, boolean enabled) {
         if (attached) {
             if (enabled) {
                 config.configForwardTorqueCurrentLimit(enabledLimit);
@@ -260,7 +258,7 @@ public abstract class CTREMecanism implements Subsystem {
             }
         }
 
-        public void configVoltageCompensation(Measure<Voltage> voltageCompSaturation) {
+        public void configVoltageCompensation(Voltage voltageCompSaturation) {
             this.voltageCompSaturation = voltageCompSaturation.in(Units.Volts);
         }
 
@@ -273,22 +271,21 @@ public abstract class CTREMecanism implements Subsystem {
         }
 
         public void configSupplyCurrentLimit(
-                Measure<Current> supplyLimit, Measure<Current> supplyThreshold, boolean enabled) {
+                Current supplyLimit, boolean enabled) {
             talonConfig.CurrentLimits.SupplyCurrentLimit = supplyLimit.in(Units.Amps);
-            talonConfig.CurrentLimits.SupplyCurrentThreshold = supplyThreshold.in(Units.Amps);
             talonConfig.CurrentLimits.SupplyCurrentLimitEnable = enabled;
         }
 
-        public void configStatorCurrentLimit(Measure<Current> statorLimit, boolean enabled) {
+        public void configStatorCurrentLimit(Current statorLimit, boolean enabled) {
             talonConfig.CurrentLimits.StatorCurrentLimit = statorLimit.in(Units.Amps);
             talonConfig.CurrentLimits.StatorCurrentLimitEnable = enabled;
         }
 
-        public void configForwardTorqueCurrentLimit(Measure<Current> currentLimit) {
+        public void configForwardTorqueCurrentLimit(Current currentLimit) {
             talonConfig.TorqueCurrent.PeakForwardTorqueCurrent = currentLimit.in(Units.Amps);
         }
 
-        public void configReverseTorqueCurrentLimit(Measure<Current> currentLimit) {
+        public void configReverseTorqueCurrentLimit(Current currentLimit) {
             talonConfig.TorqueCurrent.PeakReverseTorqueCurrent = currentLimit.in(Units.Amps);
         }
 
@@ -333,7 +330,7 @@ public abstract class CTREMecanism implements Subsystem {
          * @param acceleration   acceleration in rps
          * @param jerk           will slow down curve, rps
          */
-        public void configMotionMagic(Measure<Velocity<Angle>> cruiseVelocity, double acceleration, double jerk) {
+        public void configMotionMagic(AngularVelocity cruiseVelocity, double acceleration, double jerk) {
             talonConfig.MotionMagic.MotionMagicCruiseVelocity = cruiseVelocity.in(Units.RotationsPerSecond);
             talonConfig.MotionMagic.MotionMagicAcceleration = acceleration;
             talonConfig.MotionMagic.MotionMagicJerk = jerk;
