@@ -2,6 +2,7 @@ package frc.team5431.titan.swerve.sim;
 
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
 
 class SimpleMotorWithMassModel {
 
@@ -20,7 +21,7 @@ class SimpleMotorWithMassModel {
      * @param moi
      */
     SimpleMotorWithMassModel(DCMotor motor, double gearing, double moi) {
-        fwSim = new FlywheelSim(motor, gearing, moi);
+        fwSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(motor, gearing, moi), motor);
         this.gearing = gearing;
     }
 

@@ -15,7 +15,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.frc5431'
             artifactId = 'TitanUtil'
-            version = '2024.1.0'
+            version = '2025.1.0'
 
             artifact jar
         }
@@ -36,19 +36,17 @@ allprojects {
         // REV
         maven { url = uri('https://maven.revrobotics.com/') }
 
-        // PathPlanner
-        maven { url 'https://3015rangerrobotics.github.io/pathplannerlib/repo' }
     }
 }
 
 dependencies {
-    implementation 'edu.wpi.first.wpilibj:wpilibj-java:2024.1.1'
-    implementation 'edu.wpi.first.wpimath:wpimath-java:2024.1.1'
-    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2024.1.1'
-    implementation 'edu.wpi.first.ntcore:ntcore-java:2024.1.1'
-    implementation 'edu.wpi.first.cscore:cscore-java:2024.1.1'
-    implementation 'edu.wpi.first.wpiunits:wpiunits-java:2024.1.1'
-    implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2024.1.1'
+    implementation 'edu.wpi.first.wpilibj:wpilibj-java:2025.1.1'
+    implementation 'edu.wpi.first.wpimath:wpimath-java:2025.1.1'
+    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2025.1.1'
+    implementation 'edu.wpi.first.ntcore:ntcore-java:2025.1.1'
+    implementation 'edu.wpi.first.cscore:cscore-java:2025.1.1'
+    implementation 'edu.wpi.first.wpiunits:wpiunits-java:2025.1.1'
+    implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2025.1.1'
 
     // Remove Native Zips with GradleRIO 2022
     // nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
@@ -56,12 +54,9 @@ dependencies {
     // nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     // nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
-    implementation 'com.ctre.phoenix6:api-java:24.1.0'
-    implementation 'com.ctre.phoenix6:wpiapi-java:24.1.0'
+    implementation 'com.ctre.phoenix6:wpiapi-java:25.1.0'
 
-    implementation 'com.revrobotics.frc:REVLib-java:2024.2.0'
-
-    implementation 'com.pathplanner.lib:PathplannerLib-java:2024.0.0-beta-6.1'
+    implementation 'com.revrobotics.frc:REVLib-java:2025.0.0'
 
     implementation group: 'org.ejml', name: 'ejml-all', version: '0.41'
     testImplementation 'junit:junit:4.12'
