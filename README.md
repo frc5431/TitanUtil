@@ -59,7 +59,7 @@ allprojects {
 and, add the dependency (Make sure it's the latest release)
 ```
 dependencies {
-    implementation 'com.github.frc5431:TitanUtil:2024.1.0' //Replace tag with the latest release if needed
+    implementation 'com.github.frc5431:TitanUtil:2025.2.0' //Replace tag with the latest release if needed
 }
 ```
 
@@ -67,7 +67,7 @@ dependencies {
 
 BSD 2-Clause License
 
-Copyright (c) 2024, 5431 Titan Robotics
+Copyright (c) 2025, 5431 Titan Robotics
 All rights reserved
 
 Refer to LICENSE file for more information, located in the base of this project
