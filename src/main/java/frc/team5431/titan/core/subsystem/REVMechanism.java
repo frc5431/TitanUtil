@@ -264,66 +264,62 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         public void applyflexConfig(SparkFlex flex) {
-
-            // StatusCode result = flex.configAccessor().
-            // .getConfigurator().apply(flexConfig);
             flex.configure(flexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
         }
 
         public void configVoltageCompensation(Voltage voltageCompSaturation) {
             this.voltageCompSaturation = voltageCompSaturation.in(Units.Volts);
         }
 
+        /**
+         * i'm not actually sure if this is clockwise or counter clockwise
+         */
         public void configCounterClockwise_Positive() {
-            flexConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        }
-
-        public void configClockwise_Positive() {
-            flexConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        }
-
-        public void configSupplyCurrentLimit(
-                Current supplyLimit, boolean enabled) {
-            flexConfig.CurrentLimits.SupplyCurrentLimit = supplyLimit.in(Units.Amps);
-            flexConfig.CurrentLimits.SupplyCurrentLimitEnable = enabled;
-        }
-
-        public void configStatorCurrentLimit(Current statorLimit, boolean enabled) {
-            flexConfig.CurrentLimits.StatorCurrentLimit = statorLimit.in(Units.Amps);
-            flexConfig.CurrentLimits.StatorCurrentLimitEnable = enabled;
-        }
-
-        public void configForwardTorqueCurrentLimit(Current currentLimit) {
-            flexConfig.TorqueCurrent.PeakForwardTorqueCurrent = currentLimit.in(Units.Amps);
-        }
-
-        public void configReverseTorqueCurrentLimit(Current currentLimit) {
-            flexConfig.TorqueCurrent.PeakReverseTorqueCurrent = currentLimit.in(Units.Amps);
+            flexConfig.inverted(false);
         }
 
         /**
-         * configured motor duty cycle control type dead
-         * 
-         * @param deadband 0.0-0.25
+         * i'm not actually sure if this is clockwise or counter clockwise
          */
-        public void configNeutralDeadband(double deadband) {
-            flexConfig.MotorOutput.DutyCycleNeutralDeadband = deadband;
+        public void configClockwise_Positive() {
+            flexConfig.inverted(true);
         }
 
+        public void configSupplyCurrentLimit(Current stallLimit, Current supplyLimit) {
+            flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
+        }
+
+        public void configStatorCurrentLimit(Current stallLimit, Current supplyLimit) {
+            flexConfig.secondaryCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
+        }
+
+        /**
+         * @param forward The maxiumum forward output [0-1]
+         * @param reverse The maximum reverse output [-1-0]
+         */
         public void configPeakOutput(double forward, double reverse) {
-            flexConfig.MotorOutput.PeakForwardDutyCycle = forward;
-            flexConfig.MotorOutput.PeakReverseDutyCycle = reverse;
+            flexConfig.closedLoop.outputRange(reverse, forward);
         }
 
+        /**
+         * @param threshold
+         * @param enabled   if false, max output is set to 1
+         */
         public void configForwardSoftLimit(double threshold, boolean enabled) {
-            flexConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = threshold;
-            flexConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = enabled;
+            if (!enabled) {
+                flexConfig.closedLoop.maxOutput(1);
+            }
         }
 
+        /**
+         * @param threshold
+         * @param enabled   if false, max output is set to -1
+         */
         public void configReverseSoftLimit(double threshold, boolean enabled) {
-            flexConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = threshold;
-            flexConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = enabled;
+            flexConfig.closedLoop.minOutput(threshold);
+            if (!enabled) {
+                flexConfig.closedLoop.minOutput(-1);
+            }
         }
 
         // Configure optional motion magic velocity parameters
@@ -365,7 +361,7 @@ public abstract class REVMechanism implements Subsystem {
          */
         public void configNeutralBrakeMode(boolean setBrakeMode) {
             if (setBrakeMode) {
-                flexConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+                flexConfig.flexConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             } else {
                 flexConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             }
