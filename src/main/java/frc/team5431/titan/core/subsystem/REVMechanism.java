@@ -14,10 +14,12 @@ import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule.ClosedLoopOutputType;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
@@ -25,7 +27,12 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.units.AngleUnit;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Unit;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -39,6 +46,11 @@ public abstract class REVMechanism implements Subsystem {
     protected SparkFlex motor;
     protected SparkClosedLoopController mController;
     public Config config;
+
+    public enum SensorType {
+        Absolute,
+        Relative
+    }
 
     /**
      * 
@@ -237,20 +249,11 @@ public abstract class REVMechanism implements Subsystem {
         public SparkFlexConfig flexConfig;
         public double voltageCompSaturation; // 12V by default
 
-        public MAXMotionConfig mmConfig;
-
         public MotionMagicVelocityTorqueCurrentFOC mmVelocityFOC = new MotionMagicVelocityTorqueCurrentFOC(0);
         public MotionMagicTorqueCurrentFOC mmPositionFOC = new MotionMagicTorqueCurrentFOC(0);
         public MotionMagicVelocityVoltage mmVelocityVoltage = new MotionMagicVelocityVoltage(0);
         public MotionMagicVoltage mmPositionVoltage = new MotionMagicVoltage(0);
         public MotionMagicVoltage mmPositionVoltageSlot = new MotionMagicVoltage(0).withSlot(1);
-
-        public VoltageOut voltageControl = new VoltageOut(0);
-        public VelocityVoltage velocityControl = new VelocityVoltage(0);
-        public VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new VelocityTorqueCurrentFOC(0);
-        public DutyCycleOut percentOutput = new DutyCycleOut(
-                0); // Percent Output control using percentage of supply voltage //Should
-        // normally use VoltageOut
 
         public Config(String title, int id, String canbus) {
             this.title = title;
@@ -285,7 +288,7 @@ public abstract class REVMechanism implements Subsystem {
             flexConfig.inverted(true);
         }
 
-        public void configSupplyCurrentLimit(Current stallLimit, Current supplyLimit) {
+        public void configSmartCurrentLimit(Current stallLimit, Current supplyLimit) {
             flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
         }
 
@@ -294,6 +297,9 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         /**
+         * 
+         * TODO: learn how these set actually
+         * 
          * @param forward The maxiumum forward output [0-1]
          * @param reverse The maximum reverse output [-1-0]
          */
@@ -322,49 +328,60 @@ public abstract class REVMechanism implements Subsystem {
             }
         }
 
-        // Configure optional motion magic velocity parameters
-        public void configMotionMagicVelocity(double acceleration, double feedforward) {
-            mmVelocityFOC = mmVelocityFOC.withAcceleration(acceleration).withFeedForward(feedforward);
-            mmVelocityVoltage = mmVelocityVoltage.withAcceleration(acceleration).withFeedForward(feedforward);
-        }
-
-        // Configure optional motion magic position parameters
-        public void configMotionMagicPosition(double feedforward) {
-            mmPositionFOC = mmPositionFOC.withFeedForward(feedforward);
-            mmPositionVoltage = mmPositionVoltage.withFeedForward(feedforward);
+        /**
+         * @param acceleration desired ROC of motor (Rotations Per Minute)
+         * @param velocity     desired crusing velocity of motor (setpoint) (Rotations
+         *                     Per Minute)
+         */
+        public void configMaxMotionVelocity(AngularVelocity acceleration, AngularVelocity velocity) {
+            flexConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
+            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
         }
 
         /**
-         * @param cruiseVelocity defines the passive running velocity of the motor, rps
-         * @param acceleration   acceleration in rps
-         * @param jerk           will slow down curve, rps
+         * @param velocity desired crusing velocity of motor (setpoint) (Rotations Per
+         *                 Minute)
          */
-        public void configMotionMagic(AngularVelocity cruiseVelocity, double acceleration, double jerk) {
-            flexConfig.MotionMagic.MotionMagicCruiseVelocity = cruiseVelocity.in(Units.RotationsPerSecond);
-            flexConfig.MotionMagic.MotionMagicAcceleration = acceleration;
-            flexConfig.MotionMagic.MotionMagicJerk = jerk;
-        }
-
-        // This is the ratio of rotor rotations to the mechanism's output.
-        // If a remote sensor is used this a ratio of sensor rotations to the
-        // mechanism's output.
-        public void configGearRatio(double gearRatio) {
-            flexConfig.Feedback.SensorToMechanismRatio = gearRatio;
-        }
-
-        public double getGearRatio() {
-            return flexConfig.Feedback.SensorToMechanismRatio;
+        public void configMaxMotionVelocity(AngularVelocity velocity) {
+            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
         }
 
         /**
-         * @param isInBrake true enables break mode, false enables coast
+         * @param acceleration desired ROC of motor (Rotations Per Minute)
+         * @param velocity     desired crusing velocity of motor (Rotations
+         *                     Per Minute)
+         * @param error        allowed error in RPM
          */
-        public void configNeutralBrakeMode(boolean setBrakeMode) {
-            if (setBrakeMode) {
-                flexConfig.flexConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            } else {
-                flexConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-            }
+        public void configMaxMotion(AngularVelocity velocity, AngularVelocity acceleration, AngularVelocity error) {
+            flexConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
+            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
+            flexConfig.closedLoop.maxMotion.allowedClosedLoopError(error.in(Units.RPM));
+        }
+
+        /**
+         * If a remote sensor is used this a ratio of sensor rotations to the
+         * mechanism's output.
+         * 
+         * @param gearRatio Ratio of Relvative encoder rotations relative to mechanism's
+         *                  rotary output
+         */
+        public void configGearRatio(Angle gearRatio) {
+            flexConfig.encoder.positionConversionFactor(gearRatio.in(Units.Rotations));
+        }
+
+        /**
+         * @param motor motor
+         * @return returns given motor's relative encoder position conversion factor
+         */
+        public double getGearRatio(SparkFlex motor) {
+            return motor.configAccessor.encoder.getPositionConversionFactor();
+        }
+
+        /**
+         * @param mode Desired IdleMode
+         */
+        public void configNeutralBrakeMode(IdleMode mode) {
+            flexConfig.idleMode(mode);
         }
 
         /**
@@ -394,21 +411,26 @@ public abstract class REVMechanism implements Subsystem {
          * @param kA
          * @param kG
          */
-        public void configFeedForwardGains(double kS, double kV, double kA, double kG) {
-            configFeedForwardGains(0, kS, kV, kA, kG);
+        public void configFeedForwardGains(double FF, double kP, double kI, double kD) {
+            configFeedForwardGains(0, FF, kP, kI, kD);
         }
 
-        public void configFeedForwardGains(int slot, double kS, double kV, double kA, double kG) {
-            flexConfigFeedForward(slot, kV, kA, kS, kG);
+        public void configFeedForwardGains(int slot, double FF, double kP, double kI, double kD) {
+            flexConfigFeedForward(slot, FF, kP, kI, kD);
         }
 
-        public void configFeedbackSensorSource(FeedbackSensorSourceValue source) {
-            configFeedbackSensorSource(source, 0);
+        public void configFeedbackSensorSource(SensorType source) {
+            configFeedbackSensorSource(source, Units.Rotation.of(0));
         }
 
-        public void configFeedbackSensorSource(FeedbackSensorSourceValue source, double offset) {
-            flexConfig.Feedback.FeedbackSensorSource = source;
-            flexConfig.Feedback.FeedbackRotorOffset = offset;
+        public void configFeedbackSensorSource(SensorType source, Angle offset) {
+            if (SensorType.Absolute == source) {
+                flexConfig.absoluteEncoder.zeroOffset(offset.in(Units.Rotation));
+            } else if (SensorType.Relative == source) {
+                // why would you do this bro?
+            } else {
+                DriverStation.reportWarning("MechConfig: Unkwn SensorType provided", false);
+            }
         }
 
         /**
@@ -416,81 +438,62 @@ public abstract class REVMechanism implements Subsystem {
          *
          * @param isArm
          */
-        public void configGravityType(boolean isArm) {
-            configGravityType(0, isArm);
-        }
+        // public void configGravityType(boolean isArm) {
+        // configGravityType(0, isArm);
+        // }
 
-        public void configGravityType(int slot, boolean isArm) {
-            GravityTypeValue gravityType = isArm ? GravityTypeValue.Arm_Cosine : GravityTypeValue.Elevator_Static;
-            if (slot == 0) {
-                flexConfig.  .Slot0.GravityType = gravityType;
-            } else if (slot == 1) {
-                flexConfig.Slot1.GravityType = gravityType;
-            } else if (slot == 2) {
-                flexConfig.Slot2.GravityType = gravityType;
-            } else {
-                DriverStation.reportWarning("MechConfig: Invalid slot", false);
-            }
-        }
+        /*
+         * public void configGravityType(int slot, boolean isArm) {
+         * // GravityTypeValue gravityType = isArm ? GravityTypeValue.Arm_Cosine :
+         * GravityTypeValue.Elevator_Static;
+         * // flexConfig.closedLoop
+         * // if (slot == 0) {
+         * // flexConfig. .Slot0.GravityType = gravityType;
+         * // } else if (slot == 1) {
+         * // flexConfig.Slot1.GravityType = gravityType;
+         * // } else if (slot == 2) {
+         * // flexConfig.Slot2.GravityType = gravityType;
+         * // } else {
+         * // DriverStation.reportWarning("MechConfig: Invalid slot", false);
+         * // }
+         * }
+         */
 
         // Configure the TalonFXConfiguration feed forward gains
-        private void flexConfigFeedForward(int slot, double kV, double kA, double kS, double kG) {
+        private void flexConfigFeedForward(int slot, double FF, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.Slot0.kV = kV;
-                flexConfig.Slot0.kA = kA;
-                flexConfig.Slot0.kS = kS;
-                flexConfig.Slot0.kG = kG;
+                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.Slot1.kV = kV;
-                flexConfig.Slot1.kA = kA;
-                flexConfig.Slot1.kS = kS;
-                flexConfig.Slot1.kG = kG;
+                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.Slot2.kV = kV;
-                flexConfig.Slot2.kA = kA;
-                flexConfig.Slot2.kS = kS;
-                flexConfig.Slot2.kG = kG;
+                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot2);
             } else {
-                DriverStation.reportWarning("MechConfig: Invalid FeedForward slot", false);
+                DriverStation.reportWarning("RevMechConfig: Invalid FeedForward slot", false);
             }
         }
 
         private void flexConfigVelocityPID(int slot, double kS, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.Slot0.kS = kS;
-                flexConfig.Slot0.kP = kP;
-                flexConfig.Slot0.kI = kI;
-                flexConfig.Slot0.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.Slot1.kS = kS;
-                flexConfig.Slot1.kP = kP;
-                flexConfig.Slot1.kI = kI;
-                flexConfig.Slot1.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.Slot2.kS = kS;
-                flexConfig.Slot2.kP = kP;
-                flexConfig.Slot2.kI = kI;
-                flexConfig.Slot2.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
             } else {
-                DriverStation.reportWarning("MechConfig: Invalid Feedback slot", false);
+                DriverStation.reportWarning("RevMechConfig: Invalid Feedback slot", false);
             }
         }
 
         private void flexConfigFeedbackPID(int slot, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.Slot0.kP = kP;
-                flexConfig.Slot0.kI = kI;
-                flexConfig.Slot0.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.Slot1.kP = kP;
-                flexConfig.Slot1.kI = kI;
-                flexConfig.Slot1.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.Slot2.kP = kP;
-                flexConfig.Slot2.kI = kI;
-                flexConfig.Slot2.kD = kD;
+                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
+
             } else {
-                DriverStation.reportWarning("MechConfig: Invalid Feedback slot", false);
+                DriverStation.reportWarning("RevMechConfig: Invalid Feedback slot", false);
             }
         }
     }
