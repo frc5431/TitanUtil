@@ -28,7 +28,7 @@ import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
-public abstract class CTREMecanism implements Subsystem {
+public abstract class CTREMechanism implements Subsystem {
     protected boolean attached = false;
     protected TalonFX motor;
     public Config config;
@@ -43,7 +43,7 @@ public abstract class CTREMecanism implements Subsystem {
      * 
      * @param attached for when not if build blows up the mechanism once more
      */
-    public CTREMecanism(boolean attached) {
+    public CTREMechanism(boolean attached) {
         this.attached = attached;
         this.config = setConfig();
     }
