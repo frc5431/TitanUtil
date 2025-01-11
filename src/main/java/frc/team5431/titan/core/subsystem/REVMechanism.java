@@ -3,36 +3,20 @@ package frc.team5431.titan.core.subsystem;
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix6.StatusCode;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.VelocityVoltage;
-import com.ctre.phoenix6.controls.VoltageOut;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule.ClosedLoopOutputType;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
-import com.ctre.phoenix6.signals.GravityTypeValue;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.units.AngleUnit;
-import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Unit;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -55,13 +39,12 @@ public abstract class REVMechanism implements Subsystem {
     /**
      * 
      * Multi-Purpose subsystem class based on 3847 Spectrum's Mechanism class
-     * utlizing PID Closed-Loop and Motion Magic positional or velocity control,
-     * WPILib Units, and TorqueFOC
+     * utlizing PID Closed-Loop and Max Motion positional or velocity control,
+     * and WPILib Units
      * 
      * Only use one control method per mechanism, PLEASE!
      * 
-     * @param attached for if the motor is in use; for when not if build blows up
-     *                 the mechanism once more
+     * @param attached for if the motor is in use
      */
     public REVMechanism(boolean attached) {
         this.attached = attached;
@@ -90,115 +73,116 @@ public abstract class REVMechanism implements Subsystem {
      */
     public void setMotorPosition(Angle position) {
         if (attached) {
-            motor.
+            motor.getClosedLoopController().setReference(position.in(Units.Rotations), ControlType.kPosition,
+                    ClosedLoopSlot.kSlot0);
         }
     }
 
     /**
-     * Closed-loop Velocity Motion Magic with torque control (requires Pro)
+     * Sets the mechanism position of the motor based on constant value with ArbFF
      *
-     * @param velocity Mesure of Velocity in Terms of Angle; Converted to
-     *                 Rotations/Revolutions Per Second
+     * @param position Measure of Angle; Converted to Rotations
+     * @param arbff    A value from which is represented in voltage applied to the
+     *                 motor after the result of the specified control mode. The
+     *                 units for the parameter is Volts.
      */
-    public void setMMVelocityFOC(AngularVelocity velocity) {
+    public void setMotorPosition(Angle position, double arbff) {
         if (attached) {
-            MotionMagicVelocityTorqueCurrentFOC mm = config.mmVelocityFOC
-                    .withVelocity(velocity.in(Units.RevolutionsPerSecond));
-            motor.setControl(mm);
+            motor.getClosedLoopController().setReference(position.in(Units.Rotations), ControlType.kPosition,
+                    ClosedLoopSlot.kSlot0, arbff);
         }
     }
 
     /**
-     * Closed-loop Velocity with torque control (requires Pro)
+     * Closed-loop Velocity Max Motion
      *
      * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
-     *                 Per Second
+     *                 Per Minute
      */
-    public void setVelocityTorqueCurrentFOC(AngularVelocity velocity) {
+    public void setMMVelocity(AngularVelocity velocity) {
         if (attached) {
-            VelocityTorqueCurrentFOC output = config.velocityTorqueCurrentFOC
-                    .withVelocity(velocity.in(Units.RotationsPerSecond));
-            motor.setControl(output);
+            motor.getClosedLoopController().setReference(velocity.in(Units.RPM), ControlType.kMAXMotionVelocityControl,
+                    ClosedLoopSlot.kSlot0);
         }
     }
 
     /**
-     * NATALIE, FIX THIS AFTER SAT AND DONT FORGET
-     * 
-     * Closed-loop Velocity with torque control (requires Pro)
-     *
-     * @param velocity Mesure of Velocity in Terms of Angle; Use Rotations Per
-     *                 Second
-     * 
-     */
-    public void setVelocityTCFOCrpm(AngularVelocity velocity) {
-        if (attached) {
-            VelocityTorqueCurrentFOC output = config.velocityTorqueCurrentFOC.withVelocity(
-                    (velocity.in(Units.RotationsPerSecond)));
-            motor.setControl(output);
-        }
-    }
-
-    /**
-     * Closed-loop velocity control with voltage compensation
+     * Closed-loop Velocity
      *
      * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
-     *                 Per Second
+     *                 Per Minute
      */
     public void setVelocity(AngularVelocity velocity) {
         if (attached) {
-            VelocityVoltage output = config.velocityControl.withVelocity(velocity.in(Units.RotationsPerSecond));
-            motor.setControl(output);
+            motor.getClosedLoopController().setReference(velocity.in(Units.RPM), ControlType.kVelocity,
+                    ClosedLoopSlot.kSlot0);
         }
     }
 
     /**
-     * Closed-loop Position Motion Magic with torque control (requires Pro)
+     * Closed-loop Position Max Motion with arbFF
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
+     * @param arbff    A value from which is represented in voltage applied to the
+     *                 motor after the result of the specified control mode. The
+     *                 units for the parameter is Volts.
+     *
      */
-    public void setMMPositionFOC(Angle position) {
+    public void setMMPosition(Angle position, double arbFF) {
         if (attached) {
-            MotionMagicTorqueCurrentFOC mm = config.mmPositionFOC.withPosition(position.in(Units.Rotations));
-            motor.setControl(mm);
+            motor.getClosedLoopController().setReference(position.in(Units.Rotations),
+                    ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, arbFF);
         }
     }
 
     /**
-     * Closed-loop Position Motion Magic
+     * Closed-loop Position Max Motion
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
      */
     public void setMMPosition(Angle position) {
         if (attached) {
-            MotionMagicVoltage mm = config.mmPositionVoltage.withPosition(position.in(Units.Rotations));
-            motor.setControl(mm);
+            motor.getClosedLoopController().setReference(position.in(Units.Rotations),
+                    ControlType.kMAXMotionPositionControl);
         }
     }
 
     /**
-     * Closed-loop Position Motion Magic
+     * Closed-loop Position Max Motion
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
      */
     public void setMMPosition(DoubleSupplier position) {
         if (attached) {
-            MotionMagicVoltage mm = config.mmPositionVoltage.withPosition(position.getAsDouble());
-            motor.setControl(mm);
+            motor.getClosedLoopController().setReference(position.getAsDouble(), ControlType.kMAXMotionPositionControl);
         }
     }
 
     /**
-     * Closed-loop Position Motion Magic using a slot other than 0
+     * Closed-loop Position Max Motion
+     *
+     * @param position Measure of Aggregate Rotation; Converted to Rotations
+     * @param arbff    A value from which is represented in voltage applied to the
+     *                 motor after the result of the specified control mode. The
+     *                 units for the parameter is Volts.
+     */
+    public void setMMPosition(DoubleSupplier position, double arbFF) {
+        if (attached) {
+            motor.getClosedLoopController().setReference(position.getAsDouble(), ControlType.kMAXMotionPositionControl,
+                    ClosedLoopSlot.kSlot0, arbFF);
+        }
+    }
+
+    /**
+     * Closed-loop Position Max Motion using a slot other than 0
      *
      * @param position rotations
      * @param slot     gains slot
      */
-    public void setMMPosition(Angle position, int slot) {
+    public void setMMPosition(Angle position, ClosedLoopSlot slot) {
         if (attached) {
-            MotionMagicVoltage mm = config.mmPositionVoltageSlot.withSlot(slot)
-                    .withPosition(position.in(Units.Rotations));
-            motor.setControl(mm);
+            motor.getClosedLoopController().setReference(position.in(Units.Rotations),
+                    ControlType.kMAXMotionPositionControl, slot);
         }
     }
 
@@ -209,22 +193,22 @@ public abstract class REVMechanism implements Subsystem {
      */
     public void setPercentOutput(double percent) {
         if (attached) {
-            VoltageOut output = config.voltageControl.withOutput(config.voltageCompSaturation * percent);
-            motor.setControl(output);
+            motor.set(percent);
+
         }
     }
 
-    public void setBrakeMode(boolean isInBrake) {
+    public void setBrakeMode(IdleMode idleMode) {
         if (attached) {
-            config.configNeutralBrakeMode(isInBrake);
+            config.configNeutralBrakeMode(idleMode);
             config.applyflexConfig(motor);
         }
     }
 
     public void toggleReverseSoftLimit(boolean enabled) {
         if (attached) {
-            double threshold = config.flexConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold;
-            config.configReverseSoftLimit(threshold, enabled);
+            double threshold = motor.configAccessor.softLimit.getReverseSoftLimit();
+            config.configReverseSoftLimit(Units.Rotation.of(threshold), enabled);
             config.applyflexConfig(motor);
         }
     }
@@ -232,12 +216,10 @@ public abstract class REVMechanism implements Subsystem {
     public void toggleTorqueCurrentLimit(Current enabledLimit, boolean enabled) {
         if (attached) {
             if (enabled) {
-                config.configForwardTorqueCurrentLimit(enabledLimit);
-                config.configReverseTorqueCurrentLimit(enabledLimit);
+                config.configSmartStallCurrentLimit(enabledLimit);
                 config.applyflexConfig(motor);
             } else {
-                config.configForwardTorqueCurrentLimit(Units.Amps.of(300));
-                config.configReverseTorqueCurrentLimit(Units.Amps.of(300));
+                config.configSmartStallCurrentLimit(enabledLimit);
                 config.applyflexConfig(motor);
             }
         }
@@ -274,6 +256,10 @@ public abstract class REVMechanism implements Subsystem {
             this.voltageCompSaturation = voltageCompSaturation.in(Units.Volts);
         }
 
+        public void configMaxMotionPositionMode(MAXMotionPositionMode mode) {
+            flexConfig.closedLoop.maxMotion.positionMode(mode);
+        }
+
         /**
          * i'm not actually sure if this is clockwise or counter clockwise
          */
@@ -292,8 +278,12 @@ public abstract class REVMechanism implements Subsystem {
             flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
         }
 
-        public void configStatorCurrentLimit(Current stallLimit, Current supplyLimit) {
-            flexConfig.secondaryCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
+        public void configSmartStallCurrentLimit(Current stallLimit) {
+            flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps));
+        }
+
+        public void configStatorCurrentLimit(Current stallLimit, int chop) {
+            flexConfig.secondaryCurrentLimit((int) stallLimit.in(Units.Amps), chop);
         }
 
         /**
@@ -308,24 +298,21 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         /**
-         * @param threshold
-         * @param enabled   if false, max output is set to 1
+         * @param threshold foward max angle or cumulative rotation
+         * @param enabled
          */
-        public void configForwardSoftLimit(double threshold, boolean enabled) {
-            if (!enabled) {
-                flexConfig.closedLoop.maxOutput(1);
-            }
+        public void configForwardSoftLimit(Angle threshold, boolean enabled) {
+            flexConfig.softLimit.forwardSoftLimit(threshold.in(Units.Rotations));
+            flexConfig.softLimit.forwardSoftLimitEnabled(enabled);
         }
 
         /**
-         * @param threshold
-         * @param enabled   if false, max output is set to -1
+         * @param threshold reverse max angle or cumulative rotation
+         * @param enabled
          */
-        public void configReverseSoftLimit(double threshold, boolean enabled) {
-            flexConfig.closedLoop.minOutput(threshold);
-            if (!enabled) {
-                flexConfig.closedLoop.minOutput(-1);
-            }
+        public void configReverseSoftLimit(Angle threshold, boolean enabled) {
+            flexConfig.softLimit.reverseSoftLimit(threshold.in(Units.Rotations));
+            flexConfig.softLimit.reverseSoftLimitEnabled(enabled);
         }
 
         /**
@@ -429,35 +416,9 @@ public abstract class REVMechanism implements Subsystem {
             } else if (SensorType.Relative == source) {
                 // why would you do this bro?
             } else {
-                DriverStation.reportWarning("MechConfig: Unkwn SensorType provided", false);
+                DriverStation.reportWarning("RevMechConfig: Unkwn SensorType provided", false);
             }
         }
-
-        /**
-         * Defaults to slot 0
-         *
-         * @param isArm
-         */
-        // public void configGravityType(boolean isArm) {
-        // configGravityType(0, isArm);
-        // }
-
-        /*
-         * public void configGravityType(int slot, boolean isArm) {
-         * // GravityTypeValue gravityType = isArm ? GravityTypeValue.Arm_Cosine :
-         * GravityTypeValue.Elevator_Static;
-         * // flexConfig.closedLoop
-         * // if (slot == 0) {
-         * // flexConfig. .Slot0.GravityType = gravityType;
-         * // } else if (slot == 1) {
-         * // flexConfig.Slot1.GravityType = gravityType;
-         * // } else if (slot == 2) {
-         * // flexConfig.Slot2.GravityType = gravityType;
-         * // } else {
-         * // DriverStation.reportWarning("MechConfig: Invalid slot", false);
-         * // }
-         * }
-         */
 
         // Configure the TalonFXConfiguration feed forward gains
         private void flexConfigFeedForward(int slot, double FF, double kP, double kI, double kD) {
