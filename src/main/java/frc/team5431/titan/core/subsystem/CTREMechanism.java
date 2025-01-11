@@ -19,7 +19,6 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -348,7 +347,7 @@ public abstract class CTREMechanism implements Subsystem {
         }
 
         /**
-         * @param isInBrake true enables break mode, false enables coast
+         * @param setBrakeMode true enables break mode, false enables coast
          */
         public void configNeutralBrakeMode(boolean setBrakeMode) {
             if (setBrakeMode) {
