@@ -1,8 +1,10 @@
 
 package frc.team5431.titan.core.subsystem;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
@@ -24,6 +26,7 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.team5431.titan.core.misc.Calc;
 
 public abstract class REVMechanism implements Subsystem {
     protected boolean attached = false;
@@ -64,6 +67,75 @@ public abstract class REVMechanism implements Subsystem {
         if (attached) {
             setMotorPosition(Units.Degrees.of(0));
         }
+    }
+
+    /**
+     * Checks if the motor is reaching the velocity setpoint
+     * 
+     * @param target the target RPM to reach
+     * @param error  allowed error in RPM
+     * @return true if the motor's RPM is within the error of the target RPM
+     */
+    public boolean getVelocitySetpointGoal(AngularVelocity target, AngularVelocity error) {
+        if (attached) {
+            if (Calc.approxEquals(motor.getEncoder().getVelocity(), target.in(Units.RPM), error.in(Units.RPM))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the motor is reaching the rotational setpoint
+     * 
+     * @param target the target rotation angle
+     * @param error  allowed error in rotations (keep SMALL)
+     * @return true if the motor's angle position is within the error of the target
+     *         angle position
+     */
+    public boolean getPositionSetpointGoal(Angle target, Angle error) {
+        if (attached) {
+            if (Calc.approxEquals(motor.getEncoder().getPosition(), target.in(Units.Rotations),
+                    error.in(Units.Rotations))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the motor is reaching the rotational setpoint
+     * Uses absolute encoder
+     * 
+     * @param target the target rotation angle
+     * @param error  allowed error in rotation (keep SMALL)
+     * @return true if the motor's angle position is within the error of the target
+     *         angle position
+     */
+    public boolean getAngleSetpointGoal(Angle target, Angle error) {
+        if (attached) {
+            if (Calc.approxEquals(motor.getAbsoluteEncoder().getPosition(), target.in(Units.Rotation),
+                    error.in(Units.Rotation))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the motor is reaching the output setpoint
+     * 
+     * @param target the target output to reach
+     * @param error  allowed error
+     * @return true if the motor's output is within the error of the target output
+     */
+    public boolean getOutputSetpointGoal(double target, double error) {
+        if (attached) {
+            if (Calc.approxEquals(motor.getAppliedOutput(), target, error)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -120,7 +192,7 @@ public abstract class REVMechanism implements Subsystem {
     }
 
     /**
-     * Closed-loop Position Max Motion with arbFF
+     * Closed-loop Position Max Motion with arbff
      *
      * @param position Measure of Aggregate Rotation; Converted to Rotations
      * @param arbff    A value from which is represented in voltage applied to the
@@ -128,10 +200,10 @@ public abstract class REVMechanism implements Subsystem {
      *                 units for the parameter is Volts.
      *
      */
-    public void setMMPosition(Angle position, double arbFF) {
+    public void setMMPosition(Angle position, double arbff) {
         if (attached) {
             motor.getClosedLoopController().setReference(position.in(Units.Rotations),
-                    ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, arbFF);
+                    ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, arbff);
         }
     }
 
@@ -166,10 +238,10 @@ public abstract class REVMechanism implements Subsystem {
      *                 motor after the result of the specified control mode. The
      *                 units for the parameter is Volts.
      */
-    public void setMMPosition(DoubleSupplier position, double arbFF) {
+    public void setMMPosition(DoubleSupplier position, double arbff) {
         if (attached) {
             motor.getClosedLoopController().setReference(position.getAsDouble(), ControlType.kMAXMotionPositionControl,
-                    ClosedLoopSlot.kSlot0, arbFF);
+                    ClosedLoopSlot.kSlot0, arbff);
         }
     }
 
@@ -393,10 +465,10 @@ public abstract class REVMechanism implements Subsystem {
         /**
          * Defaults to slot 0
          *
-         * @param kS
-         * @param kV
-         * @param kA
-         * @param kG
+         * @param FF
+         * @param kP
+         * @param kI
+         * @param kD
          */
         public void configFeedForwardGains(double FF, double kP, double kI, double kD) {
             configFeedForwardGains(0, FF, kP, kI, kD);
