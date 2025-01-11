@@ -15,7 +15,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.frc5431'
             artifactId = 'TitanUtil'
-            version = '2025.2.0'
+            version = '2025.2.1'
 
             artifact jar
         }
@@ -40,13 +40,13 @@ allprojects {
 }
 
 dependencies {
-    implementation 'edu.wpi.first.wpilibj:wpilibj-java:2025.1.1'
-    implementation 'edu.wpi.first.wpimath:wpimath-java:2025.1.1'
-    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2025.1.1'
-    implementation 'edu.wpi.first.ntcore:ntcore-java:2025.1.1'
-    implementation 'edu.wpi.first.cscore:cscore-java:2025.1.1'
-    implementation 'edu.wpi.first.wpiunits:wpiunits-java:2025.1.1'
-    implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2025.1.1'
+    implementation 'edu.wpi.first.wpilibj:wpilibj-java:2025.2.1'
+    implementation 'edu.wpi.first.wpimath:wpimath-java:2025.2.1'
+    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2025.2.1'
+    implementation 'edu.wpi.first.ntcore:ntcore-java:2025.2.1'
+    implementation 'edu.wpi.first.cscore:cscore-java:2025.2.1'
+    implementation 'edu.wpi.first.wpiunits:wpiunits-java:2025.2.1'
+    implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2025.2.1'
 
     // Remove Native Zips with GradleRIO 2022
     // nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
