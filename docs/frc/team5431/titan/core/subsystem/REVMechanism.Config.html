@@ -103,27 +103,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>int</code></div>
 <div class="col-second odd-row-color"><code><a href="#id" class="member-name-link">id</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC</code></div>
-<div class="col-second even-row-color"><code><a href="#mmPositionFOC" class="member-name-link">mmPositionFOC</a></code></div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#title" class="member-name-link">title</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>com.ctre.phoenix6.controls.MotionMagicVoltage</code></div>
-<div class="col-second odd-row-color"><code><a href="#mmPositionVoltage" class="member-name-link">mmPositionVoltage</a></code></div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#voltageCompSaturation" class="member-name-link">voltageCompSaturation</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>com.ctre.phoenix6.controls.MotionMagicVoltage</code></div>
-<div class="col-second even-row-color"><code><a href="#mmPositionVoltageSlot" class="member-name-link">mmPositionVoltageSlot</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC</code></div>
-<div class="col-second odd-row-color"><code><a href="#mmVelocityFOC" class="member-name-link">mmVelocityFOC</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>com.ctre.phoenix6.controls.MotionMagicVelocityVoltage</code></div>
-<div class="col-second even-row-color"><code><a href="#mmVelocityVoltage" class="member-name-link">mmVelocityVoltage</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#title" class="member-name-link">title</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>double</code></div>
-<div class="col-second even-row-color"><code><a href="#voltageCompSaturation" class="member-name-link">voltageCompSaturation</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -135,9 +120,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,int,java.lang.String)" class="member-name-link">Config</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;title,
- int&nbsp;id,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;canbus)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,int)" class="member-name-link">Config</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;title,
+ int&nbsp;id)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -157,47 +141,54 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#applyflexConfig(com.revrobotics.spark.SparkFlex)" class="member-name-link">applyflexConfig</a><wbr>(com.revrobotics.spark.SparkFlex&nbsp;flex)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configClockwise_Positive()" class="member-name-link">configClockwise_Positive</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">i'm not actually sure if this is clockwise or counter clockwise</div>
-</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#applyflexConfig(com.revrobotics.spark.SparkFlex,com.revrobotics.spark.SparkBase.ResetMode)" class="member-name-link">applyflexConfig</a><wbr>(com.revrobotics.spark.SparkFlex&nbsp;flex,
+ com.revrobotics.spark.SparkBase.ResetMode&nbsp;resetMode)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configCounterClockwise_Positive()" class="member-name-link">configCounterClockwise_Positive</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configClockwise_Positive()" class="member-name-link">configClockwise_Positive</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">i'm not actually sure if this is clockwise or counter clockwise</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedbackSensorSource(frc.team5431.titan.core.subsystem.REVMechanism.SensorType)" class="member-name-link">configFeedbackSensorSource</a><wbr>(<a href="REVMechanism.SensorType.html" title="enum class in frc.team5431.titan.core.subsystem">REVMechanism.SensorType</a>&nbsp;source)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configCounterClockwise_Positive()" class="member-name-link">configCounterClockwise_Positive</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">i'm not actually sure if this is clockwise or counter clockwise</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedbackSensorSource(frc.team5431.titan.core.subsystem.REVMechanism.SensorType,edu.wpi.first.units.measure.Angle)" class="member-name-link">configFeedbackSensorSource</a><wbr>(<a href="REVMechanism.SensorType.html" title="enum class in frc.team5431.titan.core.subsystem">REVMechanism.SensorType</a>&nbsp;source,
- edu.wpi.first.units.measure.Angle&nbsp;offset)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedbackSensorSource(frc.team5431.titan.core.subsystem.REVMechanism.SensorType)" class="member-name-link">configFeedbackSensorSource</a><wbr>(<a href="REVMechanism.SensorType.html" title="enum class in frc.team5431.titan.core.subsystem">REVMechanism.SensorType</a>&nbsp;source)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedForwardGains(double,double,double,double)" class="member-name-link">configFeedForwardGains</a><wbr>(double&nbsp;FF,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedbackSensorSource(frc.team5431.titan.core.subsystem.REVMechanism.SensorType,edu.wpi.first.units.measure.Angle)" class="member-name-link">configFeedbackSensorSource</a><wbr>(<a href="REVMechanism.SensorType.html" title="enum class in frc.team5431.titan.core.subsystem">REVMechanism.SensorType</a>&nbsp;source,
+ edu.wpi.first.units.measure.Angle&nbsp;offset)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedForwardGains(double,double,double,double)" class="member-name-link">configFeedForwardGains</a><wbr>(double&nbsp;FF,
  double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Defaults to slot 0</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedForwardGains(int,double,double,double,double)" class="member-name-link">configFeedForwardGains</a><wbr>(int&nbsp;slot,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configFeedForwardGains(int,double,double,double,double)" class="member-name-link">configFeedForwardGains</a><wbr>(int&nbsp;slot,
  double&nbsp;FF,
  double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configForwardSoftLimit(edu.wpi.first.units.measure.Angle,boolean)" class="member-name-link">configForwardSoftLimit</a><wbr>(edu.wpi.first.units.measure.Angle&nbsp;threshold,
- boolean&nbsp;enabled)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configGearRatio(edu.wpi.first.units.measure.Angle)" class="member-name-link">configGearRatio</a><wbr>(edu.wpi.first.units.measure.Angle&nbsp;gearRatio)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configForwardSoftLimit(edu.wpi.first.units.measure.Angle,boolean)" class="member-name-link">configForwardSoftLimit</a><wbr>(edu.wpi.first.units.measure.Angle&nbsp;threshold,
+ boolean&nbsp;enabled)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configGearRatio(double)" class="member-name-link">configGearRatio</a><wbr>(double&nbsp;gearRatio)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">If a remote sensor is used this a ratio of sensor rotations to the
  mechanism's output.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configIdleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode)" class="member-name-link">configIdleMode</a><wbr>(com.revrobotics.spark.config.SparkBaseConfig.IdleMode&nbsp;mode)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configMaxMotion(edu.wpi.first.units.measure.AngularVelocity,edu.wpi.first.units.measure.AngularVelocity,edu.wpi.first.units.measure.AngularVelocity)" class="member-name-link">configMaxMotion</a><wbr>(edu.wpi.first.units.measure.AngularVelocity&nbsp;velocity,
  edu.wpi.first.units.measure.AngularVelocity&nbsp;acceleration,
@@ -214,55 +205,52 @@ loadScripts(document, 'script');</script>
  edu.wpi.first.units.measure.AngularVelocity&nbsp;velocity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configNeutralBrakeMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode)" class="member-name-link">configNeutralBrakeMode</a><wbr>(com.revrobotics.spark.config.SparkBaseConfig.IdleMode&nbsp;mode)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPeakOutput(double,double)" class="member-name-link">configPeakOutput</a><wbr>(double&nbsp;forward,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPeakOutput(double,double)" class="member-name-link">configPeakOutput</a><wbr>(double&nbsp;forward,
  double&nbsp;reverse)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">TODO: learn how these set actually</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPIDGains(double,double,double)" class="member-name-link">configPIDGains</a><wbr>(double&nbsp;kP,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPIDGains(double,double,double)" class="member-name-link">configPIDGains</a><wbr>(double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Defaults to slot 0</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPIDGains(int,double,double,double)" class="member-name-link">configPIDGains</a><wbr>(int&nbsp;slot,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configPIDGains(int,double,double,double)" class="member-name-link">configPIDGains</a><wbr>(int&nbsp;slot,
  double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configReverseSoftLimit(edu.wpi.first.units.measure.Angle,boolean)" class="member-name-link">configReverseSoftLimit</a><wbr>(edu.wpi.first.units.measure.Angle&nbsp;threshold,
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configReverseSoftLimit(edu.wpi.first.units.measure.Angle,boolean)" class="member-name-link">configReverseSoftLimit</a><wbr>(edu.wpi.first.units.measure.Angle&nbsp;threshold,
  boolean&nbsp;enabled)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configSmartCurrentLimit(edu.wpi.first.units.measure.Current,edu.wpi.first.units.measure.Current)" class="member-name-link">configSmartCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit,
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configSmartCurrentLimit(edu.wpi.first.units.measure.Current,edu.wpi.first.units.measure.Current)" class="member-name-link">configSmartCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit,
  edu.wpi.first.units.measure.Current&nbsp;supplyLimit)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configSmartStallCurrentLimit(edu.wpi.first.units.measure.Current)" class="member-name-link">configSmartStallCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configStatorCurrentLimit(edu.wpi.first.units.measure.Current,int)" class="member-name-link">configStatorCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit,
- int&nbsp;chop)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configSmartStallCurrentLimit(edu.wpi.first.units.measure.Current)" class="member-name-link">configSmartStallCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configVelocityPIDGains(int,double,double,double,double)" class="member-name-link">configVelocityPIDGains</a><wbr>(int&nbsp;slot,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configStatorCurrentLimit(edu.wpi.first.units.measure.Current,int)" class="member-name-link">configStatorCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;stallLimit,
+ int&nbsp;chop)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configVelocityPIDGains(int,double,double,double,double)" class="member-name-link">configVelocityPIDGains</a><wbr>(int&nbsp;slot,
  double&nbsp;kS,
  double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configVoltageCompensation(edu.wpi.first.units.measure.Voltage)" class="member-name-link">configVoltageCompensation</a><wbr>(edu.wpi.first.units.measure.Voltage&nbsp;voltageCompSaturation)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGearRatio(com.revrobotics.spark.SparkFlex)" class="member-name-link">getGearRatio</a><wbr>(com.revrobotics.spark.SparkFlex&nbsp;motor)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configVoltageCompensation(edu.wpi.first.units.measure.Voltage)" class="member-name-link">configVoltageCompensation</a><wbr>(edu.wpi.first.units.measure.Voltage&nbsp;voltageCompSaturation)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGearRatio(com.revrobotics.spark.SparkFlex)" class="member-name-link">getGearRatio</a><wbr>(com.revrobotics.spark.SparkFlex&nbsp;motor)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -304,36 +292,6 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">voltageCompSaturation</span></div>
 </section>
 </li>
-<li>
-<section class="detail" id="mmVelocityFOC">
-<h3>mmVelocityFOC</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC</span>&nbsp;<span class="element-name">mmVelocityFOC</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="mmPositionFOC">
-<h3>mmPositionFOC</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC</span>&nbsp;<span class="element-name">mmPositionFOC</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="mmVelocityVoltage">
-<h3>mmVelocityVoltage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.ctre.phoenix6.controls.MotionMagicVelocityVoltage</span>&nbsp;<span class="element-name">mmVelocityVoltage</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="mmPositionVoltage">
-<h3>mmPositionVoltage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.ctre.phoenix6.controls.MotionMagicVoltage</span>&nbsp;<span class="element-name">mmPositionVoltage</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="mmPositionVoltageSlot">
-<h3>mmPositionVoltageSlot</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.ctre.phoenix6.controls.MotionMagicVoltage</span>&nbsp;<span class="element-name">mmPositionVoltageSlot</span></div>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -343,11 +301,10 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,int,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,int)">
 <h3>Config</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Config</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;title,
- int&nbsp;id,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;canbus)</span></div>
+ int&nbsp;id)</span></div>
 </section>
 </li>
 </ul>
@@ -362,6 +319,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="applyflexConfig(com.revrobotics.spark.SparkFlex)">
 <h3>applyflexConfig</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">applyflexConfig</span><wbr><span class="parameters">(com.revrobotics.spark.SparkFlex&nbsp;flex)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="applyflexConfig(com.revrobotics.spark.SparkFlex,com.revrobotics.spark.SparkBase.ResetMode)">
+<h3>applyflexConfig</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">applyflexConfig</span><wbr><span class="parameters">(com.revrobotics.spark.SparkFlex&nbsp;flex,
+ com.revrobotics.spark.SparkBase.ResetMode&nbsp;resetMode)</span></div>
 </section>
 </li>
 <li>
@@ -487,9 +451,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="configGearRatio(edu.wpi.first.units.measure.Angle)">
+<section class="detail" id="configGearRatio(double)">
 <h3>configGearRatio</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">configGearRatio</span><wbr><span class="parameters">(edu.wpi.first.units.measure.Angle&nbsp;gearRatio)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">configGearRatio</span><wbr><span class="parameters">(double&nbsp;gearRatio)</span></div>
 <div class="block">If a remote sensor is used this a ratio of sensor rotations to the
  mechanism's output.</div>
 <dl class="notes">
@@ -512,9 +476,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="configNeutralBrakeMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode)">
-<h3>configNeutralBrakeMode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">configNeutralBrakeMode</span><wbr><span class="parameters">(com.revrobotics.spark.config.SparkBaseConfig.IdleMode&nbsp;mode)</span></div>
+<section class="detail" id="configIdleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode)">
+<h3>configIdleMode</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">configIdleMode</span><wbr><span class="parameters">(com.revrobotics.spark.config.SparkBaseConfig.IdleMode&nbsp;mode)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>mode</code> - Desired IdleMode</dd>
