@@ -12,7 +12,7 @@
         {
             "groupId": "com.github.frc5431",
             "artifactId": "TitanUtil",
-            "version": "2025.2.1"
+            "version": "2025.2.2"
         }
     ],
     "jniDependencies": [],

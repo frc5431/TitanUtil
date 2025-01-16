@@ -40,10 +40,11 @@ public abstract class CTREMechanism implements Subsystem {
      * 
      * Only use one control method per mechanism, PLEASE!
      * 
-     * @param attached for when not if build blows up the mechanism once more
+     * @param attached for if the motor is in use
      */
-    public CTREMechanism(boolean attached) {
+    public CTREMechanism(TalonFX motor, boolean attached) {
         this.attached = attached;
+        this.motor = motor;
         this.config = setConfig();
     }
 

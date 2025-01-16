@@ -4,12 +4,14 @@ package frc.team5431.titan.core.subsystem;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -24,14 +26,8 @@ import frc.team5431.titan.core.misc.Calc;
 
 public abstract class REVMechanism implements Subsystem {
     protected boolean attached = false;
-    protected SparkFlex motor;
-    protected SparkClosedLoopController mController;
+    protected SparkBase motor;
     public Config config;
-
-    public enum SensorType {
-        Absolute,
-        Relative
-    }
 
     /**
      * 
@@ -43,11 +39,10 @@ public abstract class REVMechanism implements Subsystem {
      * 
      * @param attached for if the motor is in use
      */
-    public REVMechanism(boolean attached) {
+    public REVMechanism(SparkBase motor, boolean attached) {
         this.attached = attached;
+        this.motor = motor;
         this.config = setConfig();
-        mController = motor.getClosedLoopController();
-
     }
 
     protected abstract Config setConfig();
@@ -267,15 +262,18 @@ public abstract class REVMechanism implements Subsystem {
     public void setBrakeMode(IdleMode idleMode) {
         if (attached) {
             config.configIdleMode(idleMode);
-            config.applyflexConfig(motor);
+            config.applySparkConfig(motor);
         }
     }
 
-    public void toggleReverseSoftLimit(boolean enabled) {
+    /**
+     * @param enabled
+     * @param threshold motor.configAccessor.softLimit.getReverseSoftLimit();
+     */
+    public void toggleReverseSoftLimit(boolean enabled, double threshold) {
         if (attached) {
-            double threshold = motor.configAccessor.softLimit.getReverseSoftLimit();
             config.configReverseSoftLimit(Units.Rotation.of(threshold), enabled);
-            config.applyflexConfig(motor);
+            config.applySparkConfig(motor);
         }
     }
 
@@ -283,10 +281,7 @@ public abstract class REVMechanism implements Subsystem {
         if (attached) {
             if (enabled) {
                 config.configSmartStallCurrentLimit(enabledLimit);
-                config.applyflexConfig(motor);
-            } else {
-                config.configSmartStallCurrentLimit(enabledLimit);
-                config.applyflexConfig(motor);
+                config.applySparkConfig(motor);
             }
         }
     }
@@ -294,26 +289,26 @@ public abstract class REVMechanism implements Subsystem {
     public static class Config {
         public String title;
         public int id;
-        public SparkFlexConfig flexConfig;
+        public SparkBaseConfig sparkConfig;
         public double voltageCompSaturation; // 12V by default
 
         public Config(String title, int id) {
             this.title = title;
             this.voltageCompSaturation = 12.0;
             this.id = id;
-            flexConfig = new SparkFlexConfig();
+            sparkConfig = new SparkFlexConfig();
 
             /* Put default config settings for all mechanisms here */
-            flexConfig.limitSwitch.forwardLimitSwitchEnabled(false);
-            flexConfig.limitSwitch.reverseLimitSwitchEnabled(false);
+            sparkConfig.limitSwitch.forwardLimitSwitchEnabled(false);
+            sparkConfig.limitSwitch.reverseLimitSwitchEnabled(false);
         }
 
-        public void applyflexConfig(SparkFlex flex) {
-            flex.configure(flexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        public void applySparkConfig(SparkBase spark) {
+            spark.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         }
 
-        public void applyflexConfig(SparkFlex flex, ResetMode resetMode) {
-            flex.configure(flexConfig, resetMode, PersistMode.kPersistParameters);
+        public void applySparkConfig(SparkBase spark, ResetMode resetMode) {
+            spark.configure(sparkConfig, resetMode, PersistMode.kPersistParameters);
         }
 
         public void configVoltageCompensation(Voltage voltageCompSaturation) {
@@ -321,33 +316,33 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         public void configMaxMotionPositionMode(MAXMotionPositionMode mode) {
-            flexConfig.closedLoop.maxMotion.positionMode(mode);
+            sparkConfig.closedLoop.maxMotion.positionMode(mode);
         }
 
         /**
          * i'm not actually sure if this is clockwise or counter clockwise
          */
         public void configCounterClockwise_Positive() {
-            flexConfig.inverted(false);
+            sparkConfig.inverted(false);
         }
 
         /**
          * i'm not actually sure if this is clockwise or counter clockwise
          */
         public void configClockwise_Positive() {
-            flexConfig.inverted(true);
+            sparkConfig.inverted(true);
         }
 
         public void configSmartCurrentLimit(Current stallLimit, Current supplyLimit) {
-            flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
+            sparkConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps), (int) supplyLimit.in(Units.Amps));
         }
 
         public void configSmartStallCurrentLimit(Current stallLimit) {
-            flexConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps));
+            sparkConfig.smartCurrentLimit((int) stallLimit.in(Units.Amps));
         }
 
         public void configStatorCurrentLimit(Current stallLimit, int chop) {
-            flexConfig.secondaryCurrentLimit((int) stallLimit.in(Units.Amps), chop);
+            sparkConfig.secondaryCurrentLimit((int) stallLimit.in(Units.Amps), chop);
         }
 
         /**
@@ -358,7 +353,7 @@ public abstract class REVMechanism implements Subsystem {
          * @param reverse The maximum reverse output [-1-0]
          */
         public void configPeakOutput(double forward, double reverse) {
-            flexConfig.closedLoop.outputRange(reverse, forward);
+            sparkConfig.closedLoop.outputRange(reverse, forward);
         }
 
         /**
@@ -366,8 +361,8 @@ public abstract class REVMechanism implements Subsystem {
          * @param enabled
          */
         public void configForwardSoftLimit(Angle threshold, boolean enabled) {
-            flexConfig.softLimit.forwardSoftLimit(threshold.in(Units.Rotations));
-            flexConfig.softLimit.forwardSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.forwardSoftLimit(threshold.in(Units.Rotations));
+            sparkConfig.softLimit.forwardSoftLimitEnabled(enabled);
         }
 
         /**
@@ -375,8 +370,8 @@ public abstract class REVMechanism implements Subsystem {
          * @param enabled
          */
         public void configReverseSoftLimit(Angle threshold, boolean enabled) {
-            flexConfig.softLimit.reverseSoftLimit(threshold.in(Units.Rotations));
-            flexConfig.softLimit.reverseSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.reverseSoftLimit(threshold.in(Units.Rotations));
+            sparkConfig.softLimit.reverseSoftLimitEnabled(enabled);
         }
 
         /**
@@ -385,8 +380,8 @@ public abstract class REVMechanism implements Subsystem {
          *                     Per Minute)
          */
         public void configMaxMotionVelocity(AngularVelocity acceleration, AngularVelocity velocity) {
-            flexConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
-            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
         }
 
         /**
@@ -394,7 +389,7 @@ public abstract class REVMechanism implements Subsystem {
          *                 Minute)
          */
         public void configMaxMotionVelocity(AngularVelocity velocity) {
-            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
         }
 
         /**
@@ -404,9 +399,9 @@ public abstract class REVMechanism implements Subsystem {
          * @param error        allowed error in RPM
          */
         public void configMaxMotion(AngularVelocity velocity, AngularVelocity acceleration, AngularVelocity error) {
-            flexConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
-            flexConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
-            flexConfig.closedLoop.maxMotion.allowedClosedLoopError(error.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.maxAcceleration(acceleration.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.maxVelocity(velocity.in(Units.RPM));
+            sparkConfig.closedLoop.maxMotion.allowedClosedLoopError(error.in(Units.RPM));
         }
 
         /**
@@ -417,7 +412,7 @@ public abstract class REVMechanism implements Subsystem {
          *                  rotary output
          */
         public void configGearRatio(double gearRatio) {
-            flexConfig.encoder.positionConversionFactor(gearRatio);
+            sparkConfig.encoder.positionConversionFactor(gearRatio);
         }
 
         /**
@@ -432,7 +427,7 @@ public abstract class REVMechanism implements Subsystem {
          * @param mode Desired IdleMode
          */
         public void configIdleMode(IdleMode mode) {
-            flexConfig.idleMode(mode);
+            sparkConfig.idleMode(mode);
         }
 
         /**
@@ -447,11 +442,11 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         public void configPIDGains(int slot, double kP, double kI, double kD) {
-            flexConfigFeedbackPID(slot, kP, kI, kD);
+            sparkConfigFeedbackPID(slot, kP, kI, kD);
         }
 
-        public void configVelocityPIDGains(int slot, double kS, double kP, double kI, double kD) {
-            flexConfigVelocityPID(slot, kS, kP, kI, kD);
+        public void configVelocityPIDGains(int slot, double kP, double kI, double kD) {
+            sparkConfigVelocityPID(slot, kP, kI, kD);
         }
 
         /**
@@ -467,55 +462,49 @@ public abstract class REVMechanism implements Subsystem {
         }
 
         public void configFeedForwardGains(int slot, double FF, double kP, double kI, double kD) {
-            flexConfigFeedForward(slot, FF, kP, kI, kD);
+            sparkConfigFeedForward(slot, FF, kP, kI, kD);
         }
 
-        public void configFeedbackSensorSource(SensorType source) {
+        public void configFeedbackSensorSource(FeedbackSensor source) {
             configFeedbackSensorSource(source, Units.Rotation.of(0));
         }
 
-        public void configFeedbackSensorSource(SensorType source, Angle offset) {
-            if (SensorType.Absolute == source) {
-                flexConfig.absoluteEncoder.zeroOffset(offset.in(Units.Rotation));
-            } else if (SensorType.Relative == source) {
-                // why would you do this bro?
-            } else {
-                DriverStation.reportWarning("RevMechConfig: Unkwn SensorType provided", false);
-            }
+        public void configFeedbackSensorSource(FeedbackSensor source, Angle offset) {
+            sparkConfig.closedLoop.feedbackSensor(source);
+            sparkConfig.absoluteEncoder.zeroOffset(offset.in(Units.Rotation));
         }
 
-        // Configure the TalonFXConfiguration feed forward gains
-        private void flexConfigFeedForward(int slot, double FF, double kP, double kI, double kD) {
+        private void sparkConfigFeedForward(int slot, double FF, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot0);
+                sparkConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot1);
+                sparkConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot2);
+                sparkConfig.closedLoop.pidf(kP, kI, kD, FF, ClosedLoopSlot.kSlot2);
             } else {
                 DriverStation.reportWarning("RevMechConfig: Invalid FeedForward slot", false);
             }
         }
 
-        private void flexConfigVelocityPID(int slot, double kS, double kP, double kI, double kD) {
+        private void sparkConfigVelocityPID(int slot, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
             } else {
                 DriverStation.reportWarning("RevMechConfig: Invalid Feedback slot", false);
             }
         }
 
-        private void flexConfigFeedbackPID(int slot, double kP, double kI, double kD) {
+        private void sparkConfigFeedbackPID(int slot, double kP, double kI, double kD) {
             if (slot == 0) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot0);
             } else if (slot == 1) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot1);
             } else if (slot == 2) {
-                flexConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
+                sparkConfig.closedLoop.pid(kP, kI, kD, ClosedLoopSlot.kSlot2);
 
             } else {
                 DriverStation.reportWarning("RevMechConfig: Invalid Feedback slot", false);
