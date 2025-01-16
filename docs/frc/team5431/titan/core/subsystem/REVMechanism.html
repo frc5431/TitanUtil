@@ -101,9 +101,6 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <div class="col-first even-row-color"><code>static class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="REVMechanism.Config.html" class="type-name-link" title="class in frc.team5431.titan.core.subsystem">REVMechanism.Config</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="REVMechanism.SensorType.html" class="type-name-link" title="enum class in frc.team5431.titan.core.subsystem">REVMechanism.SensorType</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -122,12 +119,9 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <div class="col-first odd-row-color"><code><a href="REVMechanism.Config.html" title="class in frc.team5431.titan.core.subsystem">REVMechanism.Config</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#config" class="member-name-link">config</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>protected com.revrobotics.spark.SparkClosedLoopController</code></div>
-<div class="col-second even-row-color"><code><a href="#mController" class="member-name-link">mController</a></code></div>
+<div class="col-first even-row-color"><code>protected com.revrobotics.spark.SparkBase</code></div>
+<div class="col-second even-row-color"><code><a href="#motor" class="member-name-link">motor</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>protected com.revrobotics.spark.SparkFlex</code></div>
-<div class="col-second odd-row-color"><code><a href="#motor" class="member-name-link">motor</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -139,7 +133,8 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(boolean)" class="member-name-link">REVMechanism</a><wbr>(boolean&nbsp;attached)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.revrobotics.spark.SparkBase,boolean)" class="member-name-link">REVMechanism</a><wbr>(com.revrobotics.spark.SparkBase&nbsp;motor,
+ boolean&nbsp;attached)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Multi-Purpose subsystem class based on 3847 Spectrum's Mechanism class
  utlizing PID Closed-Loop and Max Motion positional or velocity control,
@@ -255,7 +250,8 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <div class="block">Closed-loop Velocity</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleReverseSoftLimit(boolean)" class="member-name-link">toggleReverseSoftLimit</a><wbr>(boolean&nbsp;enabled)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleReverseSoftLimit(boolean,double)" class="member-name-link">toggleReverseSoftLimit</a><wbr>(boolean&nbsp;enabled,
+ double&nbsp;threshold)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleTorqueCurrentLimit(edu.wpi.first.units.measure.Current,boolean)" class="member-name-link">toggleTorqueCurrentLimit</a><wbr>(edu.wpi.first.units.measure.Current&nbsp;enabledLimit,
@@ -290,13 +286,7 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <li>
 <section class="detail" id="motor">
 <h3>motor</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">com.revrobotics.spark.SparkFlex</span>&nbsp;<span class="element-name">motor</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="mController">
-<h3>mController</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">com.revrobotics.spark.SparkClosedLoopController</span>&nbsp;<span class="element-name">mController</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">com.revrobotics.spark.SparkBase</span>&nbsp;<span class="element-name">motor</span></div>
 </section>
 </li>
 <li>
@@ -314,9 +304,10 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(boolean)">
+<section class="detail" id="&lt;init&gt;(com.revrobotics.spark.SparkBase,boolean)">
 <h3>REVMechanism</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">REVMechanism</span><wbr><span class="parameters">(boolean&nbsp;attached)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">REVMechanism</span><wbr><span class="parameters">(com.revrobotics.spark.SparkBase&nbsp;motor,
+ boolean&nbsp;attached)</span></div>
 <div class="block">Multi-Purpose subsystem class based on 3847 Spectrum's Mechanism class
  utlizing PID Closed-Loop and Max Motion positional or velocity control,
  and WPILib Units
@@ -551,9 +542,15 @@ implements edu.wpi.first.wpilibj2.command.Subsystem</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="toggleReverseSoftLimit(boolean)">
+<section class="detail" id="toggleReverseSoftLimit(boolean,double)">
 <h3>toggleReverseSoftLimit</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toggleReverseSoftLimit</span><wbr><span class="parameters">(boolean&nbsp;enabled)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toggleReverseSoftLimit</span><wbr><span class="parameters">(boolean&nbsp;enabled,
+ double&nbsp;threshold)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>enabled</code> - </dd>
+<dd><code>threshold</code> - motor.configAccessor.softLimit.getReverseSoftLimit();</dd>
+</dl>
 </section>
 </li>
 <li>
