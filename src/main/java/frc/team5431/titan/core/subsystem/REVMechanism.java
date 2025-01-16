@@ -272,7 +272,7 @@ public abstract class REVMechanism implements Subsystem {
 
     public void setBrakeMode(IdleMode idleMode) {
         if (attached) {
-            config.configNeutralBrakeMode(idleMode);
+            config.configIdleMode(idleMode);
             config.applyflexConfig(motor);
         }
     }
@@ -303,13 +303,7 @@ public abstract class REVMechanism implements Subsystem {
         public SparkFlexConfig flexConfig;
         public double voltageCompSaturation; // 12V by default
 
-        public MotionMagicVelocityTorqueCurrentFOC mmVelocityFOC = new MotionMagicVelocityTorqueCurrentFOC(0);
-        public MotionMagicTorqueCurrentFOC mmPositionFOC = new MotionMagicTorqueCurrentFOC(0);
-        public MotionMagicVelocityVoltage mmVelocityVoltage = new MotionMagicVelocityVoltage(0);
-        public MotionMagicVoltage mmPositionVoltage = new MotionMagicVoltage(0);
-        public MotionMagicVoltage mmPositionVoltageSlot = new MotionMagicVoltage(0).withSlot(1);
-
-        public Config(String title, int id, String canbus) {
+        public Config(String title, int id) {
             this.title = title;
             this.voltageCompSaturation = 12.0;
             this.id = id;
@@ -322,6 +316,10 @@ public abstract class REVMechanism implements Subsystem {
 
         public void applyflexConfig(SparkFlex flex) {
             flex.configure(flexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        }
+
+        public void applyflexConfig(SparkFlex flex, ResetMode resetMode) {
+            flex.configure(flexConfig, resetMode, PersistMode.kPersistParameters);
         }
 
         public void configVoltageCompensation(Voltage voltageCompSaturation) {
@@ -424,8 +422,8 @@ public abstract class REVMechanism implements Subsystem {
          * @param gearRatio Ratio of Relvative encoder rotations relative to mechanism's
          *                  rotary output
          */
-        public void configGearRatio(Angle gearRatio) {
-            flexConfig.encoder.positionConversionFactor(gearRatio.in(Units.Rotations));
+        public void configGearRatio(double gearRatio) {
+            flexConfig.encoder.positionConversionFactor(gearRatio);
         }
 
         /**
@@ -439,7 +437,7 @@ public abstract class REVMechanism implements Subsystem {
         /**
          * @param mode Desired IdleMode
          */
-        public void configNeutralBrakeMode(IdleMode mode) {
+        public void configIdleMode(IdleMode mode) {
             flexConfig.idleMode(mode);
         }
 
