@@ -6,11 +6,12 @@ import java.util.function.DoubleSupplier;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -26,7 +27,7 @@ import frc.team5431.titan.core.misc.Calc;
 
 public abstract class REVMechanism implements Subsystem {
     protected boolean attached = false;
-    protected SparkBase motor;
+    protected SparkMax motor;
     public Config config;
 
     /**
@@ -39,7 +40,7 @@ public abstract class REVMechanism implements Subsystem {
      * 
      * @param attached for if the motor is in use
      */
-    public REVMechanism(SparkBase motor, boolean attached) {
+    public REVMechanism(SparkMax motor, boolean attached) {
         this.attached = attached;
         this.motor = motor;
         this.config = setConfig();
@@ -289,25 +290,25 @@ public abstract class REVMechanism implements Subsystem {
     public static class Config {
         public String title;
         public int id;
-        public SparkBaseConfig sparkConfig;
+        public SparkMaxConfig sparkConfig;
         public double voltageCompSaturation; // 12V by default
 
         public Config(String title, int id) {
             this.title = title;
             this.voltageCompSaturation = 12.0;
             this.id = id;
-            sparkConfig = new SparkFlexConfig();
+            sparkConfig = new SparkMaxConfig();
 
             /* Put default config settings for all mechanisms here */
             sparkConfig.limitSwitch.forwardLimitSwitchEnabled(false);
             sparkConfig.limitSwitch.reverseLimitSwitchEnabled(false);
         }
 
-        public void applySparkConfig(SparkBase spark) {
+        public void applySparkConfig(SparkMax spark) {
             spark.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         }
 
-        public void applySparkConfig(SparkBase spark, ResetMode resetMode) {
+        public void applySparkConfig(SparkMax spark, ResetMode resetMode) {
             spark.configure(sparkConfig, resetMode, PersistMode.kPersistParameters);
         }
 
@@ -315,22 +316,64 @@ public abstract class REVMechanism implements Subsystem {
             this.voltageCompSaturation = voltageCompSaturation.in(Units.Volts);
         }
 
+        public void setVoltageCompensation() {
+            sparkConfig.voltageCompensation(this.voltageCompSaturation);
+        }
+
         public void configMaxMotionPositionMode(MAXMotionPositionMode mode) {
             sparkConfig.closedLoop.maxMotion.positionMode(mode);
         }
 
-        /**
-         * i'm not actually sure if this is clockwise or counter clockwise
-         */
-        public void configCounterClockwise_Positive() {
-            sparkConfig.inverted(false);
+        public void configMaxIAccum(double max) {
+            sparkConfig.closedLoop.iMaxAccum(max);
         }
 
-        /**
-         * i'm not actually sure if this is clockwise or counter clockwise
-         */
-        public void configClockwise_Positive() {
-            sparkConfig.inverted(true);
+        public void configPositionWrapping(boolean enabled) {
+            sparkConfig.closedLoop.positionWrappingEnabled(enabled);
+        }
+
+        public void configPositionWrapping(boolean enabled, Angle max, Angle min) {
+            sparkConfig.closedLoop.positionWrappingEnabled(enabled);
+            sparkConfig.closedLoop.positionWrappingInputRange(min.in(Units.Rotation), max.in(Units.Rotation));
+        }
+
+        public void configMinPositionWrapping(boolean enabled, Angle min) {
+            sparkConfig.closedLoop.positionWrappingEnabled(enabled);
+            sparkConfig.closedLoop.positionWrappingMinInput(min.in(Units.Rotation));
+        }
+
+        public void configSoftLimit(boolean enabled, Angle fowardLimit, Angle reverseLimit) {
+            sparkConfig.softLimit.forwardSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.reverseSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.forwardSoftLimit(fowardLimit.in(Units.Rotation));
+            sparkConfig.softLimit.reverseSoftLimit(reverseLimit.in(Units.Rotation));
+        }
+
+        public void configForwardSoftLimit(boolean enabled, Angle fowardLimit) {
+            sparkConfig.softLimit.forwardSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.forwardSoftLimit(fowardLimit.in(Units.Rotation));
+        }
+
+        public void configReverseSoftLimit(boolean enabled, Angle reverseLimit) {
+            sparkConfig.softLimit.reverseSoftLimitEnabled(enabled);
+            sparkConfig.softLimit.reverseSoftLimit(reverseLimit.in(Units.Rotation));
+        }
+
+        public void configMaxPositionWrapping(boolean enabled, Angle max) {
+            sparkConfig.closedLoop.positionWrappingEnabled(enabled);
+            sparkConfig.closedLoop.positionWrappingMaxInput(max.in(Units.Rotation));
+        }
+
+        public void configInverted(boolean inverted) {
+            sparkConfig.inverted(inverted);
+        }
+
+        public void configRelativeEncoderInverted(boolean inverted) {
+            sparkConfig.encoder.inverted(inverted);
+        }
+
+        public void configAbsoluteEncoderInverted(boolean inverted) {
+            sparkConfig.absoluteEncoder.inverted(inverted);
         }
 
         public void configSmartCurrentLimit(Current stallLimit, Current supplyLimit) {
