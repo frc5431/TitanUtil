@@ -15,7 +15,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.frc5431'
             artifactId = 'TitanUtil'
-            version = '2025.2.4'
+            version = '2025.2.5'
 
             artifact jar
         }
@@ -54,9 +54,9 @@ dependencies {
     // nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     // nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
-    implementation 'com.ctre.phoenix6:wpiapi-java:25.1.0'
+    implementation 'com.ctre.phoenix6:wpiapi-java:25.2.1'
 
-    implementation 'com.revrobotics.frc:REVLib-java:2025.0.0'
+    implementation 'com.revrobotics.frc:REVLib-java:2025.0.2'
 
     implementation group: 'org.ejml', name: 'ejml-all', version: '0.41'
     testImplementation 'junit:junit:4.12'
