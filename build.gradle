@@ -15,7 +15,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.frc5431'
             artifactId = 'TitanUtil'
-            version = '2025.2.5'
+            version = '2025.3'
 
             artifact jar
         }
@@ -32,7 +32,7 @@ allprojects {
 
         // CTRE
         maven { url = uri('https://maven.ctr-electronics.com/release/') }
-
+            
         // REV
         maven { url = uri('https://maven.revrobotics.com/') }
 

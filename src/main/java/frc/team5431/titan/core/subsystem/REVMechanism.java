@@ -285,6 +285,37 @@ public abstract class REVMechanism implements Subsystem {
         }
     }
 
+    public double getMotorVelocity() {
+        if (attached) {
+            return motor.getEncoder().getVelocity();
+        }
+        return 0;
+    }
+
+    public double getMotorVoltage() {
+        if (attached) {
+            return motor.getBusVoltage();
+        }
+
+        return 0;
+    }
+
+    public double getMotorCurrent() {
+        if (attached) {
+            return motor.getOutputCurrent();
+        }
+
+        return 0;
+    }
+
+    public double getMotorOutput() {
+        if (attached) {
+            return motor.getAppliedOutput();
+        }
+
+        return 0;
+    }
+
     public static class Config {
         public String title;
         public int id;
