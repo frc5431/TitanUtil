@@ -483,8 +483,9 @@ public abstract class REVMechanism implements Subsystem {
          * @param gearRatio Ratio of Relvative encoder rotations relative to mechanism's
          *                  rotary output
          */
-        public void configGearRatio(double gearRatio) {
+        public void configEncoderPosRatio(double gearRatio) {
             sparkConfig.encoder.positionConversionFactor(gearRatio);
+            sparkConfig.encoder.velocityConversionFactor(gearRatio);
         }
 
         /**
