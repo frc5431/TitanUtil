@@ -10,6 +10,8 @@ import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -57,7 +59,7 @@ public abstract class CTREMechanism implements Subsystem {
     /** Sets the mechanism position of the motor to 0 */
     public void resetPosition() {
         if (attached) {
-            setMotorPosition(Units.Degrees.of(0));
+            resetMotorPosition(Units.Degrees.of(0));
         }
     }
 
@@ -66,7 +68,7 @@ public abstract class CTREMechanism implements Subsystem {
      *
      * @param position Measure of Angle; Converted to Rotations
      */
-    public void setMotorPosition(Angle position) {
+    public void resetMotorPosition(Angle position) {
         if (attached) {
             motor.setPosition(position.in(Units.Rotations));
         }
@@ -101,23 +103,6 @@ public abstract class CTREMechanism implements Subsystem {
     }
 
     /**
-     * NATALIE, FIX THIS AFTER SAT AND DONT FORGET
-     * 
-     * Closed-loop Velocity with torque control (requires Pro)
-     *
-     * @param velocity Mesure of Velocity in Terms of Angle; Use Rotations Per
-     *                 Second
-     * 
-     */
-    public void setVelocityTCFOCrpm(AngularVelocity velocity) {
-        if (attached) {
-            VelocityTorqueCurrentFOC output = config.velocityTorqueCurrentFOC.withVelocity(
-                    (velocity.in(Units.RotationsPerSecond)));
-            motor.setControl(output);
-        }
-    }
-
-    /**
      * Closed-loop velocity control with voltage compensation
      *
      * @param velocity Mesure of Velocity in Terms of Angle; Converted to Rotations
@@ -127,6 +112,30 @@ public abstract class CTREMechanism implements Subsystem {
         if (attached) {
             VelocityVoltage output = config.velocityControl.withVelocity(velocity.in(Units.RotationsPerSecond));
             motor.setControl(output);
+        }
+    }
+
+    /**
+     * Closed-loop Position Voltage Control
+     *
+     * @param position Measure of Aggregate Rotation; Converted to Rotations
+     */
+    public void setPositionVoltage(Angle position) {
+        if (attached) {
+            PositionVoltage mm = config.positionVoltage.withPosition(position.in(Units.Rotations));
+            motor.setControl(mm);
+        }
+    }
+
+    /**
+     * Closed-loop Position FOC Control
+     *
+     * @param position Measure of Aggregate Rotation; Converted to Rotations
+     */
+    public void setPositionFOC(Angle position) {
+        if (attached) {
+            PositionTorqueCurrentFOC mm = config.positionFOC.withPosition(position.in(Units.Rotations));
+            motor.setControl(mm);
         }
     }
 
@@ -234,6 +243,8 @@ public abstract class CTREMechanism implements Subsystem {
         public MotionMagicVoltage mmPositionVoltageSlot = new MotionMagicVoltage(0).withSlot(1);
         public VoltageOut voltageControl = new VoltageOut(0);
         public VelocityVoltage velocityControl = new VelocityVoltage(0);
+        public PositionVoltage positionVoltage = new PositionVoltage(0);
+        public PositionTorqueCurrentFOC positionFOC = new PositionTorqueCurrentFOC(0);
         public VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new VelocityTorqueCurrentFOC(0);
         public DutyCycleOut percentOutput = new DutyCycleOut(
                 0); // Percent Output control using percentage of supply voltage //Should

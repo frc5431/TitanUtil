@@ -53,7 +53,7 @@ public abstract class REVMechanism implements Subsystem {
     /** Sets the mechanism position of the motor to 0 */
     public void resetPosition() {
         if (attached) {
-            setMotorPosition(Units.Degrees.of(0));
+            motor.getEncoder().setPosition(0);
         }
     }
 

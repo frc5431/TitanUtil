@@ -13,9 +13,13 @@ public class TitanController {
      * @param port
      * @param deadzone
      */
+
+    private double deadzone;
+
     public TitanController(int port, double deadzone) {
         xboxController = new CommandXboxController(port);
         xboxController.setDeadzone(deadzone);
+        this.deadzone = deadzone;
     }
 
     /* Basic Controller Buttons */
@@ -86,6 +90,24 @@ public class TitanController {
 
     /* Axis */
 
+    /**
+     * Sets a Deazone
+     * Make a linear function with deadson at 0 and 1 at 1.
+     * Then need to have this work on both positive and negative.
+     * 
+     * @param num
+     * @return
+     */
+    public double deadzone(double num) {
+        if (Math.abs(num) > this.deadzone) {
+            double w = 1.0 / (1.0 - deadzone);
+            double b = w * deadzone;
+            return (w * Math.abs(num) - b) * (num / Math.abs(num));
+        } else {
+            return 0;
+        }
+    }
+
     public double getRightTriggerAxis() {
         return xboxController.getRightTriggerAxis();
     }
@@ -95,19 +117,19 @@ public class TitanController {
     }
 
     public double getLeftX() {
-        return xboxController.getLeftX();
+        return deadzone(xboxController.getLeftX());
     }
 
     public double getLeftY() {
-        return xboxController.getLeftY();
+        return deadzone(xboxController.getLeftY());
     }
 
     public double getRightX() {
-        return xboxController.getRightX();
+        return deadzone(xboxController.getRightX());
     }
 
     public double getRightY() {
-        return xboxController.getRightY();
+        return deadzone(xboxController.getRightY());
     }
 
     /* Hid and Rumble */
@@ -120,8 +142,8 @@ public class TitanController {
         return xboxController.getHID();
     }
 
-    public void rumbleController(double leftIntensity, double rightIntensity) {
-        getRumbleHID().setRumble(RumbleType.kLeftRumble, leftIntensity);
-        getRumbleHID().setRumble(RumbleType.kRightRumble, rightIntensity);
+    public void rumbleController(double intensity) {
+        this.getHID().setRumble(RumbleType.kBothRumble, intensity);
     }
+
 }
