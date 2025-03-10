@@ -15,7 +15,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.frc5431'
             artifactId = 'TitanUtil'
-            version = '2025.4.0'
+            version = '2025.5.0'
 
             artifact jar
         }
